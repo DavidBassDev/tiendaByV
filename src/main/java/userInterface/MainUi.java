@@ -6,6 +6,8 @@ package userInterface;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import logica.Controladora;
 import model.Cliente;
 import model.Producto;
@@ -21,12 +25,29 @@ import model.Venta;
 
 public class MainUi extends javax.swing.JFrame {
 
+    int mouseX, mouseY;
     private RegistrarNuevoPDTO nuevoPdtoUI;
     private int cantidadPdtoHabilitados = 1;
     private double valorTotal = 0.0;
     private Controladora control = new Controladora();
 
     public MainUi() {
+        this.setUndecorated(true);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
+        });
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen() - mouseX;
+                int y = e.getYOnScreen() - mouseY;
+                setLocation(x, y);
+            }
+        });
         initComponents();
         cargarListaClientes();
         cargarDashBoardUsuarios();
@@ -194,7 +215,7 @@ public class MainUi extends javax.swing.JFrame {
         jTextCantidad = new javax.swing.JLabel();
         jTextFieldCantidad = new javax.swing.JTextField();
         jLblPDTO8 = new javax.swing.JLabel();
-        jCmbPTO8 = new javax.swing.JComboBox<>();
+        jCmbProveedor = new javax.swing.JComboBox<>();
         jTextFieldDescripcion = new javax.swing.JTextField();
         jTextPdto = new javax.swing.JLabel();
         jTextFieldPrecioAdquirido = new javax.swing.JTextField();
@@ -761,6 +782,11 @@ public class MainUi extends javax.swing.JFrame {
 
         jCmbPTO0.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 10)); // NOI18N
         jCmbPTO0.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Coca Cola 250ml", "Hit Personal Mora", "Hit Personal Mango", "Vive 100" }));
+        jCmbPTO0.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jCmbPTO0PropertyChange(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jCmbPTO0, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 190, -1));
 
         jTextFieldCantidad6.setBackground(new java.awt.Color(54, 33, 89));
@@ -803,6 +829,16 @@ public class MainUi extends javax.swing.JFrame {
         jTextFieldCantidad0.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
         jTextFieldCantidad0.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCantidad0.setText("0");
+        jTextFieldCantidad0.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCantidad0FocusLost(evt);
+            }
+        });
+        jTextFieldCantidad0.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTextFieldCantidad0PropertyChange(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jTextFieldCantidad0, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 100, -1));
 
         jButtonCreateVenta.setBackground(new java.awt.Color(54, 33, 89));
@@ -1310,10 +1346,10 @@ public class MainUi extends javax.swing.JFrame {
         jLblPDTO8.setText("Fecha compra");
         jPanelRegistrarPDTO.add(jLblPDTO8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, 30));
 
-        jCmbPTO8.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
-        jCmbPTO8.setForeground(new java.awt.Color(0, 0, 0));
-        jCmbPTO8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "AGENCIA DE ABARROTES RPA SAS", "INVERSIONES QAP OM SAS", "PANADERIA", "DOLLARCITY", "PRICESMART" }));
-        jPanelRegistrarPDTO.add(jCmbPTO8, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 190, -1));
+        jCmbProveedor.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
+        jCmbProveedor.setForeground(new java.awt.Color(0, 0, 0));
+        jCmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "AGENCIA DE ABARROTES RPA SAS", "INVERSIONES QAP OM SAS", "PANADERIA", "DOLLARCITY", "PRICESMART" }));
+        jPanelRegistrarPDTO.add(jCmbProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 230, -1));
 
         jTextFieldDescripcion.setForeground(new java.awt.Color(0, 0, 0));
         jTextFieldDescripcion.setText("OPCIONAL");
@@ -1415,7 +1451,6 @@ public class MainUi extends javax.swing.JFrame {
         jTextPdto1.setText("Inversor");
         jPanelRegistrarPDTO.add(jTextPdto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 30));
 
-        jCmbListInversor.setEditable(true);
         jCmbListInversor.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
         jCmbListInversor.setForeground(new java.awt.Color(0, 0, 0));
         jCmbListInversor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "JOHA", "VANE", "BETSY" }));
@@ -1697,11 +1732,12 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearClienteMouseExited
 
     private void jButtonCreateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseClicked
-        //LOGICA CREACION DE USUARIO
+
+//LOGICA CREACION DE USUARIO
         String nombre = (String.valueOf(jTextNombre.getText().toUpperCase()));
 
         //LOGICA
-        if (nombre.equals("") || nombre.equals("Nombre")) {
+        if (nombre.equals("") || nombre.equals("INGRESE EL NOMBRE DEL CLIENTE") || nombre.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digita el nombre del cliente antes de ingresarlo");
 
         } else {
@@ -1711,11 +1747,16 @@ public class MainUi extends javax.swing.JFrame {
                 cliente.setNombre(nombre);
                 control.crearUsuario(cliente);
                 JOptionPane.showMessageDialog(null, "Cliente Creado!");
+                int cantidadUsuarios = Integer.parseInt(String.valueOf(control.listaClientes.size()));
+                SwingUtilities.invokeLater(() ->
+                {jLabelUsuariosCreados.setText(String.valueOf(cantidadUsuarios+1));
+                });
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error al crear usuario:" + ex);
             }
-            jLabelUsuariosCreados.setText(String.valueOf(control.listaClientes.size()));
         }
+
 
     }//GEN-LAST:event_jButtonCreateUserMouseClicked
 
@@ -2022,11 +2063,12 @@ public class MainUi extends javax.swing.JFrame {
         //obtenerCliente
 
         Cliente cliente = new Cliente();
-        cliente = control.traerCliente(1);
+        String nameClient=control.traerNombreCliente(0);
+        cliente= control.traerCliente(Integer.valueOf(nameClient));
         List<Venta> listaVentasCliente = new ArrayList<>();
         String formaPago = "FIADO";
-        if(!jRadioPagoContado.equals("NO")){
-        formaPago= jRadioPagoContado.getText();
+        if (!hiddenPagado.equals("NO")) {
+            formaPago = jRadioPagoContado.getText();
         }
         Venta ventas1 = new Venta();
         ventas1.setCliente(cliente);
@@ -2394,6 +2436,7 @@ public class MainUi extends javax.swing.JFrame {
 
     private void btnCrearClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearClienteMouseClicked
         //navegacion dentro del Jpanned
+        cargarDashBoardUsuarios();
         mainTabbedPane.setSelectedIndex(0);
 
 
@@ -2454,6 +2497,28 @@ public class MainUi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jRadioPagoContadoStateChanged
 
+    private void jCmbPTO0PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCmbPTO0PropertyChange
+        System.out.println("cambio de valor ");
+
+        jTextValorPdto0.setText("25200");
+
+
+    }//GEN-LAST:event_jCmbPTO0PropertyChange
+
+    private void jTextFieldCantidad0PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0PropertyChange
+
+
+    }//GEN-LAST:event_jTextFieldCantidad0PropertyChange
+
+    private void jTextFieldCantidad0FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0FocusLost
+        int cantidad = Integer.parseInt(jTextFieldCantidad0.getText());
+        double valorPdto = Double.parseDouble(jTextValorPdto0.getText());
+
+        Double valorTotalVenta = cantidad * valorPdto;
+
+        jTextValorTotal.setText(String.valueOf(valorTotalVenta));
+    }//GEN-LAST:event_jTextFieldCantidad0FocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -2498,7 +2563,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jCmbPTO4;
     private javax.swing.JComboBox<String> jCmbPTO5;
     private javax.swing.JComboBox<String> jCmbPTO6;
-    private javax.swing.JComboBox<String> jCmbPTO8;
+    private javax.swing.JComboBox<String> jCmbProveedor;
     private javax.swing.JLabel jLabeSignoPeso;
     private javax.swing.JLabel jLabeSignoPeso1;
     private javax.swing.JLabel jLabeSignoPeso2;
@@ -2672,9 +2737,11 @@ public class MainUi extends javax.swing.JFrame {
         jPanelInternoRPTO.setBorder(new RoundedBorder(25));
         jTextNombre.setBorder(new RoundedBorder(25));
         jButtonCreateUser.setBorder(new RoundedBorder(25));
+
     }
 
     public void cargarDashBoardVentas() {
+        cargarListaProductos();
         //OCULTO POR DEFECTO HASTA ADICIONAR PDTO
         //TEXTFIELD
         hiddenPagado.setVisible(false);
@@ -2694,8 +2761,9 @@ public class MainUi extends javax.swing.JFrame {
         jCmbPTO4.setVisible(false);
         jCmbPTO5.setVisible(false);
         jCmbPTO6.setVisible(false);
-        if(jRadioPagoContado.isSelected()) {
-        jRadioPagoContado.setEnabled(true);}
+        if (jRadioPagoContado.isSelected()) {
+            jRadioPagoContado.setEnabled(true);
+        }
 
         //JPANEL CANTIDAD
         jLblCantPDTO1.setVisible(false);
@@ -2758,8 +2826,9 @@ public class MainUi extends javax.swing.JFrame {
     }
 
     private void cargarDashBoardRegistrarPdto() {
+        cargarListaProductosPanelPdtos();
         jCmbListPdto.setSelectedIndex(0);
-        jCmbPTO8.setSelectedIndex(0);
+        jCmbProveedor.setSelectedIndex(0);
         jCmbListInversor.setSelectedIndex(0);
         jTextFieldDescripcion.setText("");
         jTextFieldCantidad.setText("0");
@@ -2784,4 +2853,82 @@ public class MainUi extends javax.swing.JFrame {
 
         }
     }
+
+    private void cargarListaProductos() {
+        //OBTENER CLIENTES REGISTRADOS
+        List<Producto> listaProductos = control.listaProductos();
+
+        //LIMPIAR COMBO BOXS
+        jCmbPTO0.removeAllItems();
+
+        //RECORRER Y LLENAR COMBO BOX
+        for (Producto producto : listaProductos) {
+            String nombre = producto.getNombreProducto();
+            if (producto.getCantidad() > 0) {
+                jCmbPTO0.addItem(nombre);
+                jCmbPTO1.addItem(nombre);
+                jCmbPTO2.addItem(nombre);
+                jCmbPTO3.addItem(nombre);
+                jCmbPTO4.addItem(nombre);
+                jCmbPTO5.addItem(nombre);
+                jCmbPTO6.addItem(nombre);
+                ;
+            }
+
+        }
+    }
+
+    private void cargarListaProductosPanelPdtos() {
+        //OBTENER CLIENTES REGISTRADOS
+        List<Producto> listaProductos = control.listaProductos();
+
+        //LIMPIAR COMBO BOXS
+        jCmbListPdto.removeAllItems();
+        jCmbListInversor.removeAllItems();
+        jCmbProveedor.removeAllItems();
+
+        //RECORRER Y LLENAR COMBO BOX
+        List<String> listaPdtos = new ArrayList<>();
+        List<String> listaInversores = new ArrayList<>();
+        List<String> listaProveedores = new ArrayList<>();
+        for (Producto producto : listaProductos) {
+            String nombreProducto = producto.getNombreProducto();
+            String nombreInversor = producto.getInversor();
+            String nombreProveedor = producto.getProveedor().getNombreProveedor();
+            if (listaPdtos.contains(nombreProducto)) {
+                System.out.println("dice que ya tiene el producto " + nombreProducto);
+
+            } else {
+                listaPdtos.add(nombreProducto);
+            }
+            if (listaInversores.contains(nombreInversor)) {
+                System.out.println("ya tiene el inversor " + nombreInversor);
+            } else {
+                listaInversores.add(nombreInversor);
+            }
+
+            if (listaProveedores.contains(nombreProveedor)) {
+                System.out.println("dice que ya tiene el proveedor " + nombreProveedor);
+            } else {
+                listaProveedores.add(nombreProveedor);
+            }
+
+        }
+
+        //LLENAR COMBO BOX PRODUCTO
+        for (String item : listaPdtos) {
+            jCmbListPdto.addItem(item);
+        }
+        //LLENAR COMBO BOX INVERSOR
+        for (String item : listaInversores) {
+            jCmbListInversor.addItem(item);
+        }
+
+        //LLENAR COMO BOX PROVEEDOR
+        for (String item : listaProveedores) {
+            jCmbProveedor.addItem(item);
+        }
+
+    }
+
 }

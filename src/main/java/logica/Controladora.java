@@ -45,8 +45,12 @@ public class Controladora {
     }
 
     public void crearVenta(Venta ventas) {
-       try { VentaJpaController jpaVenta = new VentaJpaController();
-        jpaVenta.create(ventas);} catch (Exception ex) {JOptionPane.showMessageDialog(null, "error "+ex);}
+        try {
+            VentaJpaController jpaVenta = new VentaJpaController();
+            jpaVenta.create(ventas);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "error " + ex);
+        }
     }
 
     //TRAER NOMBRE DEL CLIENTE
@@ -72,14 +76,22 @@ public class Controladora {
     public void crearProveedor(Proveedor proveedor) {
         jpaProveedor.create(proveedor);
     }
-    
-    public Proveedor traerProveedor (int id) {
-    id=1;
-    Proveedor proveedor = new Proveedor();    
-    proveedor=jpaProveedor.findProveedor(id);
-        System.out.println("jpa encontro el proveedor "+proveedor);
-    return proveedor;
-    
+
+    public Proveedor traerProveedor(int id) {
+        id = 1;
+        Proveedor proveedor = new Proveedor();
+        proveedor = jpaProveedor.findProveedor(id);
+        System.out.println("jpa encontro el proveedor " + proveedor);
+        return proveedor;
+
+    }
+
+    public String traerNombreCliente(int id) {
+        Cliente cliente = new Cliente();
+        cliente = jpaCliente.findCliente(id);
+        String nombreCliente = String.valueOf(cliente.getNombre());
+        return nombreCliente;
+
     }
 
 }
