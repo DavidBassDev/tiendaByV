@@ -28,7 +28,6 @@ userInterface\MainUi$29.class
 model\Proveedor.class
 userInterface\RegistrarNuevoPDTO$1.class
 userInterface\MainUi$19.class
-userInterface\MainUi$59.class
 logica\exceptions\NonexistentEntityException.class
 persistence\ProductoJpaController.class
 userInterface\MainUi$35.class

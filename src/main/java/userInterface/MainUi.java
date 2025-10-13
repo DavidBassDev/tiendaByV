@@ -467,7 +467,7 @@ public class MainUi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 70));
+        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 90));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -773,18 +773,18 @@ public class MainUi extends javax.swing.JFrame {
         jLabeSignoPeso.setText("$");
         jPaneValorTotalPdtos.add(jLabeSignoPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 12, -1));
 
-        jPanelRegistrarVenta.add(jPaneValorTotalPdtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 10, 140, 20));
+        jPanelRegistrarVenta.add(jPaneValorTotalPdtos, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 140, 20));
 
         jLblCantPDTO11.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
         jLblCantPDTO11.setForeground(new java.awt.Color(0, 0, 0));
         jLblCantPDTO11.setText("Valor Total");
-        jPanelRegistrarVenta.add(jLblCantPDTO11, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, 20));
+        jPanelRegistrarVenta.add(jLblCantPDTO11, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, 20));
 
         jCmbPTO0.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 10)); // NOI18N
         jCmbPTO0.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Coca Cola 250ml", "Hit Personal Mora", "Hit Personal Mango", "Vive 100" }));
-        jCmbPTO0.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jCmbPTO0PropertyChange(evt);
+        jCmbPTO0.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jCmbPTO0FocusLost(evt);
             }
         });
         jPanelRegistrarVenta.add(jCmbPTO0, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 190, -1));
@@ -832,11 +832,6 @@ public class MainUi extends javax.swing.JFrame {
         jTextFieldCantidad0.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldCantidad0FocusLost(evt);
-            }
-        });
-        jTextFieldCantidad0.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTextFieldCantidad0PropertyChange(evt);
             }
         });
         jPanelRegistrarVenta.add(jTextFieldCantidad0, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 100, -1));
@@ -917,7 +912,7 @@ public class MainUi extends javax.swing.JFrame {
 
         jButtonCreateVenta.add(jButtonCreateVenta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
 
-        jPanelRegistrarVenta.add(jButtonCreateVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 450, 260, 30));
+        jPanelRegistrarVenta.add(jButtonCreateVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 260, 30));
 
         jButtonRemovePdto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/botonEliminar.png"))); // NOI18N
         jButtonRemovePdto1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1704,7 +1699,7 @@ public class MainUi extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("tab6", jPanelComprasPendientes);
 
-        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 980, 560));
+        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 980, 580));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2071,7 +2066,7 @@ public class MainUi extends javax.swing.JFrame {
         /*System.out.println("id que traigo "+cliente.getIdCliente());*/
         List<Venta> listaVentasCliente = new ArrayList<>();
         String formaPago = "FIADO";
-        if (!hiddenPagado.equals("NO")) {
+        if (!hiddenPagado.getText().equals("NO")) {
             formaPago = jRadioPagoContado.getText();
         }
         Venta ventas1 = new Venta();
@@ -2503,20 +2498,21 @@ public class MainUi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jRadioPagoContadoStateChanged
 
-    private void jCmbPTO0PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCmbPTO0PropertyChange
-        System.out.println("cambio de valor ");
-
-        jTextValorPdto0.setText("25200");
-
-
-    }//GEN-LAST:event_jCmbPTO0PropertyChange
-
-    private void jTextFieldCantidad0PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0PropertyChange
-
-
-    }//GEN-LAST:event_jTextFieldCantidad0PropertyChange
-
     private void jTextFieldCantidad0FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0FocusLost
+        int cantidadSolicitada = Integer.valueOf(jTextFieldCantidad0.getText());
+        List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+        int cantidadDisponible=1;
+        String nombrePdto0 =String.valueOf(jCmbPTO0.getSelectedItem());
+        listaCantidadPdtoDisp = control.listaProductos();
+        for(Producto producto :listaCantidadPdtoDisp ) { 
+        if(producto.getNombreProducto().equals(nombrePdto0) &&  producto.getCantidad()>=1) {
+        cantidadDisponible= producto.getCantidad();
+        if(cantidadSolicitada>cantidadDisponible) {
+            JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+            jTextFieldCantidad0.setText(String.valueOf(cantidadDisponible));}
+        
+        }
+        }
         int cantidad = Integer.parseInt(jTextFieldCantidad0.getText());
         double valorPdto = Double.parseDouble(jTextValorPdto0.getText());
 
@@ -2524,6 +2520,17 @@ public class MainUi extends javax.swing.JFrame {
 
         jTextValorTotal.setText(String.valueOf(valorTotalVenta));
     }//GEN-LAST:event_jTextFieldCantidad0FocusLost
+
+    private void jCmbPTO0FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jCmbPTO0FocusLost
+        System.out.println("con focus lost detecta cambio a "+jCmbPTO0.getSelectedItem());
+       String nombrePdtoSeleccionado= String.valueOf(jCmbPTO0.getSelectedItem());
+       List<Producto> listaProdutos= control.listaProductos();
+       for(Producto producto : listaProdutos) {
+       if (producto.getNombreProducto().equals(nombrePdtoSeleccionado)) {
+       jTextValorPdto0.setText(String.valueOf(producto.getPrecioPublico()));
+       }
+       }
+    }//GEN-LAST:event_jCmbPTO0FocusLost
 
     /**
      * @param args the command line arguments
