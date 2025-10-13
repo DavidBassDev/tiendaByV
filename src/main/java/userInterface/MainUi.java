@@ -1748,8 +1748,10 @@ public class MainUi extends javax.swing.JFrame {
                 control.crearUsuario(cliente);
                 JOptionPane.showMessageDialog(null, "Cliente Creado!");
                 int cantidadUsuarios = Integer.parseInt(String.valueOf(control.listaClientes.size()));
-                SwingUtilities.invokeLater(() ->
-                {jLabelUsuariosCreados.setText(String.valueOf(cantidadUsuarios+1));
+                SwingUtilities.invokeLater(()
+                        -> {
+                    jLabelUsuariosCreados.setText(String.valueOf(cantidadUsuarios + 1));
+
                 });
 
             } catch (Exception ex) {
@@ -2063,8 +2065,10 @@ public class MainUi extends javax.swing.JFrame {
         //obtenerCliente
 
         Cliente cliente = new Cliente();
-        String nameClient=control.traerNombreCliente(0);
-        cliente= control.traerCliente(Integer.valueOf(nameClient));
+        String nameClient = String.valueOf(jCmbCliente.getSelectedItem());
+        System.out.println("nombre que envio " + nameClient);
+        cliente = control.traerIdNombreCliente(nameClient);
+        /*System.out.println("id que traigo "+cliente.getIdCliente());*/
         List<Venta> listaVentasCliente = new ArrayList<>();
         String formaPago = "FIADO";
         if (!hiddenPagado.equals("NO")) {
@@ -2147,7 +2151,7 @@ public class MainUi extends javax.swing.JFrame {
 
                 control.crearVenta(ventas1);
                 System.out.println("creo una sola venta!");
-
+                JOptionPane.showMessageDialog(null,"venta registrada a "+cliente.getNombre());
                 //ACA FALTA LA LOGICA PARA QUE REDUZCA CANTIDAD SEGUN NOMBRE PRODUCTO EN LA TABLA PRODUCTO
                 break;
 
@@ -2160,6 +2164,7 @@ public class MainUi extends javax.swing.JFrame {
                 //REGISTRAR VENTA 3        
 
                 listaVentasCliente.add(ventas3);
+                
                 break;
 
             case 3:
@@ -2223,6 +2228,7 @@ public class MainUi extends javax.swing.JFrame {
                 control.crearVenta(venta);
                 System.out.println("removio producto");
             }
+            JOptionPane.showMessageDialog(null,"venta(s) registrada a "+cliente.getNombre());
 
         }
         listaVentasCliente.clear();

@@ -86,11 +86,18 @@ public class Controladora {
 
     }
 
-    public String traerNombreCliente(int id) {
-        Cliente cliente = new Cliente();
-        cliente = jpaCliente.findCliente(id);
-        String nombreCliente = String.valueOf(cliente.getNombre());
-        return nombreCliente;
+    public Cliente traerIdNombreCliente(String nombreCliente) {
+
+        List<Cliente> listaClientes = jpaCliente.findClienteEntities();
+        for(Cliente cliente : listaClientes) {
+            String name= cliente.getNombre();
+            System.out.println("cliente en lista"+cliente.getNombre());
+            if(nombreCliente.equals(name)) {
+            return cliente;
+            }
+        }
+        
+        return null;
 
     }
 
