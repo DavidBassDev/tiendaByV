@@ -1,6 +1,7 @@
 model\ComprasPendientes.class
 logica\exceptions\PreexistingEntityException.class
 persistence\exceptions\PreexistingEntityException.class
+userInterface\Calendario$6.class
 userInterface\RegistrarNuevoPDTO$4.class
 logica\Main.class
 userInterface\MainUi$1.class
@@ -22,12 +23,15 @@ userInterface\MainUi$50.class
 userInterface\MainUi$36.class
 userInterface\MainUi$3.class
 userInterface\MainUi$46.class
+userInterface\MainUi$62.class
+userInterface\Calendario$7.class
 userInterface\MainUi$52.class
 userInterface\Calendario$1.class
 userInterface\MainUi$29.class
 model\Proveedor.class
 userInterface\RegistrarNuevoPDTO$1.class
 userInterface\MainUi$19.class
+userInterface\MainUi$59.class
 logica\exceptions\NonexistentEntityException.class
 persistence\ProductoJpaController.class
 userInterface\MainUi$35.class
@@ -36,8 +40,10 @@ userInterface\MainUi$4.class
 userInterface\MainUi$12.class
 userInterface\MainUi$58.class
 userInterface\RegistrarNuevoPDTO$2.class
+userInterface\Calendario$8.class
 userInterface\MainUi$23.class
 userInterface\RegistrarNuevoPDTO.class
+userInterface\MainUi$63.class
 userInterface\MainUi.class
 userInterface\MainUi$18.class
 logica\exceptions\IllegalOrphanException.class
@@ -50,11 +56,13 @@ userInterface\MainUi$41.class
 userInterface\Calendario$2.class
 userInterface\MainUi$8.class
 userInterface\MainUi$14.class
+userInterface\MainUi$61.class
 userInterface\MainUi$51.class
 model\Cliente.class
 userInterface\MainUi$44.class
 persistence\ClienteJpaController.class
 userInterface\MainUi$24.class
+userInterface\MainUi$64.class
 userInterface\RoundedBorder.class
 userInterface\MainUi$34.class
 userInterface\MainUi$54.class
@@ -68,6 +76,7 @@ logica\Controladora.class
 userInterface\RegistrarNuevoPDTO$3.class
 userInterface\MainUi$5.class
 userInterface\MainUi$2.class
+userInterface\Calendario$4.class
 userInterface\MainUi$26.class
 persistence\exceptions\IllegalOrphanException.class
 userInterface\MainUi$16.class
@@ -85,5 +94,7 @@ persistence\ProveedorJpaController.class
 userInterface\MainUi$43.class
 userInterface\MainUi$7.class
 userInterface\MainUi$15.class
+userInterface\MainUi$60.class
 userInterface\MainUi$38.class
 userInterface\RegistrarNuevoPDTO$5.class
+userInterface\Calendario$5.class

@@ -16,13 +16,18 @@ import javax.swing.JOptionPane;
  * @author David
  */
 public class Calendario extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Calendario
-     */
+boolean fechaSeleccionada=false;
+    
     public Calendario() {
         initComponents();
         cargarVisual();
+        
+    }
+
+    Calendario(LocalDate fechaPago) {
+        
+        LocalDate devolverFecha = devolverFecha();
+        String formaPago = devolverFormaPago();
     }
 
     /**
@@ -36,10 +41,22 @@ public class Calendario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanelCalendar = new javax.swing.JPanel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jCalendar = new com.toedter.calendar.JCalendar();
         jTitleRegVenta2 = new javax.swing.JLabel();
         panelCierreCalendar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jCmbFormaPago = new javax.swing.JComboBox<>();
+        jTitleRegVenta3 = new javax.swing.JLabel();
+        jBtnRegFechaPago = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jButtonCreateVenta4 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jButtonCreateVenta5 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,40 +66,31 @@ public class Calendario extends javax.swing.JFrame {
 
         jPanelCalendar.setForeground(new java.awt.Color(153, 153, 153));
 
-        jCalendar1.setDecorationBackgroundColor(new java.awt.Color(255, 255, 255));
-        jCalendar1.setDecorationBordersVisible(true);
-        jCalendar1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 12)); // NOI18N
-        jCalendar1.setMaxSelectableDate(new java.util.Date(253370786473000L));
-        jCalendar1.setTodayButtonText("");
-        jCalendar1.setTodayButtonVisible(true);
-        jCalendar1.setWeekdayForeground(new java.awt.Color(0, 0, 0));
-        jCalendar1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCalendar1MouseClicked(evt);
-            }
-        });
+        jCalendar.setDecorationBackgroundColor(new java.awt.Color(255, 255, 255));
+        jCalendar.setDecorationBordersVisible(true);
+        jCalendar.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 12)); // NOI18N
+        jCalendar.setMaxSelectableDate(new java.util.Date(253370786473000L));
+        jCalendar.setTodayButtonText("");
+        jCalendar.setTodayButtonVisible(true);
+        jCalendar.setWeekdayForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanelCalendarLayout = new javax.swing.GroupLayout(jPanelCalendar);
         jPanelCalendar.setLayout(jPanelCalendarLayout);
         jPanelCalendarLayout.setHorizontalGroup(
             jPanelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCalendarLayout.createSequentialGroup()
-                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         jPanelCalendarLayout.setVerticalGroup(
             jPanelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelCalendarLayout.createSequentialGroup()
-                .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 430, 230));
+        jPanel1.add(jPanelCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 400, 220));
 
-        jTitleRegVenta2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
+        jTitleRegVenta2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 14)); // NOI18N
         jTitleRegVenta2.setForeground(new java.awt.Color(0, 0, 0));
-        jTitleRegVenta2.setText("REGISTRAR FECHA");
-        jPanel1.add(jTitleRegVenta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jTitleRegVenta2.setText("FORMA DE PAGO");
+        jPanel1.add(jTitleRegVenta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 130, 20));
 
         panelCierreCalendar.setBackground(new java.awt.Color(255, 255, 255));
         panelCierreCalendar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -120,17 +128,108 @@ public class Calendario extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(panelCierreCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, -1, 40));
+        jPanel1.add(panelCierreCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, -1, 40));
+
+        jCmbFormaPago.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jCmbFormaPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EFECTIVO", "NEQUI", "CONSIGNACION" }));
+        jPanel1.add(jCmbFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 130, -1, -1));
+
+        jTitleRegVenta3.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
+        jTitleRegVenta3.setForeground(new java.awt.Color(0, 0, 0));
+        jTitleRegVenta3.setText("SELECCIONAR FECHA");
+        jPanel1.add(jTitleRegVenta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        jBtnRegFechaPago.setBackground(new java.awt.Color(54, 33, 89));
+        jBtnRegFechaPago.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jBtnRegFechaPagoMouseMoved(evt);
+            }
+        });
+        jBtnRegFechaPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnRegFechaPagoMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBtnRegFechaPagoMouseExited(evt);
+            }
+        });
+        jBtnRegFechaPago.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel36.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("ACEPTAR");
+        jBtnRegFechaPago.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 130, 30));
+
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jBtnRegFechaPago.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
+        jButtonCreateVenta4.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta4.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta4MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta4MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta4MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel44.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel44.setText("REGISTRAR VENTA");
+        jButtonCreateVenta4.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta4.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta5.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta5MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta5MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta5MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel46.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel46.setText("REGISTRAR VENTA");
+        jButtonCreateVenta5.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta5.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta4.add(jButtonCreateVenta5, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        jBtnRegFechaPago.add(jButtonCreateVenta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        jPanel1.add(jBtnRegFechaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 160, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/MainLogo.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -142,10 +241,16 @@ public class Calendario extends javax.swing.JFrame {
     }//GEN-LAST:event_panelCierreCalendarMouseMoved
 
     private void panelCierreCalendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCierreCalendarMouseClicked
+       
+        if(fechaSeleccionada==true) {
+        jCmbFormaPago.getSelectedItem();
+        this.dispose();
+        } else {
         int confirmacion = JOptionPane.showConfirmDialog(this, "Salir sin confirmar fecha?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (confirmacion==JOptionPane.YES_OPTION){
             this.dispose();}
+        }
     }//GEN-LAST:event_panelCierreCalendarMouseClicked
 
     private void panelCierreCalendarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCierreCalendarMouseExited
@@ -153,18 +258,64 @@ public class Calendario extends javax.swing.JFrame {
         panelCierreCalendar.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_panelCierreCalendarMouseExited
 
-    private void jCalendar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCalendar1MouseClicked
+    private void jButtonCreateVenta5MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta5MouseMoved
+
+    private void jButtonCreateVenta5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta5MouseClicked
+
+    private void jButtonCreateVenta5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta5MouseExited
+
+    private void jButtonCreateVenta4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta4MouseMoved
+
+    private void jButtonCreateVenta4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta4MouseClicked
+
+    private void jButtonCreateVenta4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta4MouseExited
+
+    private void jBtnRegFechaPagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegFechaPagoMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRegFechaPagoMouseMoved
+
+    private void jBtnRegFechaPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegFechaPagoMouseClicked
+        //LOGICA REGISTRO VENTA
         devolverFecha();
-    }//GEN-LAST:event_jCalendar1MouseClicked
+        
+    }//GEN-LAST:event_jBtnRegFechaPagoMouseClicked
+
+    private void jBtnRegFechaPagoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegFechaPagoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRegFechaPagoMouseExited
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JPanel jBtnRegFechaPago;
+    private javax.swing.JPanel jButtonCreateVenta4;
+    private javax.swing.JPanel jButtonCreateVenta5;
+    public com.toedter.calendar.JCalendar jCalendar;
+    private javax.swing.JComboBox<String> jCmbFormaPago;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCalendar;
     private javax.swing.JLabel jTitleRegVenta2;
+    private javax.swing.JLabel jTitleRegVenta3;
     private javax.swing.JPanel panelCierreCalendar;
     // End of variables declaration//GEN-END:variables
 
@@ -174,12 +325,21 @@ public class Calendario extends javax.swing.JFrame {
     }
 
     public LocalDate devolverFecha() {
-      Date fechaSeleccionada= jCalendar1.getDate();
-        LocalDate fechaLocal = fechaSeleccionada.toInstant()
+      Date fechaCalendario= jCalendar.getDate();
+        LocalDate fechaLocal = fechaCalendario.toInstant()
         .atZone(ZoneId.systemDefault())
         .toLocalDate();
 
-    System.out.println("Día seleccionado: " + fechaLocal);
+    System.out.println("Dia seleccionado calendario: " + fechaLocal);
+fechaSeleccionada=true;
     return fechaLocal;
+    
     }
-}
+    public String devolverFormaPago(){
+        String formaPago = String.valueOf(jCmbFormaPago.getSelectedItem());
+        System.out.println("forma de pago calendario"+ formaPago);
+    return formaPago;
+    
+    }
+    }
+
