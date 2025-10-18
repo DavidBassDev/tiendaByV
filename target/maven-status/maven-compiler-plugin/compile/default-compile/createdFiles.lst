@@ -9,14 +9,17 @@ userInterface\MainUi$30.class
 userInterface\MainUi$9.class
 persistence\exceptions\NonexistentEntityException.class
 userInterface\MainUi$45.class
+userInterface\MainUi$65.class
 userInterface\Calendario$3.class
 userInterface\MainUi$42.class
 userInterface\MainUi$22.class
 userInterface\MainUi$48.class
+userInterface\MainUi$68.class
 userInterface\MainUi$13.class
 userInterface\MainUi$33.class
 userInterface\MainUi$53.class
 userInterface\MainUi$25.class
+userInterface\MainUi$70.class
 userInterface\MainUi$28.class
 userInterface\MainUi$10.class
 userInterface\MainUi$50.class
@@ -29,6 +32,7 @@ userInterface\MainUi$52.class
 userInterface\Calendario$1.class
 userInterface\MainUi$29.class
 model\Proveedor.class
+userInterface\MainUi$69.class
 userInterface\RegistrarNuevoPDTO$1.class
 userInterface\MainUi$19.class
 userInterface\MainUi$59.class
@@ -56,6 +60,7 @@ userInterface\MainUi$41.class
 userInterface\Calendario$2.class
 userInterface\MainUi$8.class
 userInterface\MainUi$14.class
+userInterface\MainUi$67.class
 userInterface\MainUi$61.class
 userInterface\MainUi$51.class
 model\Cliente.class
@@ -79,6 +84,7 @@ userInterface\MainUi$2.class
 userInterface\Calendario$4.class
 userInterface\MainUi$26.class
 persistence\exceptions\IllegalOrphanException.class
+userInterface\MainUi$66.class
 userInterface\MainUi$16.class
 persistence\ComprasPendientesJpaController.class
 userInterface\MainUi$56.class

@@ -16,7 +16,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import logica.Controladora;
@@ -29,8 +34,9 @@ public class MainUi extends javax.swing.JFrame {
 
     int mouseX, mouseY;
     private RegistrarNuevoPDTO nuevoPdtoUI;
-    private int cantidadPdtoHabilitados = 1;
-    private double valorTotal = 0.0;
+    private int cantidadPdtoHabilitados = 0;
+    public double valorTotal = 0.0;
+    Double valorRegistroVenta = 0.0;
     Calendario calendario = new Calendario();
 
     private Controladora control = new Controladora();
@@ -133,7 +139,7 @@ public class MainUi extends javax.swing.JFrame {
         jLblCantPDTO8 = new javax.swing.JLabel();
         jCmbCliente = new javax.swing.JComboBox<>();
         jLblCantPDTO0 = new javax.swing.JLabel();
-        jLblCantPDTO11 = new javax.swing.JLabel();
+        jLblValorVentaTotal = new javax.swing.JLabel();
         jCmbPTO0 = new javax.swing.JComboBox<>();
         jTextFieldCantidad6 = new javax.swing.JTextField();
         jTextFieldCantidad1 = new javax.swing.JTextField();
@@ -188,6 +194,8 @@ public class MainUi extends javax.swing.JFrame {
         jCheckBoxPagado = new javax.swing.JCheckBox();
         jCmbFormaPago = new javax.swing.JComboBox<>();
         jLblFormaPago = new javax.swing.JLabel();
+        jLblCantPDTO14 = new javax.swing.JLabel();
+        jLblCantPDTO16 = new javax.swing.JLabel();
         jPanelRegistrarPagos = new javax.swing.JPanel();
         jTitleRegVenta1 = new javax.swing.JLabel();
         jLblCliente1 = new javax.swing.JLabel();
@@ -765,24 +773,24 @@ public class MainUi extends javax.swing.JFrame {
         jLblCantPDTO0.setText("Cantidad");
         jPanelRegistrarVenta.add(jLblCantPDTO0, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, 20));
 
-        jLblCantPDTO11.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
-        jLblCantPDTO11.setForeground(new java.awt.Color(0, 0, 0));
-        jLblCantPDTO11.setText("Valor Total");
-        jPanelRegistrarVenta.add(jLblCantPDTO11, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, 20));
+        jLblValorVentaTotal.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
+        jLblValorVentaTotal.setForeground(new java.awt.Color(0, 0, 0));
+        jLblValorVentaTotal.setText("0");
+        jPanelRegistrarVenta.add(jLblValorVentaTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 120, 20));
 
         jCmbPTO0.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 10)); // NOI18N
         jCmbPTO0.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Coca Cola 250ml", "Hit Personal Mora", "Hit Personal Mango", "Vive 100" }));
-        jCmbPTO0.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jCmbPTO0FocusLost(evt);
-            }
-        });
         jPanelRegistrarVenta.add(jCmbPTO0, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 190, -1));
 
         jTextFieldCantidad6.setBackground(new java.awt.Color(54, 33, 89));
         jTextFieldCantidad6.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
         jTextFieldCantidad6.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCantidad6.setText("0");
+        jTextFieldCantidad6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCantidad6KeyPressed(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jTextFieldCantidad6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, 100, -1));
 
         jTextFieldCantidad1.setBackground(new java.awt.Color(54, 33, 89));
@@ -800,24 +808,44 @@ public class MainUi extends javax.swing.JFrame {
         jTextFieldCantidad2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
         jTextFieldCantidad2.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCantidad2.setText("0");
+        jTextFieldCantidad2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCantidad2KeyPressed(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jTextFieldCantidad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 100, -1));
 
         jTextFieldCantidad3.setBackground(new java.awt.Color(54, 33, 89));
         jTextFieldCantidad3.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
         jTextFieldCantidad3.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCantidad3.setText("0");
+        jTextFieldCantidad3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCantidad3KeyPressed(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jTextFieldCantidad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 270, 100, -1));
 
         jTextFieldCantidad4.setBackground(new java.awt.Color(54, 33, 89));
         jTextFieldCantidad4.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
         jTextFieldCantidad4.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCantidad4.setText("0");
+        jTextFieldCantidad4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCantidad4KeyPressed(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jTextFieldCantidad4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 310, 100, -1));
 
         jTextFieldCantidad5.setBackground(new java.awt.Color(54, 33, 89));
         jTextFieldCantidad5.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
         jTextFieldCantidad5.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldCantidad5.setText("0");
+        jTextFieldCantidad5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCantidad5KeyPressed(evt);
+            }
+        });
         jPanelRegistrarVenta.add(jTextFieldCantidad5, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 100, -1));
 
         jTextFieldCantidad0.setBackground(new java.awt.Color(54, 33, 89));
@@ -1139,6 +1167,16 @@ public class MainUi extends javax.swing.JFrame {
         jLblFormaPago.setForeground(new java.awt.Color(0, 0, 0));
         jLblFormaPago.setText("Forma");
         jPanelRegistrarVenta.add(jLblFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, 20));
+
+        jLblCantPDTO14.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
+        jLblCantPDTO14.setForeground(new java.awt.Color(0, 0, 0));
+        jLblCantPDTO14.setText("$");
+        jPanelRegistrarVenta.add(jLblCantPDTO14, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, 20));
+
+        jLblCantPDTO16.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
+        jLblCantPDTO16.setForeground(new java.awt.Color(0, 0, 0));
+        jLblCantPDTO16.setText("Valor Total");
+        jPanelRegistrarVenta.add(jLblCantPDTO16, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, -1, 20));
 
         mainTabbedPane.addTab("tab2", jPanelRegistrarVenta);
 
@@ -1789,123 +1827,104 @@ public class MainUi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAddPdtoMouseMoved
 
-    private void jButtonAddPdtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseClicked
-        //DEBE AGREGAR PRODUTOS NUEVO A LA COMPRA
+    private void habilitarProducto(int index, JLabel labelPdto, JLabel labelCant, JComboBox comboPdto, JLabel jLblCantPDTO11, JTextField campoCantidad, JLabel campoValor, JPanel panelValor) {
 
-        cantidadPdtoHabilitados++;
-        System.out.println("cantidad habilitados " + cantidadPdtoHabilitados);
+ 
+    labelPdto.setVisible(true);
+    comboPdto.setVisible(true);
+    labelCant.setVisible(true);
+    campoCantidad.setText("");
+    campoCantidad.setVisible(true);
+    campoCantidad.setForeground(Color.WHITE);
+    campoValor.setVisible(true);
+    campoValor.setText("");
+    panelValor.setVisible(true);
+    panelValor.setEnabled(true);
 
-        switch (cantidadPdtoHabilitados) {
-            //habilita segundo pdto
-            case 2:
-                if (cantidadPdtoHabilitados == 2) {
-                    jButtonRemovePdto1.setVisible(true);
-                    jLblPDTO1.setVisible(true);
-                    jCmbPTO1.setVisible(true);
-                    jCmbPTO1.setEnabled(true);
-                    jLblCantPDTO1.setVisible(true);
-                    jLblCantPDTO1.setEnabled(true);
-                    jTextFieldCantidad1.setVisible(true);
-                    jTextFieldCantidad1.setForeground(new Color(255, 255, 255));
-                    jTextFieldValorPdto1.setVisible(true);
-                    jTextFieldValorPdto1.requestFocus(true);
-                    jPaneValorPdto1.setVisible(true);
-                    jPaneValorPdto1.setEnabled(true);
-                    valorTotal = valorTotal + Double.parseDouble(jTextValorPdto1.getText());
-                    cantidadPdtoHabilitados = 2;
-
-                }
-                break;
-
-            case 3:
-                ////habilita tercer pdto
-            if (cantidadPdtoHabilitados == 3) {
-                    jButtonRemovePdto2.setVisible(true);
-                    jLblPDTO2.setVisible(true);
-                    jCmbPTO2.setVisible(true);
-                    jLblCantPDTO2.setVisible(true);
-                    jTextFieldCantidad2.setVisible(true);
-                    jTextFieldCantidad2.setForeground(new Color(255, 255, 255));
-                    jTextFieldValorPdto2.setVisible(true);
-                    jPaneValorPdto2.setVisible(true);
-                    valorTotal = valorTotal + Double.parseDouble(jTextValorPdto2.getText());
-                    cantidadPdtoHabilitados = 3;
-                }
-                break;
-
-            case 4:
-                //habilita cuarto pdto
-                if (cantidadPdtoHabilitados == 4) {
-                    jButtonRemovePdto3.setVisible(true);
-                    jLblPDTO3.setVisible(true);
-                    jCmbPTO3.setVisible(true);
-                    jLblCantPDTO3.setVisible(true);
-                    jTextFieldCantidad3.setVisible(true);
-                    jTextFieldCantidad3.setForeground(new Color(255, 255, 255));
-                    jTextFieldValorPdto3.setVisible(true);
-                    jPaneValorPdto3.setVisible(true);
-                    valorTotal = valorTotal + Double.parseDouble(jTextValorPdto3.getText());;
-                    cantidadPdtoHabilitados = 4;
-                }
-                break;
-
-            case 5:
-                //habilita cuarto pdto
-                if (cantidadPdtoHabilitados == 5) {
-                    jButtonRemovePdto4.setVisible(true);
-                    jLblPDTO4.setVisible(true);
-                    jCmbPTO4.setVisible(true);
-                    jLblCantPDTO4.setVisible(true);
-                    jTextFieldCantidad4.setVisible(true);
-                    jTextFieldCantidad4.setForeground(new Color(255, 255, 255));
-                    jTextFieldValorPdto4.setVisible(true);
-                    jPaneValorPdto4.setVisible(true);
-                    valorTotal = valorTotal + Double.parseDouble(jTextValorPdto4.getText());
-                    cantidadPdtoHabilitados = 5;
-                }
-                break;
-
-            case 6:
-                //habilita cuarto pdto
-                if (cantidadPdtoHabilitados == 6) {
-                    jButtonRemovePdto5.setVisible(true);
-                    jLblPDTO5.setVisible(true);
-                    jCmbPTO5.setVisible(true);
-                    jLblCantPDTO5.setVisible(true);
-                    jTextFieldCantidad5.setVisible(true);
-                    jTextFieldCantidad5.setForeground(new Color(255, 255, 255));
-                    jTextFieldValorPdto5.setVisible(true);
-                    jPaneValorPdto5.setVisible(true);
-                    valorTotal = valorTotal + Double.parseDouble(jTextValorPdto5.getText());
-                    cantidadPdtoHabilitados = 6;
-                }
-                break;
-
-            case 7:
-                //habilita cuarto pdto
-                if (cantidadPdtoHabilitados == 7) {
-                    jButtonRemovePdto6.setVisible(true);
-                    jLblPDTO6.setVisible(true);
-                    jCmbPTO6.setVisible(true);
-                    jLblCantPDTO6.setVisible(true);
-                    jTextFieldCantidad6.setVisible(true);
-                    jTextFieldCantidad6.setForeground(new Color(255, 255, 255));
-                    jTextFieldValorPdto6.setVisible(true);
-                    jPaneValorPdto6.setVisible(true);
-                    valorTotal = valorTotal + Double.parseDouble(jTextValorPdto6.getText());
-                    cantidadPdtoHabilitados = 7;
-                }
-                break;
-
-            default:
-                // Ya están todos habilitados
-                if (cantidadPdtoHabilitados > 7) {
-                    cantidadPdtoHabilitados--;
-                }
-                JOptionPane.showMessageDialog(null, "Ya has registrado todos los productos, ingresa la venta y adiciona nuevos.");
-                System.out.println("cantidadPdtoHabilitados" + cantidadPdtoHabilitados);
-                break;
+    // agrega escuchadores para recalcular automáticamente
+    campoCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            recalcularValorTotal();
         }
+    });
+    campoValor.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            recalcularValorTotal();
+        }
+    });
+}
+    private double obtenerValor(JTextField campoCantidad, JLabel campoValor) {
+    try {
+        String cant = campoCantidad.getText().trim();
+        String val = campoValor.getText().trim();
+
+        if (cant.isEmpty() || val.isEmpty()) return 0.0;
+
+        // evita que placeholder cause error
+        if (!cant.matches("[0-9]+(\\.[0-9]+)?") || !val.matches("[0-9]+(\\.[0-9]+)?")) return 0.0;
+
+        return Double.parseDouble(cant) * Double.parseDouble(val);
+    } catch (Exception e) {
+        return 0.0;
+    }
+}
+
+
+    private void recalcularValorTotal() {
+    double total = 0.0;
+
+    total += obtenerValor(jTextFieldCantidad0, jTextFieldValorPdto0);
+
+    if (cantidadPdtoHabilitados >= 2) total += obtenerValor(jTextFieldCantidad1, jTextFieldValorPdto1);
+    if (cantidadPdtoHabilitados >= 3) total += obtenerValor(jTextFieldCantidad2, jTextFieldValorPdto2);
+    if (cantidadPdtoHabilitados >= 4) total += obtenerValor(jTextFieldCantidad3, jTextFieldValorPdto3);
+    if (cantidadPdtoHabilitados >= 5) total += obtenerValor(jTextFieldCantidad4, jTextFieldValorPdto4);
+    if (cantidadPdtoHabilitados >= 6) total += obtenerValor(jTextFieldCantidad5, jTextFieldValorPdto5);
+    if (cantidadPdtoHabilitados >= 7) total += obtenerValor(jTextFieldCantidad6, jTextFieldValorPdto6);
+
+    valorTotal = total;
+
+    try {
+        jLblValorVentaTotal.setText(String.format("%.2f", total));
+    } catch (Exception e) {
+        System.out.println("Campo total no visible o no inicializado.");
+    }
+}
+
+
+
+    private void jButtonAddPdtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseClicked
+        // Agrega un nuevo producto a la compra
+    cantidadPdtoHabilitados++;
+    System.out.println("Cantidad de productos habilitados: " + cantidadPdtoHabilitados);
+
+    switch (cantidadPdtoHabilitados) {
+        case 2:
+            habilitarProducto(1, jButtonRemovePdto1, jLblPDTO1, jCmbPTO1, jLblCantPDTO1, jTextFieldCantidad1, jTextFieldValorPdto1, jPaneValorPdto1);
+            break;
+        case 3:
+            habilitarProducto(2, jButtonRemovePdto2, jLblPDTO2, jCmbPTO2, jLblCantPDTO2, jTextFieldCantidad2, jTextFieldValorPdto2, jPaneValorPdto2);
+            break;
+        case 4:
+            habilitarProducto(3, jButtonRemovePdto3, jLblPDTO3, jCmbPTO3, jLblCantPDTO3, jTextFieldCantidad3, jTextFieldValorPdto3, jPaneValorPdto3);
+            break;
+        case 5:
+            habilitarProducto(4, jButtonRemovePdto4, jLblPDTO4, jCmbPTO4, jLblCantPDTO4, jTextFieldCantidad4, jTextFieldValorPdto4, jPaneValorPdto4);
+            break;
+        case 6:
+            habilitarProducto(5, jButtonRemovePdto5, jLblPDTO5, jCmbPTO5, jLblCantPDTO5, jTextFieldCantidad5, jTextFieldValorPdto5, jPaneValorPdto5);
+            break;
+        case 7:
+            habilitarProducto(6, jButtonRemovePdto6, jLblPDTO6, jCmbPTO6, jLblCantPDTO6, jTextFieldCantidad6, jTextFieldValorPdto6, jPaneValorPdto6);
+            break;
+        default:
+            JOptionPane.showMessageDialog(null, "Ya has registrado todos los productos, ingresa la venta y adiciona nuevos.");
+            cantidadPdtoHabilitados = 7;
+            break;
+    }
+
+    // recalcula siempre después de habilitar uno nuevo
+    recalcularValorTotal();
 
     }//GEN-LAST:event_jButtonAddPdtoMouseClicked
 
@@ -2064,208 +2083,86 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateVentaMouseMoved
 
     private void jButtonCreateVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseClicked
-        //LOGICA CREACION VENTA
-        //obtenerCliente
+       Cliente cliente = control.traerIdNombreCliente(String.valueOf(jCmbCliente.getSelectedItem()));
+    String formaPago = jCheckBoxPagado.isSelected() ? String.valueOf(jCmbFormaPago.getSelectedItem()) : "FIADO";
+    String estado = jCheckBoxPagado.isSelected() ? "PAGADO" : "PENDIENTE";
+    LocalDate fechaPago = LocalDate.now();
 
-        Cliente cliente = new Cliente();
-        String nameClient = String.valueOf(jCmbCliente.getSelectedItem());
-        System.out.println("nombre que envio " + nameClient);
-        cliente = control.traerIdNombreCliente(nameClient);
-        String formaPago = "FIADO";
-        String estado = "PENDIENTE";
-        LocalDate fechaPago = LocalDate.now();
-        /*System.out.println("id que traigo "+cliente.getIdCliente());*/
-        List<Venta> listaVentasCliente = new ArrayList<>();
+    List<Venta> listaVentasCliente = new ArrayList<>();
 
-        if (jCheckBoxPagado.isSelected()) {
-            formaPago = String.valueOf(jCmbFormaPago.getSelectedItem());
-            estado = "PAGADO";
+    // Combos, cantidades y valores agrupados para simplificar
+    JComboBox[] combos = { jCmbPTO0, jCmbPTO1, jCmbPTO2, jCmbPTO3, jCmbPTO4, jCmbPTO5, jCmbPTO6 };
+    JTextField[] camposCantidad = { jTextFieldCantidad0, jTextFieldCantidad1, jTextFieldCantidad2, jTextFieldCantidad3, jTextFieldCantidad4, jTextFieldCantidad5, jTextFieldCantidad6 };
+   JLabel[] camposValor = {
+    jTextValorPdto0, jTextValorPdto1, jTextValorPdto2,
+    jTextValorPdto3, jTextValorPdto4, jTextValorPdto5, jTextValorPdto6
+};
 
+double total = 0.0;
+for (int i = 0; i < cantidadPdtoHabilitados; i++) {
+    try {
+        double precio = Double.parseDouble(camposValor[i].getText());
+        int cantidad = Integer.parseInt(camposCantidad[i].getText());
+        total += precio * cantidad;
+    } catch (NumberFormatException e) {
+        // evitar error si aún dice "Valor Producto" o vacío
+    }
+}
+
+    double valorRegistroVenta = 0.0;
+
+    // crea las ventas activas según cantidadPdtoHabilitados
+    for (int i = 0; i < cantidadPdtoHabilitados; i++) {
+        try {
+            String producto = String.valueOf(combos[i].getSelectedItem());
+            String strCant = camposCantidad[i].getText().trim();
+            String strVal = camposValor[i].getText().trim();
+
+            // salta los campos vacíos o con texto no numérico
+            if (producto == null || producto.isEmpty() || !strCant.matches("\\d+") || !strVal.matches("[0-9]+(\\.[0-9]+)?"))
+                continue;
+
+            int cantidad = Integer.parseInt(strCant);
+            double valorUnitario = Double.parseDouble(strVal);
+            double totalProducto = cantidad * valorUnitario;
+
+            Venta venta = new Venta();
+            venta.setCliente(cliente);
+            venta.setProducto(producto);
+            venta.setCantidad(cantidad);
+            venta.setValor(totalProducto); // total correcto
+            venta.setFormaPago(formaPago);
+            venta.setFechaPago(fechaPago);
+            venta.setEstado(estado);
+            venta.setObservacion("sin comentario " + (i + 1));
+
+            listaVentasCliente.add(venta);
+            valorRegistroVenta += totalProducto;
+
+        } catch (Exception e) {
+            System.out.println("Error procesando producto " + (i + 1) + ": " + e.getMessage());
+        }
+    }
+
+    if (listaVentasCliente.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No hay productos válidos para registrar.");
+        return;
+    }
+
+    int confirmacion = JOptionPane.showConfirmDialog(this, 
+            "¿Confirmar compra por un total de $" + String.format("%.2f", valorRegistroVenta) + "?", 
+            "Confirmar Compra", 
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        for (Venta venta : listaVentasCliente) {
+            control.crearVenta(venta);
         }
 
-        Venta ventas1 = new Venta();
-        ventas1.setCliente(cliente);
-        ventas1.setProducto(String.valueOf(jCmbPTO0.getSelectedItem()));
-        ventas1.setCantidad((Integer.parseInt(jTextFieldCantidad0.getText())));
-        ventas1.setFormaPago(formaPago);
-        ventas1.setFechaPago(fechaPago);
-        ventas1.setEstado(estado);
-        ventas1.setObservacion("sin comentario 1");
-        ventas1.setCliente(cliente);
-        double valorPdto0 =Double.parseDouble(jTextValorPdto0.getText());
-        int cantidadPdtos=Integer.parseInt(jTextFieldCantidad0.getText());
-        double valorVentPdto= cantidadPdtos * valorPdto0;
-        System.out.println("valor de ventas1 "+valorPdto0);
-        ventas1.setValor(valorPdto0);
-
-        //VENTAS2
-        Venta ventas2 = new Venta();
-        ventas2.setCliente(cliente);
-        ventas2.setProducto(String.valueOf(jCmbPTO1.getSelectedItem()));
-        ventas2.setCantidad((Integer.parseInt(jTextFieldCantidad1.getText())));
-        ventas2.setFormaPago(formaPago);
-        ventas2.setFechaPago(LocalDate.now());
-        ventas2.setEstado(estado);
-        ventas2.setObservacion("sin comentario 2");
-        ventas2.setCliente(cliente);
-        double valorPdto1 = 00;
-        valorPdto1 = Double.parseDouble(String.valueOf(jTextValorPdto1.getText())) * Integer.parseInt(jTextFieldCantidad1.getText());
-        ventas2.setValor(valorPdto1);
-        //VENTAS 3
-        Venta ventas3 = new Venta();
-        ventas3.setCliente(cliente);
-        ventas3.setProducto(String.valueOf(jCmbPTO2.getSelectedItem()));
-        ventas3.setCantidad((Integer.parseInt(jTextFieldCantidad2.getText())));
-        double valorPdto2 = 00;
-        valorPdto2 = Double.parseDouble(String.valueOf(jTextValorPdto2.getText())) * Integer.parseInt(jTextFieldCantidad2.getText());
-        ventas3.setValor(valorPdto2);
-        ventas3.setFormaPago(formaPago);
-        ventas3.setFechaPago(LocalDate.now());
-        ventas3.setEstado(estado);
-        ventas3.setObservacion("sin comentario 3");
-        //VENTAS 4
-        Venta ventas4 = new Venta();
-        ventas4.setCliente(cliente);
-        ventas4.setProducto(String.valueOf(jCmbPTO3.getSelectedItem()));
-        ventas4.setCantidad((Integer.parseInt(jTextFieldCantidad3.getText())));
-        double valorPdto3 = 00;
-        valorPdto3 = Double.parseDouble(String.valueOf(jTextValorPdto3.getText())) * Integer.parseInt(jTextFieldCantidad3.getText());
-        ventas2.setValor(valorPdto3);
-        ventas4.setFormaPago(formaPago);
-        ventas4.setFechaPago(LocalDate.now());
-        ventas4.setEstado(estado);
-        ventas4.setObservacion("sin comentario 4");
-        //VENTAS 5
-        Venta ventas5 = new Venta();
-        ventas5.setCliente(cliente);
-        ventas5.setProducto(String.valueOf(jCmbPTO4.getSelectedItem()));
-        ventas5.setCantidad((Integer.parseInt(jTextFieldCantidad4.getText())));
-        double valorPdto4 = 00;
-        valorPdto4 = Double.parseDouble(String.valueOf(jTextValorPdto4.getText())) * Integer.parseInt(jTextFieldCantidad4.getText());
-        ventas5.setValor(valorPdto4);
-        ventas5.setFormaPago(formaPago);
-        ventas5.setFechaPago(LocalDate.now());
-        ventas5.setEstado(estado);
-        ventas5.setObservacion("sin comentario 5");
-        
-        //VENTAS 6
-        Venta ventas6 = new Venta();
-        ventas6.setCliente(cliente);
-        ventas6.setProducto(String.valueOf(jCmbPTO5.getSelectedItem()));
-        ventas6.setCantidad((Integer.parseInt(jTextFieldCantidad5.getText())));
-        double valorPdto5 = 00;
-        ventas6.setFormaPago(formaPago);
-        ventas6.setFechaPago(LocalDate.now());
-       valorPdto5 = Double.parseDouble(String.valueOf(jTextValorPdto5.getText())) * Integer.parseInt(jTextFieldCantidad5.getText());
-       ventas5.setValor(valorPdto5);
-        ventas6.setEstado(estado);
-        ventas6.setObservacion("sin comentario 6");
-        //VENTAS 7
-        double valorPdto6 = 00;
-        Venta ventas7 = new Venta();
-        ventas7.setCliente(cliente);
-        ventas7.setProducto(String.valueOf(jCmbPTO6.getSelectedItem()));
-        ventas7.setCantidad((Integer.parseInt(jTextFieldCantidad6.getText())));
-        valorPdto6 = Double.parseDouble(String.valueOf(jTextValorPdto6.getText())) * Integer.parseInt(jTextFieldCantidad6.getText());
-        ventas7.setValor(valorPdto6);
-        ventas7.setFormaPago(formaPago);
-        ventas7.setFechaPago(LocalDate.now());
-        ventas7.setEstado(estado);
-        ventas7.setObservacion("sin comentario 7");
-
-        switch (cantidadPdtoHabilitados) {
-            case 1:
-
-                control.crearVenta(ventas1);
-                System.out.println("creo una sola venta!");
-                JOptionPane.showMessageDialog(null, "venta registrada a " + cliente.getNombre());
-                //ACA FALTA LA LOGICA PARA QUE REDUZCA CANTIDAD SEGUN NOMBRE PRODUCTO EN LA TABLA PRODUCTO
-                break;
-
-            //A PARTIR DE ACA AÑADIR A LISTA
-            case 2:
-                //obtenerVenta1
-                listaVentasCliente.add(ventas1);
-
-                listaVentasCliente.add(ventas2);
-                //REGISTRAR VENTA 3        
-
-                listaVentasCliente.add(ventas3);
-
-                break;
-
-            case 3:
-                listaVentasCliente.add(ventas1);
-                listaVentasCliente.add(ventas2);
-                //REGISTRAR VENTA 2   
-
-                listaVentasCliente.add(ventas3);
-                break;
-
-            case 4:
-                listaVentasCliente.add(ventas1);
-                listaVentasCliente.add(ventas2);
-                listaVentasCliente.add(ventas3);
-
-                listaVentasCliente.add(ventas4);
-                break;
-
-            case 5:
-
-                listaVentasCliente.add(ventas1);
-                listaVentasCliente.add(ventas2);
-                listaVentasCliente.add(ventas3);
-                listaVentasCliente.add(ventas4);
-
-                //nuevoRegistro
-                listaVentasCliente.add(ventas5);
-                break;
-
-            case 6:
-                listaVentasCliente.add(ventas1);
-                listaVentasCliente.add(ventas2);
-                listaVentasCliente.add(ventas3);
-                listaVentasCliente.add(ventas4);
-                listaVentasCliente.add(ventas5);
-
-                //nuevo registro
-                listaVentasCliente.add(ventas6);
-
-                break;
-            case 7:
-                listaVentasCliente.add(ventas1);
-                listaVentasCliente.add(ventas2);
-                listaVentasCliente.add(ventas3);
-                listaVentasCliente.add(ventas4);
-                listaVentasCliente.add(ventas5);
-                listaVentasCliente.add(ventas6);
-
-                listaVentasCliente.add(ventas7);
-                break;
-
-        }
-
-        if (listaVentasCliente.size() >= 2) {
-            System.out.println("tiene mas de un producto a registrar");
-
-            //LOGICA REGISTRO VARIOS PRODUCTOS
-            for (Venta venta : listaVentasCliente) {
-
-                System.out.println("la lista vino con size de " + listaVentasCliente.size());
-                control.crearVenta(venta);
-                System.out.println("removio producto");
-            }
-
-            int confirmacion = JOptionPane.showConfirmDialog(this, "confirmar compra por $$$", "Confirmar Compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                listaVentasCliente.clear();
-                System.out.println("nuevo tamaño lista " + listaVentasCliente.size());
-                cargarDashBoardVentas();
-                JOptionPane.showMessageDialog(null, "venta(s) registrada a " + cliente.getNombre());
-            }
-
-        }
+        JOptionPane.showMessageDialog(this, "Venta(s) registrada(s) a " + cliente.getNombre());
+        listaVentasCliente.clear();
+        cargarDashBoardVentas();
+    }
 
 
     }//GEN-LAST:event_jButtonCreateVentaMouseClicked
@@ -2525,17 +2422,6 @@ public class MainUi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrecioUnd1ActionPerformed
 
-    private void jCmbPTO0FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jCmbPTO0FocusLost
-        System.out.println("con focus lost detecta cambio a " + jCmbPTO0.getSelectedItem());
-        String nombrePdtoSeleccionado = String.valueOf(jCmbPTO0.getSelectedItem());
-        List<Producto> listaProdutos = control.listaProductos();
-        for (Producto producto : listaProdutos) {
-            if (producto.getNombreProducto().equals(nombrePdtoSeleccionado)) {
-                jTextValorPdto0.setText(String.valueOf(producto.getPrecioPublico()));
-            }
-        }
-    }//GEN-LAST:event_jCmbPTO0FocusLost
-
     private void jCheckBoxPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPagadoActionPerformed
 
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
@@ -2586,7 +2472,7 @@ public class MainUi extends javax.swing.JFrame {
             if (producto.getNombreProducto().equals(nombrePdto0)) {
                 cantidadPdto0 = producto.getCantidad();
                 precioProducto0 = producto.getPrecioPublico() * cantidadPdto0;
-
+                valorRegistroVenta = valorRegistroVenta + precioProducto0;
             }
         }
         int cantidad = Integer.parseInt(jTextFieldCantidad0.getText());
@@ -2613,25 +2499,81 @@ public class MainUi extends javax.swing.JFrame {
     private void jTextFieldCantidad0KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.valueOf(jTextFieldCantidad0.getText());
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad0.getText());
 
             List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
+            int cantidadDisponible = 0;
+            //CAMBIAR VARIABLE
             Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
             String nombrePdto0 = String.valueOf(jCmbPTO0.getSelectedItem());
             listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
             int cantidadXPdto = Integer.parseInt(jTextFieldCantidad0.getText());
             for (Producto producto : listaCantidadPdtoDisp) {
                 if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
                     cantidadDisponible = producto.getCantidad();
                     valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
                     jTextValorPdto0.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    if (cantidadSolicitada > cantidadDisponible) {
+                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad0.setText(String.valueOf(cantidadDisponible));
+                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad0.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        } else {
+                            System.out.println("deberia actualizar lblvalorventa total");
+                            valorRegistroVenta = valorRegistroVenta + valorPdt0;
+                        }
+                        jTextValorPdto0.setText(String.valueOf(valorPdt0));
+
+                    }
+
+                }
+            }
+
+            jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
+        }
+    }//GEN-LAST:event_jTextFieldCantidad0KeyPressed
+
+    private void jTextFieldCantidad1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad1KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            //LOGICA VALIDACION
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad1.getText());
+
+            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+            int cantidadDisponible = 1;
+            //CAMBIAR VARIABLE
+            Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
+            String nombrePdto0 = String.valueOf(jCmbPTO1.getSelectedItem());
+            listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
+            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad1.getText());
+            for (Producto producto : listaCantidadPdtoDisp) {
+                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
+                    cantidadDisponible = producto.getCantidad();
+                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
+                    jTextValorPdto1.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta + valorPdt0));
                     System.out.println("por aca funciona");
                     if (cantidadSolicitada > cantidadDisponible) {
                         JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        jTextFieldCantidad0.setText(String.valueOf(cantidadDisponible));
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad1.setText(String.valueOf(cantidadDisponible));
+                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
                         valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        jTextValorPdto0.setText(String.valueOf(valorPdt0));
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad1.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        }
+                        jTextValorPdto1.setText(String.valueOf(valorPdt0));
 
                     }
 
@@ -2640,46 +2582,6 @@ public class MainUi extends javax.swing.JFrame {
             int cantidad = Integer.parseInt(jTextFieldCantidad0.getText());
             double valorPdto = Double.parseDouble(jTextValorPdto0.getText());
 
-            Double valorTotalVenta = cantidad * valorPdto;
-
-           
-        }
-    }//GEN-LAST:event_jTextFieldCantidad0KeyPressed
-
-    private void jTextFieldCantidad1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad1KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.valueOf(jTextFieldCantidad1.getText());
-
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            Double valorPdt0 = 0.0;
-            String nombrePdto0 = String.valueOf(jCmbPTO1.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad1.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto1.setText(String.valueOf(valorPdt0));
-                    System.out.println("por aca funciona pdto 1");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        jTextFieldCantidad1.setText(String.valueOf(cantidadDisponible));
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        jTextValorPdto1.setText(String.valueOf(valorPdt0));
-                        System.out.println("si hay key pressed en segundo item");
-
-                    }
-
-                }
-            }
-            int cantidad = Integer.parseInt(jTextFieldCantidad1.getText());
-            double valorPdto = Double.parseDouble(jTextValorPdto1.getText());
-
-            Double valorTotalVenta = cantidad * valorPdto;
-            System.out.println("si hay key pressed en segundo item");
-            
         }
     }//GEN-LAST:event_jTextFieldCantidad1KeyPressed
 
@@ -2693,6 +2595,220 @@ public class MainUi extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jCmbPTO1FocusLost
+
+    private void jTextFieldCantidad2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad2KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            //LOGICA VALIDACION
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad2.getText());
+
+            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+            int cantidadDisponible = 1;
+            //CAMBIAR VARIABLE
+            Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
+            String nombrePdto0 = String.valueOf(jCmbPTO2.getSelectedItem());
+            listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
+            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad2.getText());
+            for (Producto producto : listaCantidadPdtoDisp) {
+                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
+                    cantidadDisponible = producto.getCantidad();
+                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
+                    jTextValorPdto2.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta + valorPdt0));
+                    System.out.println("por aca funciona");
+                    if (cantidadSolicitada > cantidadDisponible) {
+                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad2.setText(String.valueOf(cantidadDisponible));
+                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
+                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad3.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        }
+                        jTextValorPdto2.setText(String.valueOf(valorPdt0));
+
+                    }
+
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jTextFieldCantidad2KeyPressed
+
+    private void jTextFieldCantidad3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad3KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            //LOGICA VALIDACION
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad3.getText());
+
+            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+            int cantidadDisponible = 1;
+            //CAMBIAR VARIABLE
+            Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
+            String nombrePdto0 = String.valueOf(jCmbPTO3.getSelectedItem());
+            listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
+            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad3.getText());
+            for (Producto producto : listaCantidadPdtoDisp) {
+                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
+                    cantidadDisponible = producto.getCantidad();
+                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
+                    jTextValorPdto3.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta + valorPdt0));
+                    System.out.println("por aca funciona");
+                    if (cantidadSolicitada > cantidadDisponible) {
+                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad3.setText(String.valueOf(cantidadDisponible));
+                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
+                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad3.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        }
+                        jTextValorPdto3.setText(String.valueOf(valorPdt0));
+                    }//hay que hacer que reste si se cambia de producto o valor a 0
+
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jTextFieldCantidad3KeyPressed
+
+    private void jTextFieldCantidad4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad4KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            //LOGICA VALIDACION
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad5.getText());
+
+            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+            int cantidadDisponible = 1;
+            //CAMBIAR VARIABLE
+            Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
+            String nombrePdto0 = String.valueOf(jCmbPTO4.getSelectedItem());
+            listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
+            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad4.getText());
+            for (Producto producto : listaCantidadPdtoDisp) {
+                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
+                    cantidadDisponible = producto.getCantidad();
+                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
+                    jTextValorPdto4.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
+                    System.out.println("por aca funciona");
+                    if (cantidadSolicitada > cantidadDisponible) {
+                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad4.setText(String.valueOf(cantidadDisponible));
+                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
+                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad4.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        }
+                        jTextValorPdto4.setText(String.valueOf(valorPdt0));
+
+                    }
+
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jTextFieldCantidad4KeyPressed
+
+    private void jTextFieldCantidad5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad5KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            //LOGICA VALIDACION
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad6.getText());
+
+            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+            int cantidadDisponible = 1;
+            //CAMBIAR VARIABLE
+            Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
+            String nombrePdto0 = String.valueOf(jCmbPTO5.getSelectedItem());
+            listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
+            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad5.getText());
+            for (Producto producto : listaCantidadPdtoDisp) {
+                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
+                    cantidadDisponible = producto.getCantidad();
+                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
+                    jTextValorPdto5.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
+                    System.out.println("por aca funciona");
+                    if (cantidadSolicitada > cantidadDisponible) {
+                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad5.setText(String.valueOf(cantidadDisponible));
+                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
+                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad5.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        }
+                        jTextValorPdto5.setText(String.valueOf(valorPdt0));
+
+                    }
+
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jTextFieldCantidad5KeyPressed
+
+    private void jTextFieldCantidad6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad6KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            //LOGICA VALIDACION
+            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad6.getText());
+
+            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
+            int cantidadDisponible = 1;
+            //CAMBIAR VARIABLE
+            Double valorPdt0 = 0.0;
+            //CAMBIAR COMBOBOX
+            String nombrePdto0 = String.valueOf(jCmbPTO6.getSelectedItem());
+            listaCantidadPdtoDisp = control.listaProductos();
+            //CAMBIAR CANTIDAD
+            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad6.getText());
+            for (Producto producto : listaCantidadPdtoDisp) {
+                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
+                    cantidadDisponible = producto.getCantidad();
+                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
+                    jTextValorPdto6.setText(String.valueOf(valorPdt0));
+                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
+                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
+                    System.out.println("por aca funciona");
+                    if (cantidadSolicitada > cantidadDisponible) {
+                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
+                        //CAMBIAR TEXTO
+                        jTextFieldCantidad6.setText(String.valueOf(cantidadDisponible));
+                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
+                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
+                        //CAMBIAR TEXTO
+                        if (Integer.parseInt(jTextFieldCantidad6.getText()) <= 0) {
+
+                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
+                        }
+                        jTextValorPdto6.setText(String.valueOf(valorPdt0));
+
+                    }
+
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jTextFieldCantidad6KeyPressed
 
     /**
      * @param args the command line arguments
@@ -2807,10 +2923,11 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelUsuariosCreados;
     private javax.swing.JLabel jLblCantPDTO0;
     private javax.swing.JLabel jLblCantPDTO1;
-    private javax.swing.JLabel jLblCantPDTO11;
     private javax.swing.JLabel jLblCantPDTO12;
     private javax.swing.JLabel jLblCantPDTO13;
+    private javax.swing.JLabel jLblCantPDTO14;
     private javax.swing.JLabel jLblCantPDTO15;
+    private javax.swing.JLabel jLblCantPDTO16;
     private javax.swing.JLabel jLblCantPDTO2;
     private javax.swing.JLabel jLblCantPDTO3;
     private javax.swing.JLabel jLblCantPDTO4;
@@ -2830,6 +2947,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLblPDTO6;
     private javax.swing.JLabel jLblPDTO8;
     private javax.swing.JLabel jLblPDTO9;
+    private javax.swing.JLabel jLblValorVentaTotal;
     private javax.swing.JPanel jPaneValorPdto0;
     private javax.swing.JPanel jPaneValorPdto1;
     private javax.swing.JPanel jPaneValorPdto2;
