@@ -477,7 +477,7 @@ public class MainUi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 50));
+        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 30));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -1747,7 +1747,7 @@ public class MainUi extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("tab6", jPanelComprasPendientes);
 
-        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 980, 580));
+        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 980, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1828,8 +1828,8 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddPdtoMouseMoved
 
     private void habilitarProducto(int index, JLabel labelPdto, JLabel labelCant, JComboBox comboPdto, JLabel jLblCantPDTO11, JTextField campoCantidad, JLabel campoValor, JPanel panelValor) {
-
- 
+    jLblCantPDTO11.setVisible(true);
+    /*jLblCantPDTO1.setVisible(true);*/
     labelPdto.setVisible(true);
     comboPdto.setVisible(true);
     labelCant.setVisible(true);
@@ -2248,7 +2248,7 @@ for (int i = 0; i < cantidadPdtoHabilitados; i++) {
 
     private void jButtonRemovePdto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto1MouseClicked
         //QUITA CAMPOS DE PORODUCTOSS
-
+        
         jCmbPTO1.setVisible(false);
         jTextFieldCantidad1.setText("");
         jTextFieldCantidad1.setVisible(false);
@@ -2922,7 +2922,7 @@ for (int i = 0; i < cantidadPdtoHabilitados; i++) {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelUsuariosCreados;
     private javax.swing.JLabel jLblCantPDTO0;
-    private javax.swing.JLabel jLblCantPDTO1;
+    public javax.swing.JLabel jLblCantPDTO1;
     private javax.swing.JLabel jLblCantPDTO12;
     private javax.swing.JLabel jLblCantPDTO13;
     private javax.swing.JLabel jLblCantPDTO14;
