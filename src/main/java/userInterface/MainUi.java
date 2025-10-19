@@ -2103,65 +2103,51 @@ public class MainUi extends javax.swing.JFrame {
 
     List<Venta> listaVentasCliente = new ArrayList<>();
 
-    // Combos, cantidades y valores agrupados para simplificar
+    // Combos, cantidades y valores agrupados
     JComboBox[] combos = { jCmbPTO0, jCmbPTO1, jCmbPTO2, jCmbPTO3, jCmbPTO4, jCmbPTO5, jCmbPTO6 };
     JTextField[] camposCantidad = { jTextFieldCantidad0, jTextFieldCantidad1, jTextFieldCantidad2, jTextFieldCantidad3, jTextFieldCantidad4, jTextFieldCantidad5, jTextFieldCantidad6 };
-   JLabel[] camposValor = {
-    jTextValorPdto0, jTextValorPdto1, jTextValorPdto2,
-    jTextValorPdto3, jTextValorPdto4, jTextValorPdto5, jTextValorPdto6
-};
-
-double total = 0.0;
-for (int i = 0; i < cantidadPdtoHabilitados; i++) {
-    try {
-        double precio = Double.parseDouble(camposValor[i].getText());
-        int cantidad = Integer.parseInt(camposCantidad[i].getText());
-        total += precio * cantidad;
-    } catch (NumberFormatException e) {
-        // evitar error si aún dice "Valor Producto" o vacío
-    }
-}
+    JLabel[] camposValor = { jTextValorPdto0, jTextValorPdto1, jTextValorPdto2, jTextValorPdto3, jTextValorPdto4, jTextValorPdto5, jTextValorPdto6 };
 
     double valorRegistroVenta = 0.0;
 
-    // crea las ventas activas según cantidadPdtoHabilitados
+    // Recorre todos los productos activos
     for (int i = 0; i < cantidadPdtoHabilitados; i++) {
         try {
             String producto = String.valueOf(combos[i].getSelectedItem());
             String strCant = camposCantidad[i].getText().trim();
             String strVal = camposValor[i].getText().trim();
 
-            // salta los campos vacíos o con texto no numérico
+            // Validar datos
             if (producto == null || producto.isEmpty() || !strCant.matches("\\d+") || !strVal.matches("[0-9]+(\\.[0-9]+)?"))
                 continue;
 
             int cantidad = Integer.parseInt(strCant);
-            double valorUnitario = Double.parseDouble(strVal);
-            double totalProducto = cantidad * valorUnitario;
+            double valorTotalProducto = Double.parseDouble(strVal); // ya es total (precio × cantidad)
 
             Venta venta = new Venta();
             venta.setCliente(cliente);
             venta.setProducto(producto);
             venta.setCantidad(cantidad);
-            venta.setValor(totalProducto); // total correcto
+            venta.setValor(valorTotalProducto); // ✅ NO volver a multiplicar
             venta.setFormaPago(formaPago);
             venta.setFechaPago(fechaPago);
             venta.setEstado(estado);
             venta.setObservacion("sin comentario " + (i + 1));
 
             listaVentasCliente.add(venta);
-            valorRegistroVenta += totalProducto;
-
-        } catch (Exception e) {
+            valorRegistroVenta += valorTotalProducto; // ✅ suma directa sin duplicar
+        } catch (NumberFormatException e) {
             System.out.println("Error procesando producto " + (i + 1) + ": " + e.getMessage());
         }
     }
 
+    // Validación si no hay productos válidos
     if (listaVentasCliente.isEmpty()) {
         JOptionPane.showMessageDialog(this, "No hay productos válidos para registrar.");
         return;
     }
 
+    // Confirmar compra
     int confirmacion = JOptionPane.showConfirmDialog(this, 
             "¿Confirmar compra por un total de $" + String.format("%.2f", valorRegistroVenta) + "?", 
             "Confirmar Compra", 
@@ -2173,8 +2159,12 @@ for (int i = 0; i < cantidadPdtoHabilitados; i++) {
         }
 
         JOptionPane.showMessageDialog(this, "Venta(s) registrada(s) a " + cliente.getNombre());
+
+        // ✅ Reinicia la app solo una vez
+        reiniciarApp();
+
         listaVentasCliente.clear();
-        cargarDashBoardVentas();
+        /* cargarDashBoardVentas(); */
     }
 
 
@@ -2511,90 +2501,88 @@ for (int i = 0; i < cantidadPdtoHabilitados; i++) {
 
     private void jTextFieldCantidad0KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad0.getText());
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad0.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO0.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 0;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO0.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad0.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto0.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad0.setText(String.valueOf(cantidadDisponible));
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad0.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        } else {
-                            System.out.println("deberia actualizar lblvalorventa total");
-                            valorRegistroVenta = valorRegistroVenta + valorPdt0;
-                        }
-                        jTextValorPdto0.setText(String.valueOf(valorPdt0));
-
-                    }
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
-
-            jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
         }
+
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad0.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto0.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
+}
+
     }//GEN-LAST:event_jTextFieldCantidad0KeyPressed
 
     private void jTextFieldCantidad1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad1KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad1.getText());
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad1.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO1.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO1.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad1.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto1.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta + valorPdt0));
-                    System.out.println("por aca funciona");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad1.setText(String.valueOf(cantidadDisponible));
-                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad1.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        }
-                        jTextValorPdto1.setText(String.valueOf(valorPdt0));
-
-                    }
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
-            int cantidad = Integer.parseInt(jTextFieldCantidad0.getText());
-            double valorPdto = Double.parseDouble(jTextValorPdto0.getText());
+        }
 
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad1.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto1.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
         }
     }//GEN-LAST:event_jTextFieldCantidad1KeyPressed
 
@@ -2610,216 +2598,217 @@ for (int i = 0; i < cantidadPdtoHabilitados; i++) {
     }//GEN-LAST:event_jCmbPTO1FocusLost
 
     private void jTextFieldCantidad2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad2KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad2.getText());
+       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad2.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO2.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO2.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad2.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto2.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta + valorPdt0));
-                    System.out.println("por aca funciona");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad2.setText(String.valueOf(cantidadDisponible));
-                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad3.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        }
-                        jTextValorPdto2.setText(String.valueOf(valorPdt0));
-
-                    }
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
-
         }
+
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad2.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto2.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
+       }
     }//GEN-LAST:event_jTextFieldCantidad2KeyPressed
 
     private void jTextFieldCantidad3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad3KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad3.getText());
+       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad3.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO3.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO3.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad3.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto3.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta + valorPdt0));
-                    System.out.println("por aca funciona");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad3.setText(String.valueOf(cantidadDisponible));
-                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad3.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        }
-                        jTextValorPdto3.setText(String.valueOf(valorPdt0));
-                    }//hay que hacer que reste si se cambia de producto o valor a 0
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
-
         }
+
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad3.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto3.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
+       }
     }//GEN-LAST:event_jTextFieldCantidad3KeyPressed
 
     private void jTextFieldCantidad4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad4KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad5.getText());
+       if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad4.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO4.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO4.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad4.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto4.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
-                    System.out.println("por aca funciona");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad4.setText(String.valueOf(cantidadDisponible));
-                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad4.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        }
-                        jTextValorPdto4.setText(String.valueOf(valorPdt0));
-
-                    }
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
-
         }
+
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad4.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto4.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
+       }
     }//GEN-LAST:event_jTextFieldCantidad4KeyPressed
 
     private void jTextFieldCantidad5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad5KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad6.getText());
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad5.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO5.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO5.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad5.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto5.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
-                    System.out.println("por aca funciona");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad5.setText(String.valueOf(cantidadDisponible));
-                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad5.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        }
-                        jTextValorPdto5.setText(String.valueOf(valorPdt0));
-
-                    }
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
+        }
 
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad5.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto5.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
         }
     }//GEN-LAST:event_jTextFieldCantidad5KeyPressed
 
     private void jTextFieldCantidad6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad6KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            //LOGICA VALIDACION
-            int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad6.getText());
+    try {
+        int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad6.getText());
+        String nombrePdto0 = String.valueOf(jCmbPTO0.getSelectedItem());
 
-            List<Producto> listaCantidadPdtoDisp = new ArrayList<>();
-            int cantidadDisponible = 1;
-            //CAMBIAR VARIABLE
-            Double valorPdt0 = 0.0;
-            //CAMBIAR COMBOBOX
-            String nombrePdto0 = String.valueOf(jCmbPTO6.getSelectedItem());
-            listaCantidadPdtoDisp = control.listaProductos();
-            //CAMBIAR CANTIDAD
-            int cantidadXPdto = Integer.parseInt(jTextFieldCantidad6.getText());
-            for (Producto producto : listaCantidadPdtoDisp) {
-                if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() >= 1) {
-                    cantidadDisponible = producto.getCantidad();
-                    valorPdt0 = producto.getPrecioPublico() * cantidadXPdto;
-                    jTextValorPdto6.setText(String.valueOf(valorPdt0));
-                    valorRegistroVenta = valorPdt0 + valorRegistroVenta;
-                    jLblValorVentaTotal.setText(String.valueOf(valorRegistroVenta));
-                    System.out.println("por aca funciona");
-                    if (cantidadSolicitada > cantidadDisponible) {
-                        JOptionPane.showMessageDialog(null, "Hay menos productos de los solicitados");
-                        //CAMBIAR TEXTO
-                        jTextFieldCantidad6.setText(String.valueOf(cantidadDisponible));
-                        valorRegistroVenta = cantidadDisponible * producto.getPrecioPublico();
-                        valorPdt0 = producto.getPrecioPublico() * cantidadDisponible;
-                        //CAMBIAR TEXTO
-                        if (Integer.parseInt(jTextFieldCantidad6.getText()) <= 0) {
+        List<Producto> listaProductos = control.listaProductos();
+        int cantidadDisponible = 0;
+        double precioUnitario = 0.0;
 
-                            valorRegistroVenta = valorRegistroVenta - valorPdt0;
-                        }
-                        jTextValorPdto6.setText(String.valueOf(valorPdt0));
-
-                    }
-
-                }
+        // Buscar el producto seleccionado
+        for (Producto producto : listaProductos) {
+            if (producto.getNombreProducto().equals(nombrePdto0)) {
+                cantidadDisponible = producto.getCantidad();
+                precioUnitario = producto.getPrecioPublico();
+                break;
             }
+        }
 
+        // Validar disponibilidad
+        if (cantidadSolicitada > cantidadDisponible) {
+            JOptionPane.showMessageDialog(null,
+                "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+            cantidadSolicitada = cantidadDisponible;
+            jTextFieldCantidad6.setText(String.valueOf(cantidadDisponible));
+        }
+
+        // Calcular valor total de este producto
+        double valorPdt0 = precioUnitario * cantidadSolicitada;
+        jTextValorPdto6.setText(String.valueOf(valorPdt0));
+
+        // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+        // Ese cálculo debe hacerse solo al crear la venta final.
+        // Si lo haces aquí, cada Enter duplicará el monto.
+        // Solo muestra un valor de referencia, si quieres:
+        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+    }
         }
     }//GEN-LAST:event_jTextFieldCantidad6KeyPressed
 
