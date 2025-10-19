@@ -1763,6 +1763,19 @@ public class MainUi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void reiniciarApp() {
+    // Cierra la ventana actual
+    this.dispose();
+    
+
+    // Crea una nueva instancia de la misma ventana
+    java.awt.EventQueue.invokeLater(() -> {
+        new MainUi().setVisible(true);
+    });
+}
+
+    
     private void btnCrearClienteMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearClienteMouseMoved
 
         btnCrearCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -3146,27 +3159,29 @@ for (int i = 0; i < cantidadPdtoHabilitados; i++) {
     }
 
     private void cargarListaProductos() {
-        //OBTENER CLIENTES REGISTRADOS
-        List<Producto> listaProductos = control.listaProductos();
+         // Obtener los productos registrados
+    List<Producto> listaProductos = control.listaProductos();
+    Set<String> nombresUnicos = new HashSet<>(); // evita duplicados automáticamente
 
-        //LIMPIAR COMBO BOXS
-        jCmbPTO0.removeAllItems();
+    // Limpiar combo boxes
+    JComboBox[] combos = { jCmbPTO0, jCmbPTO1, jCmbPTO2, jCmbPTO3, jCmbPTO4, jCmbPTO5, jCmbPTO6 };
+    for (JComboBox combo : combos) {
+        combo.removeAllItems();
+    }
 
-        //RECORRER Y LLENAR COMBO BOX
-        for (Producto producto : listaProductos) {
+    // Recorrer y llenar combos
+    for (Producto producto : listaProductos) {
+        if (producto.getCantidad() > 0) {
             String nombre = producto.getNombreProducto();
-            if (producto.getCantidad() > 0) {
-                jCmbPTO0.addItem(nombre);
-                jCmbPTO1.addItem(nombre);
-                jCmbPTO2.addItem(nombre);
-                jCmbPTO3.addItem(nombre);
-                jCmbPTO4.addItem(nombre);
-                jCmbPTO5.addItem(nombre);
-                jCmbPTO6.addItem(nombre);
-                ;
+            
+            // solo agregar si no se ha agregado antes
+            if (nombresUnicos.add(nombre)) {
+                for (JComboBox combo : combos) {
+                    combo.addItem(nombre);
+                }
             }
-
         }
+    }
     }
 
     private void cargarListaProductosPanelPdtos() {
