@@ -1,4 +1,5 @@
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\logica\Controladora.java
+D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\logica\ControladoraPool.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\logica\exceptions\IllegalOrphanException.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\logica\exceptions\NonexistentEntityException.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\logica\exceptions\PreexistingEntityException.java
@@ -13,6 +14,7 @@ D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\p
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\exceptions\IllegalOrphanException.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\exceptions\NonexistentEntityException.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\exceptions\PreexistingEntityException.java
+D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\Pool.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\ProductoJpaController.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\ProveedorJpaController.java
 D:\proyectos\Java tienda Betsy2\Java tienda Betsy\Java\tiendaByV\src\main\java\persistence\VentaJpaController.java

@@ -75,6 +75,7 @@ userInterface\MainUi$17.class
 model\Producto.class
 userInterface\RegistrarNuevoPDTO$6.class
 persistence\VentaJpaController.class
+persistence\Pool.class
 userInterface\MainUi$37.class
 userInterface\MainUi$57.class
 logica\Controladora.class
@@ -96,6 +97,7 @@ userInterface\MainUi$55.class
 userInterface\MainUi$27.class
 userInterface\MainUi$32.class
 userInterface\Calendario.class
+logica\ControladoraPool.class
 persistence\ProveedorJpaController.class
 userInterface\MainUi$43.class
 userInterface\MainUi$7.class

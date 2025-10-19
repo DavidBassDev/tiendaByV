@@ -25,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import logica.Controladora;
+import logica.ControladoraPool;
+import logica.Main;
 import model.Cliente;
 import model.Producto;
 import model.Proveedor;
@@ -34,6 +36,7 @@ public class MainUi extends javax.swing.JFrame {
 
     int mouseX, mouseY;
     private RegistrarNuevoPDTO nuevoPdtoUI;
+    ControladoraPool  controlPool = new ControladoraPool();
     private int cantidadPdtoHabilitados = 0;
     public double valorTotal = 0.0;
     Double valorRegistroVenta = 0.0;
@@ -1765,15 +1768,21 @@ public class MainUi extends javax.swing.JFrame {
 
     
     public void reiniciarApp() {
-    // Cierra la ventana actual
-    this.dispose();
-    
+ 
+    try {
+        String javaBin = System.getProperty("java.home") + "/bin/java";
+        String jarPath = new java.io.File(Main.class.getProtectionDomain()
+                .getCodeSource().getLocation().toURI()).getPath();
 
-    // Crea una nueva instancia de la misma ventana
-    java.awt.EventQueue.invokeLater(() -> {
-        new MainUi().setVisible(true);
-    });
+        ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", jarPath);
+        pb.start(); // Lanza una nueva instancia
+        System.exit(0); // Cierra la actual
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
+
+
 
     
     private void btnCrearClienteMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearClienteMouseMoved
@@ -2096,7 +2105,8 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateVentaMouseMoved
 
     private void jButtonCreateVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseClicked
-       Cliente cliente = control.traerIdNombreCliente(String.valueOf(jCmbCliente.getSelectedItem()));
+      
+        Cliente cliente = control.traerIdNombreCliente(String.valueOf(jCmbCliente.getSelectedItem()));
     String formaPago = jCheckBoxPagado.isSelected() ? String.valueOf(jCmbFormaPago.getSelectedItem()) : "FIADO";
     String estado = jCheckBoxPagado.isSelected() ? "PAGADO" : "PENDIENTE";
     LocalDate fechaPago = LocalDate.now();
@@ -2155,6 +2165,9 @@ public class MainUi extends javax.swing.JFrame {
 
     if (confirmacion == JOptionPane.YES_OPTION) {
         for (Venta venta : listaVentasCliente) {
+            String nombrePdtoComprado = venta.getProducto();
+            int cantidadPdtoComprado= venta.getCantidad();
+            controlPool.RemoverCantidadCompra(nombrePdtoComprado,cantidadPdtoComprado);
             control.crearVenta(venta);
         }
 
