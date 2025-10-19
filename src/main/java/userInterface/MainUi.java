@@ -407,6 +407,7 @@ public class MainUi extends javax.swing.JFrame {
         mainPanel.add(leftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 699));
 
         paneBanner.setBackground(new java.awt.Color(102, 72, 221));
+        paneBanner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel4.setText("PRODUCTO MAS VENDIDO");
 
@@ -433,54 +434,56 @@ public class MainUi extends javax.swing.JFrame {
             .addGroup(paneBannerLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addGroup(paneBannerLayout.createSequentialGroup()
-                        .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paneBannerLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(169, 169, 169)
-                                .addComponent(jLabel5))
-                            .addComponent(jLabel6))
-                        .addGap(204, 204, 204)
-                        .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneBannerLayout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(31, 31, 31)))
-                            .addComponent(jLabel10))
-                        .addGap(27, 27, 27)
-                        .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11))))
+                        .addComponent(jLabel4)
+                        .addGap(169, 169, 169)
+                        .addComponent(jLabel5))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(204, 204, 204)
+                .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneBannerLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addGap(31, 31, 31)))
+                    .addComponent(jLabel10))
+                .addGap(27, 27, 27)
+                .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel11))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         paneBannerLayout.setVerticalGroup(
             paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneBannerLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel4))
                 .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneBannerLayout.createSequentialGroup()
-                        .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jLabel11)))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
+                    .addGroup(paneBannerLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel6)))
                 .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(jLabel12)))
-                .addGap(12, 12, 12)
-                .addComponent(jLabel7)
+                    .addGroup(paneBannerLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(paneBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12)))
+                    .addGroup(paneBannerLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 30));
+        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 100));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -1750,7 +1753,7 @@ public class MainUi extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("tab6", jPanelComprasPendientes);
 
-        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 980, 600));
+        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 980, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
