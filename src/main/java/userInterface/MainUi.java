@@ -142,7 +142,6 @@ public class MainUi extends javax.swing.JFrame {
         jLblCantPDTO8 = new javax.swing.JLabel();
         jCmbCliente = new javax.swing.JComboBox<>();
         jLblCantPDTO0 = new javax.swing.JLabel();
-        jLblValorVentaTotal = new javax.swing.JLabel();
         jCmbPTO0 = new javax.swing.JComboBox<>();
         jTextFieldCantidad6 = new javax.swing.JTextField();
         jTextFieldCantidad1 = new javax.swing.JTextField();
@@ -197,8 +196,6 @@ public class MainUi extends javax.swing.JFrame {
         jCheckBoxPagado = new javax.swing.JCheckBox();
         jCmbFormaPago = new javax.swing.JComboBox<>();
         jLblFormaPago = new javax.swing.JLabel();
-        jLblCantPDTO14 = new javax.swing.JLabel();
-        jLblCantPDTO16 = new javax.swing.JLabel();
         jPanelRegistrarPagos = new javax.swing.JPanel();
         jTitleRegVenta1 = new javax.swing.JLabel();
         jLblCliente1 = new javax.swing.JLabel();
@@ -669,7 +666,7 @@ public class MainUi extends javax.swing.JFrame {
         jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
         jButtonAddPdto.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 37, 25));
 
-        jPanelRegistrarVenta.add(jButtonAddPdto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 260, 30));
+        jPanelRegistrarVenta.add(jButtonAddPdto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 260, 30));
 
         jLblPDTO1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
         jLblPDTO1.setForeground(new java.awt.Color(0, 0, 0));
@@ -778,11 +775,6 @@ public class MainUi extends javax.swing.JFrame {
         jLblCantPDTO0.setForeground(new java.awt.Color(0, 0, 0));
         jLblCantPDTO0.setText("Cantidad");
         jPanelRegistrarVenta.add(jLblCantPDTO0, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, 20));
-
-        jLblValorVentaTotal.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
-        jLblValorVentaTotal.setForeground(new java.awt.Color(0, 0, 0));
-        jLblValorVentaTotal.setText("0");
-        jPanelRegistrarVenta.add(jLblValorVentaTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 120, 20));
 
         jCmbPTO0.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 10)); // NOI18N
         jCmbPTO0.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Coca Cola 250ml", "Hit Personal Mora", "Hit Personal Mango", "Vive 100" }));
@@ -1173,16 +1165,6 @@ public class MainUi extends javax.swing.JFrame {
         jLblFormaPago.setForeground(new java.awt.Color(0, 0, 0));
         jLblFormaPago.setText("Forma");
         jPanelRegistrarVenta.add(jLblFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, 20));
-
-        jLblCantPDTO14.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
-        jLblCantPDTO14.setForeground(new java.awt.Color(0, 0, 0));
-        jLblCantPDTO14.setText("$");
-        jPanelRegistrarVenta.add(jLblCantPDTO14, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, 20));
-
-        jLblCantPDTO16.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
-        jLblCantPDTO16.setForeground(new java.awt.Color(0, 0, 0));
-        jLblCantPDTO16.setText("Valor Total");
-        jPanelRegistrarVenta.add(jLblCantPDTO16, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, -1, 20));
 
         mainTabbedPane.addTab("tab2", jPanelRegistrarVenta);
 
@@ -1814,13 +1796,9 @@ public class MainUi extends javax.swing.JFrame {
                 Cliente cliente = new Cliente();
                 cliente.setNombre(nombre);
                 control.crearUsuario(cliente);
-                JOptionPane.showMessageDialog(null, "Cliente Creado!");
+                JOptionPane.showMessageDialog(null,nombre+ " Creado!");
                 int cantidadUsuarios = Integer.parseInt(String.valueOf(control.listaClientes.size()));
-                SwingUtilities.invokeLater(()
-                        -> {
-                    jLabelUsuariosCreados.setText(String.valueOf(cantidadUsuarios + 1));
-
-                });
+               reiniciarApp();
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error al crear usuario:" + ex);
@@ -1849,7 +1827,8 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextNombreMouseClicked
 
     private void jButtonAddPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseMoved
-        // TODO add your handling code here:
+        jButtonAddPdto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButtonAddPdto.setBackground(new Color(146,118,193));
     }//GEN-LAST:event_jButtonAddPdtoMouseMoved
 
     private void habilitarProducto(int index, JLabel labelPdto, JLabel labelCant, JComboBox comboPdto, JLabel jLblCantPDTO11, JTextField campoCantidad, JLabel campoValor, JPanel panelValor) {
@@ -1909,11 +1888,7 @@ public class MainUi extends javax.swing.JFrame {
 
     valorTotal = total;
 
-    try {
-        jLblValorVentaTotal.setText(String.format("%.2f", total));
-    } catch (Exception e) {
-        System.out.println("Campo total no visible o no inicializado.");
-    }
+   
 }
 
 
@@ -1955,8 +1930,8 @@ public class MainUi extends javax.swing.JFrame {
 
     private void jButtonAddPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseExited
 
-        jCheckBoxNuevoPdto.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jCheckBoxNuevoPdto.setBackground(new Color(255, 255, 255));
+        jButtonAddPdto.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jButtonAddPdto.setBackground(new Color(54,33,89));
     }//GEN-LAST:event_jButtonAddPdtoMouseExited
 
     //VISUAL DE REGISTRO PRODUTOS
@@ -2104,7 +2079,8 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateVenta4MouseExited
 
     private void jButtonCreateVentaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseMoved
-        // TODO add your handling code here:
+        jButtonCreateVenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       jButtonCreateVenta.setBackground(new Color(146, 118, 193));
     }//GEN-LAST:event_jButtonCreateVentaMouseMoved
 
     private void jButtonCreateVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseClicked
@@ -2187,7 +2163,8 @@ public class MainUi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateVentaMouseClicked
 
     private void jButtonCreateVentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseExited
-        // TODO add your handling code here:
+        jButtonCreateVenta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jButtonCreateVenta.setBackground(new Color(54,33,89));
     }//GEN-LAST:event_jButtonCreateVentaMouseExited
 
     private void jButtonRemovePdto6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto6MouseClicked
@@ -2550,7 +2527,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2594,7 +2570,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2648,7 +2623,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2691,7 +2665,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2734,7 +2707,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2777,7 +2749,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2820,7 +2791,6 @@ public class MainUi extends javax.swing.JFrame {
         // Ese cálculo debe hacerse solo al crear la venta final.
         // Si lo haces aquí, cada Enter duplicará el monto.
         // Solo muestra un valor de referencia, si quieres:
-        jLblValorVentaTotal.setText(String.valueOf(valorPdt0));
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
@@ -2943,9 +2913,7 @@ public class MainUi extends javax.swing.JFrame {
     public javax.swing.JLabel jLblCantPDTO1;
     private javax.swing.JLabel jLblCantPDTO12;
     private javax.swing.JLabel jLblCantPDTO13;
-    private javax.swing.JLabel jLblCantPDTO14;
     private javax.swing.JLabel jLblCantPDTO15;
-    private javax.swing.JLabel jLblCantPDTO16;
     private javax.swing.JLabel jLblCantPDTO2;
     private javax.swing.JLabel jLblCantPDTO3;
     private javax.swing.JLabel jLblCantPDTO4;
@@ -2965,7 +2933,6 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLblPDTO6;
     private javax.swing.JLabel jLblPDTO8;
     private javax.swing.JLabel jLblPDTO9;
-    private javax.swing.JLabel jLblValorVentaTotal;
     private javax.swing.JPanel jPaneValorPdto0;
     private javax.swing.JPanel jPaneValorPdto1;
     private javax.swing.JPanel jPaneValorPdto2;
