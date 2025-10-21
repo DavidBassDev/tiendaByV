@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import logica.Controladora;
+import model.Cliente;
 import model.Proveedor;
 
 public class RegistrarNuevoPDTO extends javax.swing.JFrame {
@@ -33,8 +34,8 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
         jPanelExternoRegistrarProv = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jTextNombreProveedor = new javax.swing.JTextField();
-        jButtonCreateProveedor = new javax.swing.JPanel();
+        jTextNombreProducto = new javax.swing.JTextField();
+        jButtonCreateProducto = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         panelCierreApp = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -48,49 +49,49 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("CREAR PROVEEDOR NUEVO");
+        jLabel1.setText("CREAR PRODUCTO NUEVO");
 
         jLabel27.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 30)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Nombre:");
 
-        jTextNombreProveedor.setBackground(new java.awt.Color(54, 33, 89));
-        jTextNombreProveedor.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 22)); // NOI18N
-        jTextNombreProveedor.setForeground(new java.awt.Color(255, 255, 255));
-        jTextNombreProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextNombreProveedor.setText("Ingrese el Nombre del proveedor");
-        jTextNombreProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTextNombreProducto.setBackground(new java.awt.Color(54, 33, 89));
+        jTextNombreProducto.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 22)); // NOI18N
+        jTextNombreProducto.setForeground(new java.awt.Color(255, 255, 255));
+        jTextNombreProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextNombreProducto.setText("Ingrese el Nombre del producto");
+        jTextNombreProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextNombreProveedorMouseClicked(evt);
+                jTextNombreProductoMouseClicked(evt);
             }
         });
-        jTextNombreProveedor.addActionListener(new java.awt.event.ActionListener() {
+        jTextNombreProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextNombreProveedorActionPerformed(evt);
+                jTextNombreProductoActionPerformed(evt);
             }
         });
 
-        jButtonCreateProveedor.setBackground(new java.awt.Color(54, 33, 89));
-        jButtonCreateProveedor.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jButtonCreateProducto.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateProducto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jButtonCreateProveedorMouseMoved(evt);
+                jButtonCreateProductoMouseMoved(evt);
             }
         });
-        jButtonCreateProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonCreateProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreateProveedorMouseClicked(evt);
+                jButtonCreateProductoMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonCreateProveedorMouseExited(evt);
+                jButtonCreateProductoMouseExited(evt);
             }
         });
-        jButtonCreateProveedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jButtonCreateProducto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel28.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel28.setText("CREAR");
-        jButtonCreateProveedor.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 140, 30));
+        jButtonCreateProducto.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 140, 30));
 
         javax.swing.GroupLayout jPanelExternoRegistrarProvLayout = new javax.swing.GroupLayout(jPanelExternoRegistrarProv);
         jPanelExternoRegistrarProv.setLayout(jPanelExternoRegistrarProvLayout);
@@ -103,9 +104,9 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelExternoRegistrarProvLayout.createSequentialGroup()
                 .addContainerGap(174, Short.MAX_VALUE)
                 .addGroup(jPanelExternoRegistrarProvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCreateProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCreateProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(148, 148, 148))
         );
         jPanelExternoRegistrarProvLayout.setVerticalGroup(
@@ -116,9 +117,9 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(jButtonCreateProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonCreateProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(109, Short.MAX_VALUE))
         );
 
@@ -180,41 +181,41 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextNombreProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextNombreProveedorMouseClicked
-        jTextNombreProveedor.setText("");
-    }//GEN-LAST:event_jTextNombreProveedorMouseClicked
+    private void jTextNombreProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextNombreProductoMouseClicked
+        jTextNombreProducto.setText("");
+    }//GEN-LAST:event_jTextNombreProductoMouseClicked
 
-    private void jButtonCreateProveedorMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProveedorMouseMoved
+    private void jButtonCreateProductoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProductoMouseMoved
 
-        jButtonCreateProveedor.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButtonCreateProveedor.setBackground(new Color(146, 118, 193));
-    }//GEN-LAST:event_jButtonCreateProveedorMouseMoved
+        jButtonCreateProducto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButtonCreateProducto.setBackground(new Color(146, 118, 193));
+    }//GEN-LAST:event_jButtonCreateProductoMouseMoved
 
-    private void jButtonCreateProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProveedorMouseClicked
+    private void jButtonCreateProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProductoMouseClicked
         //LOGICA CREACION DE PROVEEDOR
-        if(jTextNombreProveedor.equals("Ingrese el Nombre del proveedor") ||jTextNombreProveedor==null || jTextNombreProveedor.equals("")){
-        JOptionPane.showMessageDialog(null, "Escribe primero el nombre del proveedor");
+        if(jTextNombreProducto.equals("Ingrese el Nombre del producto") ||jTextNombreProducto==null || jTextNombreProducto.equals("")){
+        JOptionPane.showMessageDialog(null, "Escribe primero el nombre del producto");
         } else {
         try {
-            Proveedor proveedor = new Proveedor();
-            proveedor.setNombreProveedor(jTextNombreProveedor.getText());
-            control.crearProveedor(proveedor);
-            JOptionPane.showMessageDialog(null, "Proveedor creado con exito!");
+            Cliente cliente = new Cliente();
+            cliente.setNombre(jTextNombreProducto.getText());
+            control.crearCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente"+cliente.getNombre()+ " creado con exito!");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "error creando proveedor " + ex);
+            JOptionPane.showMessageDialog(null, "error creando Cliente " + ex);
         }
-        jTextNombreProveedor.setText("Ingrese el Nombre del proveedor");}
-    }//GEN-LAST:event_jButtonCreateProveedorMouseClicked
+        jTextNombreProducto.setText("Ingrese el Nombre del Cliente");}
+    }//GEN-LAST:event_jButtonCreateProductoMouseClicked
 
-    private void jButtonCreateProveedorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProveedorMouseExited
+    private void jButtonCreateProductoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProductoMouseExited
 
-        jButtonCreateProveedor.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jButtonCreateProveedor.setBackground(new Color(54, 33, 89));
-    }//GEN-LAST:event_jButtonCreateProveedorMouseExited
+        jButtonCreateProducto.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jButtonCreateProducto.setBackground(new Color(54, 33, 89));
+    }//GEN-LAST:event_jButtonCreateProductoMouseExited
 
-    private void jTextNombreProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreProveedorActionPerformed
+    private void jTextNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextNombreProveedorActionPerformed
+    }//GEN-LAST:event_jTextNombreProductoActionPerformed
 
     private void panelCierreAppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCierreAppMouseClicked
         // TODO add your handling code here:
@@ -233,20 +234,20 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jButtonCreateProveedor;
+    private javax.swing.JPanel jButtonCreateProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelExternoRegistrarProv;
     private javax.swing.JPanel jPanelRegistrarPdto;
-    private javax.swing.JTextField jTextNombreProveedor;
+    private javax.swing.JTextField jTextNombreProducto;
     private javax.swing.JPanel panelCierreApp;
     // End of variables declaration//GEN-END:variables
 
     private void cargarVisual() {
         jPanelExternoRegistrarProv.setBorder(new RoundedBorder(25));
-        jTextNombreProveedor.setBorder(new RoundedBorder(25));
-        jButtonCreateProveedor.setBorder(new RoundedBorder(25));
+        jTextNombreProducto.setBorder(new RoundedBorder(25));
+        jButtonCreateProducto.setBorder(new RoundedBorder(25));
     }
 }

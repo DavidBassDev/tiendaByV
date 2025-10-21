@@ -6,6 +6,7 @@ package userInterface;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -35,12 +36,13 @@ import model.Venta;
 public class MainUi extends javax.swing.JFrame {
 
     int mouseX, mouseY;
-    private RegistrarNuevoPDTO nuevoPdtoUI;
+    private RegistrarNuevoProveedor nuevoPdtoUI;
     ControladoraPool  controlPool = new ControladoraPool();
     private int cantidadPdtoHabilitados = 0;
     public double valorTotal = 0.0;
     Double valorRegistroVenta = 0.0;
     Calendario calendario = new Calendario();
+    private RegistrarNuevoProveedor nuevoPdtoUi;
 
     private Controladora control = new Controladora();
 
@@ -67,7 +69,7 @@ public class MainUi extends javax.swing.JFrame {
         cargarDashBoardVentas();
         cargarDashBoardRegistrarPdto();
 
-        nuevoPdtoUI = new RegistrarNuevoPDTO();
+        nuevoPdtoUI = new RegistrarNuevoProveedor();
 
     }
 
@@ -275,7 +277,13 @@ public class MainUi extends javax.swing.JFrame {
         jPanelComprasPendientes = new javax.swing.JPanel();
         jTitleRegVenta3 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableRegistroPagos2 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jTitleRegVenta4 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableRegistroPagos3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -480,7 +488,7 @@ public class MainUi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 100));
+        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 60));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -1435,6 +1443,11 @@ public class MainUi extends javax.swing.JFrame {
         jCheckBoxNuevoPdto1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
         jCheckBoxNuevoPdto1.setForeground(new java.awt.Color(0, 0, 0));
         jCheckBoxNuevoPdto1.setText(" Nuevo Producto?");
+        jCheckBoxNuevoPdto1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxNuevoPdto1ItemStateChanged(evt);
+            }
+        });
         jCheckBoxNuevoPdto1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jCheckBoxNuevoPdto1MouseMoved(evt);
@@ -1443,11 +1456,6 @@ public class MainUi extends javax.swing.JFrame {
         jCheckBoxNuevoPdto1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jCheckBoxNuevoPdto1MouseExited(evt);
-            }
-        });
-        jCheckBoxNuevoPdto1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxNuevoPdto1ActionPerformed(evt);
             }
         });
         jPanelRegistrarPDTO.add(jCheckBoxNuevoPdto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
@@ -1511,7 +1519,7 @@ public class MainUi extends javax.swing.JFrame {
 
         jTitleRegVenta2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
         jTitleRegVenta2.setForeground(new java.awt.Color(0, 0, 0));
-        jTitleRegVenta2.setText("Consultar Ganancias");
+        jTitleRegVenta2.setText("Consultar Ventas");
         jPanelGanancias.add(jTitleRegVenta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
 
         jLblCantPDTO13.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -1715,8 +1723,8 @@ public class MainUi extends javax.swing.JFrame {
 
         jPanelGanancias.add(jButtonCreateVenta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 300, 30));
 
-        jLabel62.setText("consulta sql donde producto este diferente a fiado");
-        jPanelGanancias.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+        jLabel62.setText("consulta sql de Ventas");
+        jPanelGanancias.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 170, 20));
 
         mainTabbedPane.addTab("tab5", jPanelGanancias);
 
@@ -1727,13 +1735,52 @@ public class MainUi extends javax.swing.JFrame {
         jTitleRegVenta3.setText("Compras Pendientes");
         jPanelComprasPendientes.add(jTitleRegVenta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
-        jLabel30.setText("VALIDAR SI MEJOR UNA TABLA DE CONSULTA SQL CON PRODUCTO DONDE SEA 0");
-        jPanelComprasPendientes.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, 20));
+        jLabel30.setText("TABLA DE CONSULTA SQL CON PRODUCTO DONDE SEA 0 o >=3 por ej");
+        jPanelComprasPendientes.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 410, 20));
 
-        jLabel32.setText("NO ME COMPLICO SERA UNA CONSULTA SQL QUE ARROJE ESE RESULTADO DE PRODUCTOS DE LA TABLA DE CONSULTA DONDE PRODUCTO SEA IGUAL A CERO");
-        jPanelComprasPendientes.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        jTableRegistroPagos2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTableRegistroPagos2);
+
+        jPanelComprasPendientes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 360));
 
         mainTabbedPane.addTab("tab6", jPanelComprasPendientes);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTitleRegVenta4.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
+        jTitleRegVenta4.setForeground(new java.awt.Color(0, 0, 0));
+        jTitleRegVenta4.setText("Compras Realizadas");
+        jPanel1.add(jTitleRegVenta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
+
+        jLabel33.setText("TABLA DE CONSULTA SQL DE PRODUCTO");
+        jPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 410, 20));
+
+        jTableRegistroPagos3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTableRegistroPagos3);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 360));
+
+        mainTabbedPane.addTab("tab7", jPanel1);
 
         mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 980, 570));
 
@@ -2045,10 +2092,6 @@ public class MainUi extends javax.swing.JFrame {
     private void jCheckBoxNuevoPdto1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdto1MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxNuevoPdto1MouseExited
-
-    private void jCheckBoxNuevoPdto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNuevoPdto1ActionPerformed
 
     private void jButtonAbrirCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioActionPerformed
         // TODO add your handling code here:
@@ -2798,6 +2841,16 @@ public class MainUi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCantidad6KeyPressed
 
+    private void jCheckBoxNuevoPdto1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdto1ItemStateChanged
+      if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (nuevoPdtoUi == null || !nuevoPdtoUi.isShowing()) {
+            nuevoPdtoUi = new RegistrarNuevoProveedor();
+            nuevoPdtoUi.setLocationRelativeTo(null);
+            nuevoPdtoUi.setVisible(true);
+        }
+    }
+    }//GEN-LAST:event_jCheckBoxNuevoPdto1ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2868,7 +2921,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -2942,6 +2995,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JPanel jPaneValorPdto6;
     private javax.swing.JPanel jPaneValorTotalPdtos1;
     private javax.swing.JPanel jPaneValorTotalPdtos2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelComprasPendientes;
     private javax.swing.JPanel jPanelCrearCliente;
     private javax.swing.JPanel jPanelGanancias;
@@ -2951,8 +3005,12 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRegistrarVenta;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableRegistroPagos;
     private javax.swing.JTable jTableRegistroPagos1;
+    private javax.swing.JTable jTableRegistroPagos2;
+    private javax.swing.JTable jTableRegistroPagos3;
     private javax.swing.JLabel jTextCantidad;
     private javax.swing.JLabel jTextDescripcion;
     private javax.swing.JTextField jTextFieldCantidad;
@@ -2995,6 +3053,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jTitleRegVenta1;
     private javax.swing.JLabel jTitleRegVenta2;
     private javax.swing.JLabel jTitleRegVenta3;
+    private javax.swing.JLabel jTitleRegVenta4;
     private javax.swing.JLabel jtextPrecioUnd;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JLabel mainLogo;

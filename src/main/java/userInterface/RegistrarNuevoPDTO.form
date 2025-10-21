@@ -73,9 +73,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="174" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButtonCreateProveedor" alignment="0" min="-2" pref="448" max="-2" attributes="0"/>
+                          <Component id="jButtonCreateProducto" alignment="0" min="-2" pref="448" max="-2" attributes="0"/>
                           <Component id="jLabel27" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jTextNombreProveedor" alignment="0" min="-2" pref="448" max="-2" attributes="0"/>
+                          <Component id="jTextNombreProducto" alignment="0" min="-2" pref="448" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                   </Group>
@@ -89,9 +89,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel27" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextNombreProveedor" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextNombreProducto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="jButtonCreateProveedor" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="jButtonCreateProducto" min="-2" pref="68" max="-2" attributes="0"/>
                       <EmptySpace pref="109" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -106,7 +106,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CREAR PROVEEDOR NUEVO"/>
+                <Property name="text" type="java.lang.String" value="CREAR PRODUCTO NUEVO"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
@@ -120,7 +120,7 @@
                 <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextNombreProveedor">
+            <Component class="javax.swing.JTextField" name="jTextNombreProducto">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="59" green="21" red="36" type="rgb"/>
@@ -132,23 +132,23 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Ingrese el Nombre del proveedor"/>
+                <Property name="text" type="java.lang.String" value="Ingrese el Nombre del producto"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextNombreProveedorMouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextNombreProveedorActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextNombreProductoMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextNombreProductoActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JPanel" name="jButtonCreateProveedor">
+            <Container class="javax.swing.JPanel" name="jButtonCreateProducto">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="59" green="21" red="36" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jButtonCreateProveedorMouseMoved"/>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCreateProveedorMouseClicked"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCreateProveedorMouseExited"/>
+                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jButtonCreateProductoMouseMoved"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCreateProductoMouseClicked"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCreateProductoMouseExited"/>
               </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
