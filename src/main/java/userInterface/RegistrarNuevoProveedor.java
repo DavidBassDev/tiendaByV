@@ -200,6 +200,7 @@ public class RegistrarNuevoProveedor extends javax.swing.JFrame {
             proveedor.setNombreProveedor(jTextNombreProveedor.getText());
             control.crearProveedor(proveedor);
             JOptionPane.showMessageDialog(null, "Proveedor creado con exito!");
+            control.reiniciarApp();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "error creando proveedor " + ex);
         }

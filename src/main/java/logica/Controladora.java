@@ -72,6 +72,8 @@ public class Controladora {
         listaPdtos = jpaProducto.findProductoEntities();
         return listaPdtos;
     }
+    
+    //PROVEEDOR
 
     public void crearProveedor(Proveedor proveedor) {
         jpaProveedor.create(proveedor);
@@ -84,6 +86,12 @@ public class Controladora {
         System.out.println("jpa encontro el proveedor " + proveedor);
         return proveedor;
 
+    }
+    
+     public List listaProveedores() {
+        List listaProveedores = new ArrayList<Proveedor>();
+        listaProveedores = jpaProveedor.findProveedorEntities();
+        return listaProveedores;
     }
 
     public Cliente traerIdNombreCliente(String nombreCliente) {
@@ -99,6 +107,21 @@ public class Controladora {
         
         return null;
 
+    }
+    
+    public void reiniciarApp(){
+     try {
+        String javaBin = System.getProperty("java.home") + "/bin/java";
+        String jarPath = new java.io.File(Main.class.getProtectionDomain()
+                .getCodeSource().getLocation().toURI()).getPath();
+
+        ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", jarPath);
+        pb.start(); // Lanza una nueva instancia
+        System.exit(0); // Cierra la actual
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
     }
 
 }

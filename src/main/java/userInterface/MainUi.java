@@ -36,13 +36,13 @@ import model.Venta;
 public class MainUi extends javax.swing.JFrame {
 
     int mouseX, mouseY;
-    private RegistrarNuevoProveedor nuevoPdtoUI;
+    private RegistrarNuevoProveedor nuevoProveedor;
     ControladoraPool  controlPool = new ControladoraPool();
     private int cantidadPdtoHabilitados = 0;
     public double valorTotal = 0.0;
     Double valorRegistroVenta = 0.0;
     Calendario calendario = new Calendario();
-    private RegistrarNuevoProveedor nuevoPdtoUi;
+    private RegistrarNuevoPDTO nuevoPdtoUi;
 
     private Controladora control = new Controladora();
 
@@ -69,7 +69,7 @@ public class MainUi extends javax.swing.JFrame {
         cargarDashBoardVentas();
         cargarDashBoardRegistrarPdto();
 
-        nuevoPdtoUI = new RegistrarNuevoProveedor();
+        nuevoProveedor = new RegistrarNuevoProveedor();
 
     }
 
@@ -218,7 +218,7 @@ public class MainUi extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
         jPanelRegistrarPDTO = new javax.swing.JPanel();
-        jCheckBoxNuevoPdto = new javax.swing.JCheckBox();
+        jCheckBoxNuevoProv = new javax.swing.JCheckBox();
         jTextDescripcion = new javax.swing.JLabel();
         jCmbListPdto = new javax.swing.JComboBox<>();
         jButtonCreatePdtos = new javax.swing.JPanel();
@@ -236,7 +236,7 @@ public class MainUi extends javax.swing.JFrame {
         jButtonAbrirCalendario = new javax.swing.JTextField();
         jTextNoFactura = new javax.swing.JLabel();
         jTextFieldNoFactura = new javax.swing.JTextField();
-        jCheckBoxNuevoPdto1 = new javax.swing.JCheckBox();
+        jCheckBoxNuevoPdto = new javax.swing.JCheckBox();
         jTextGananciaDeseada = new javax.swing.JLabel();
         jTextFieldPorcGanan = new javax.swing.JTextField();
         jLblCantPDTO15 = new javax.swing.JLabel();
@@ -488,7 +488,7 @@ public class MainUi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 67, 990, 60));
+        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 47, 990, 90));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -1313,25 +1313,30 @@ public class MainUi extends javax.swing.JFrame {
         jPanelRegistrarPDTO.setBackground(new java.awt.Color(255, 255, 255));
         jPanelRegistrarPDTO.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jCheckBoxNuevoPdto.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
-        jCheckBoxNuevoPdto.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBoxNuevoPdto.setText(" Nuevo Proveedor?");
-        jCheckBoxNuevoPdto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jCheckBoxNuevoProv.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
+        jCheckBoxNuevoProv.setForeground(new java.awt.Color(0, 0, 0));
+        jCheckBoxNuevoProv.setText(" Nuevo Proveedor?");
+        jCheckBoxNuevoProv.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxNuevoProvItemStateChanged(evt);
+            }
+        });
+        jCheckBoxNuevoProv.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jCheckBoxNuevoPdtoMouseMoved(evt);
+                jCheckBoxNuevoProvMouseMoved(evt);
             }
         });
-        jCheckBoxNuevoPdto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jCheckBoxNuevoProv.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jCheckBoxNuevoPdtoMouseExited(evt);
+                jCheckBoxNuevoProvMouseExited(evt);
             }
         });
-        jCheckBoxNuevoPdto.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBoxNuevoProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxNuevoPdtoActionPerformed(evt);
+                jCheckBoxNuevoProvActionPerformed(evt);
             }
         });
-        jPanelRegistrarPDTO.add(jCheckBoxNuevoPdto, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
+        jPanelRegistrarPDTO.add(jCheckBoxNuevoProv, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 20, -1, -1));
 
         jTextDescripcion.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
         jTextDescripcion.setForeground(new java.awt.Color(0, 0, 0));
@@ -1440,25 +1445,25 @@ public class MainUi extends javax.swing.JFrame {
         jTextFieldNoFactura.setText("SIN NUMERO");
         jPanelRegistrarPDTO.add(jTextFieldNoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 190, -1));
 
-        jCheckBoxNuevoPdto1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
-        jCheckBoxNuevoPdto1.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBoxNuevoPdto1.setText(" Nuevo Producto?");
-        jCheckBoxNuevoPdto1.addItemListener(new java.awt.event.ItemListener() {
+        jCheckBoxNuevoPdto.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
+        jCheckBoxNuevoPdto.setForeground(new java.awt.Color(0, 0, 0));
+        jCheckBoxNuevoPdto.setText(" Nuevo Producto?");
+        jCheckBoxNuevoPdto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxNuevoPdto1ItemStateChanged(evt);
+                jCheckBoxNuevoPdtoItemStateChanged(evt);
             }
         });
-        jCheckBoxNuevoPdto1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jCheckBoxNuevoPdto.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jCheckBoxNuevoPdto1MouseMoved(evt);
+                jCheckBoxNuevoPdtoMouseMoved(evt);
             }
         });
-        jCheckBoxNuevoPdto1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jCheckBoxNuevoPdto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jCheckBoxNuevoPdto1MouseExited(evt);
+                jCheckBoxNuevoPdtoMouseExited(evt);
             }
         });
-        jPanelRegistrarPDTO.add(jCheckBoxNuevoPdto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanelRegistrarPDTO.add(jCheckBoxNuevoPdto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         jTextGananciaDeseada.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
         jTextGananciaDeseada.setForeground(new java.awt.Color(0, 0, 0));
@@ -1782,7 +1787,7 @@ public class MainUi extends javax.swing.JFrame {
 
         mainTabbedPane.addTab("tab7", jPanel1);
 
-        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 980, 570));
+        mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 980, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1801,17 +1806,7 @@ public class MainUi extends javax.swing.JFrame {
     
     public void reiniciarApp() {
  
-    try {
-        String javaBin = System.getProperty("java.home") + "/bin/java";
-        String jarPath = new java.io.File(Main.class.getProtectionDomain()
-                .getCodeSource().getLocation().toURI()).getPath();
-
-        ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", jarPath);
-        pb.start(); // Lanza una nueva instancia
-        System.exit(0); // Cierra la actual
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+    control.reiniciarApp();
 }
 
 
@@ -1983,32 +1978,32 @@ public class MainUi extends javax.swing.JFrame {
 
     //VISUAL DE REGISTRO PRODUTOS
 
-    private void jCheckBoxNuevoPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseMoved
+    private void jCheckBoxNuevoProvMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvMouseMoved
         // TODO add your handling code here:
-        jCheckBoxNuevoPdto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jCheckBoxNuevoPdto.setBackground(new Color(146, 118, 193));
+        jCheckBoxNuevoProv.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jCheckBoxNuevoProv.setBackground(new Color(146, 118, 193));
 
-    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseMoved
+    }//GEN-LAST:event_jCheckBoxNuevoProvMouseMoved
 
-    private void jCheckBoxNuevoPdtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoActionPerformed
-        if (jCheckBoxNuevoPdto.isSelected()) {
+    private void jCheckBoxNuevoProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvActionPerformed
+        if (jCheckBoxNuevoProv.isSelected()) {
             //logica ventana nueva
-            nuevoPdtoUI.setVisible(true);
-            nuevoPdtoUI.setLocationRelativeTo(null);
+            nuevoProveedor.setVisible(true);
+            nuevoProveedor.setLocationRelativeTo(null);
         } else {
             //debe cerrar la ventana nueva
 
             System.out.println("cmb en false");
         }
-    }//GEN-LAST:event_jCheckBoxNuevoPdtoActionPerformed
+    }//GEN-LAST:event_jCheckBoxNuevoProvActionPerformed
 
-    private void jCheckBoxNuevoPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseExited
-        jCheckBoxNuevoPdto.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jCheckBoxNuevoPdto.setBackground(new Color(255, 255, 255));
-        jCheckBoxNuevoPdto.setForeground(new Color(60, 83, 65));
+    private void jCheckBoxNuevoProvMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvMouseExited
+        jCheckBoxNuevoProv.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jCheckBoxNuevoProv.setBackground(new Color(255, 255, 255));
+        jCheckBoxNuevoProv.setForeground(new Color(60, 83, 65));
 
 
-    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseExited
+    }//GEN-LAST:event_jCheckBoxNuevoProvMouseExited
 
     private void panelCierreAppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCierreAppMouseClicked
         int confirmacion = JOptionPane.showConfirmDialog(this, "Deseas salir del sistema?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -2085,13 +2080,13 @@ public class MainUi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCreatePdtosMouseExited
 
-    private void jCheckBoxNuevoPdto1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdto1MouseMoved
+    private void jCheckBoxNuevoPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseMoved
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNuevoPdto1MouseMoved
+    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseMoved
 
-    private void jCheckBoxNuevoPdto1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdto1MouseExited
+    private void jCheckBoxNuevoPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNuevoPdto1MouseExited
+    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseExited
 
     private void jButtonAbrirCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioActionPerformed
         // TODO add your handling code here:
@@ -2194,12 +2189,12 @@ public class MainUi extends javax.swing.JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Venta(s) registrada(s) a " + cliente.getNombre());
-
+        listaVentasCliente.clear();
         // ✅ Reinicia la app solo una vez
         reiniciarApp();
 
-        listaVentasCliente.clear();
-        /* cargarDashBoardVentas(); */
+        
+        
     }
 
 
@@ -2547,7 +2542,7 @@ public class MainUi extends javax.swing.JFrame {
 
         // Buscar el producto seleccionado
         for (Producto producto : listaProductos) {
-            if (producto.getNombreProducto().equals(nombrePdto0)) {
+            if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad()>0) {
                 cantidadDisponible = producto.getCantidad();
                 precioUnitario = producto.getPrecioPublico();
                 break;
@@ -2841,15 +2836,27 @@ public class MainUi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCantidad6KeyPressed
 
-    private void jCheckBoxNuevoPdto1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdto1ItemStateChanged
+    private void jCheckBoxNuevoPdtoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoItemStateChanged
       if (evt.getStateChange() == ItemEvent.SELECTED) {
         if (nuevoPdtoUi == null || !nuevoPdtoUi.isShowing()) {
-            nuevoPdtoUi = new RegistrarNuevoProveedor();
+            nuevoPdtoUi = new RegistrarNuevoPDTO();
             nuevoPdtoUi.setLocationRelativeTo(null);
             nuevoPdtoUi.setVisible(true);
+            jCheckBoxNuevoPdto.setSelected(false);
         }
     }
-    }//GEN-LAST:event_jCheckBoxNuevoPdto1ItemStateChanged
+    }//GEN-LAST:event_jCheckBoxNuevoPdtoItemStateChanged
+
+    private void jCheckBoxNuevoProvItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvItemStateChanged
+       if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (nuevoProveedor == null || !nuevoProveedor.isShowing()) {
+            nuevoProveedor = new RegistrarNuevoProveedor();
+            nuevoProveedor.setLocationRelativeTo(null);
+            nuevoProveedor.setVisible(true);
+            jCheckBoxNuevoProv.setSelected(false);
+        }
+    }
+    }//GEN-LAST:event_jCheckBoxNuevoProvItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -2882,7 +2889,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jButtonRemovePdto5;
     private javax.swing.JLabel jButtonRemovePdto6;
     private javax.swing.JCheckBox jCheckBoxNuevoPdto;
-    private javax.swing.JCheckBox jCheckBoxNuevoPdto1;
+    private javax.swing.JCheckBox jCheckBoxNuevoProv;
     private javax.swing.JCheckBox jCheckBoxPagado;
     private javax.swing.JComboBox<String> jCmbCliente;
     private javax.swing.JComboBox<String> jCmbCliente1;
@@ -3218,7 +3225,7 @@ public class MainUi extends javax.swing.JFrame {
     private void cargarListaProductosPanelPdtos() {
         //OBTENER CLIENTES REGISTRADOS
         List<Producto> listaProductos = control.listaProductos();
-
+        List<Proveedor> listaProveedor = control.listaProveedores();
         //LIMPIAR COMBO BOXS
         jCmbListPdto.removeAllItems();
         jCmbListInversor.removeAllItems();
@@ -3231,7 +3238,6 @@ public class MainUi extends javax.swing.JFrame {
         for (Producto producto : listaProductos) {
             String nombreProducto = producto.getNombreProducto();
             String nombreInversor = producto.getInversor();
-            String nombreProveedor = producto.getProveedor().getNombreProveedor();
             if (listaPdtos.contains(nombreProducto)) {
                 System.out.println("dice que ya tiene el producto " + nombreProducto);
 
@@ -3242,12 +3248,6 @@ public class MainUi extends javax.swing.JFrame {
                 System.out.println("ya tiene el inversor " + nombreInversor);
             } else {
                 listaInversores.add(nombreInversor);
-            }
-
-            if (listaProveedores.contains(nombreProveedor)) {
-                System.out.println("dice que ya tiene el proveedor " + nombreProveedor);
-            } else {
-                listaProveedores.add(nombreProveedor);
             }
 
         }
@@ -3262,10 +3262,22 @@ public class MainUi extends javax.swing.JFrame {
         }
 
         //LLENAR COMO BOX PROVEEDOR
-        for (String item : listaProveedores) {
+        for (Proveedor proveedor : listaProveedor) {
+            String nombreProveedor = proveedor.getNombreProveedor();
+            if (listaProveedores.contains(nombreProveedor)) {
+            
+            } else {
+             listaProveedores.add(nombreProveedor);
+            }
+           
+        }
+        //llenar despues del primer for
+         for (String item : listaProveedores) {
             jCmbProveedor.addItem(item);
         }
 
     }
+
+   
 
 }

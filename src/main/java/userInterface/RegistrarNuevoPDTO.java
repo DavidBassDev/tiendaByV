@@ -9,6 +9,7 @@ import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import logica.Controladora;
 import model.Cliente;
+import model.Producto;
 import model.Proveedor;
 
 public class RegistrarNuevoPDTO extends javax.swing.JFrame {
@@ -192,19 +193,27 @@ public class RegistrarNuevoPDTO extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateProductoMouseMoved
 
     private void jButtonCreateProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProductoMouseClicked
-        //LOGICA CREACION DE PROVEEDOR
+        //LOGICA CREACION DE PRODUCTO
+        Proveedor proveedor;
         if(jTextNombreProducto.equals("Ingrese el Nombre del producto") ||jTextNombreProducto==null || jTextNombreProducto.equals("")){
         JOptionPane.showMessageDialog(null, "Escribe primero el nombre del producto");
         } else {
         try {
-            Cliente cliente = new Cliente();
-            cliente.setNombre(jTextNombreProducto.getText());
-            control.crearCliente(cliente);
-            JOptionPane.showMessageDialog(null, "Cliente"+cliente.getNombre()+ " creado con exito!");
+            Producto producto = new Producto();
+            //SETTERS
+            producto.setNombreProducto(jTextNombreProducto.getText());
+            producto.setCantidad(0);
+           proveedor= control.traerProveedor(11);
+           producto.setProveedor(proveedor);
+            //FUNCION CREAR
+            control.registrarProducto(producto);
+            JOptionPane.showMessageDialog(null, "producto "+producto.getNombreProducto() + " creado con exito!");
+            control.reiniciarApp();
+            this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "error creando Cliente " + ex);
         }
-        jTextNombreProducto.setText("Ingrese el Nombre del Cliente");}
+        jTextNombreProducto.setText("Ingrese el Nombre del Producto");}
     }//GEN-LAST:event_jButtonCreateProductoMouseClicked
 
     private void jButtonCreateProductoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateProductoMouseExited
