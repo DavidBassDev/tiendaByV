@@ -41,7 +41,7 @@ public class MainUi extends javax.swing.JFrame {
     private int cantidadPdtoHabilitados = 0;
     public double valorTotal = 0.0;
     Double valorRegistroVenta = 0.0;
-    Calendario calendario = new Calendario();
+    LocalDate fechaActual = LocalDate.now();
     private RegistrarNuevoPDTO nuevoPdtoUi;
 
     private Controladora control = new Controladora();
@@ -244,7 +244,7 @@ public class MainUi extends javax.swing.JFrame {
         jTextPdto1 = new javax.swing.JLabel();
         jCmbListInversor = new javax.swing.JComboBox<>();
         jLblPDTO9 = new javax.swing.JLabel();
-        jTextFieldPrecioUnd1 = new javax.swing.JTextField();
+        jTextFieldPrecioUnd = new javax.swing.JTextField();
         jPanelGanancias = new javax.swing.JPanel();
         jTitleRegVenta2 = new javax.swing.JLabel();
         jLblCantPDTO13 = new javax.swing.JLabel();
@@ -488,7 +488,7 @@ public class MainUi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 47, 990, 90));
+        mainPanel.add(paneBanner, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 47, 990, 60));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
@@ -1426,6 +1426,11 @@ public class MainUi extends javax.swing.JFrame {
         jButtonAbrirCalendario.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAbrirCalendario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jButtonAbrirCalendario.setText("ABRIR CALENDARIO");
+        jButtonAbrirCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendarioMouseClicked(evt);
+            }
+        });
         jButtonAbrirCalendario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAbrirCalendarioActionPerformed(evt);
@@ -1505,18 +1510,18 @@ public class MainUi extends javax.swing.JFrame {
         jLblPDTO9.setText("Proveedor");
         jPanelRegistrarPDTO.add(jLblPDTO9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, 30));
 
-        jTextFieldPrecioUnd1.setEditable(false);
-        jTextFieldPrecioUnd1.setBackground(new java.awt.Color(54, 33, 89));
-        jTextFieldPrecioUnd1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
-        jTextFieldPrecioUnd1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextFieldPrecioUnd1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextFieldPrecioUnd1.setText("0");
-        jTextFieldPrecioUnd1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPrecioUnd.setEditable(false);
+        jTextFieldPrecioUnd.setBackground(new java.awt.Color(54, 33, 89));
+        jTextFieldPrecioUnd.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
+        jTextFieldPrecioUnd.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldPrecioUnd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldPrecioUnd.setText("0");
+        jTextFieldPrecioUnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPrecioUnd1ActionPerformed(evt);
+                jTextFieldPrecioUndActionPerformed(evt);
             }
         });
-        jPanelRegistrarPDTO.add(jTextFieldPrecioUnd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 180, -1));
+        jPanelRegistrarPDTO.add(jTextFieldPrecioUnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 180, -1));
 
         mainTabbedPane.addTab("tab3", jPanelRegistrarPDTO);
 
@@ -2035,7 +2040,6 @@ public class MainUi extends javax.swing.JFrame {
             // Calcular precio por unidad (evitando división por 0)
             double precioPorUnidad = cantidad > 0 ? precioAdquirido / cantidad : precioAdquirido;
             nuevoProducto.setPrecioPorUnidad(precioPorUnidad);
-            jButtonAbrirCalendario.setText(String.valueOf(precioPorUnidad));
 
             nuevoProducto.setNumeroFactura(jTextFieldNoFactura.getText());
             nuevoProducto.setInversor(String.valueOf(jCmbListInversor.getSelectedItem()));
@@ -2047,10 +2051,11 @@ public class MainUi extends javax.swing.JFrame {
             // Precio público
             double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
             nuevoProducto.setPrecioPublico(precioPublico);
-            jTextPrecioPublico.setText(String.valueOf(precioPublico));
 
             // Obtener proveedor
-            Proveedor proveedor = control.traerProveedor(1); // Asegúrate que el proveedor con ID 1 exista
+            String nombreProveedor = String.valueOf(jCmbProveedor.getSelectedItem());
+            int idProveedor= control.traerIdNombreProveedor(nombreProveedor);
+            Proveedor proveedor = control.traerProveedor(idProveedor); // Asegúrate que el proveedor con ID 1 exista
             if (proveedor == null) {
                 JOptionPane.showMessageDialog(null, "Error: El proveedor con ID 1 no fue encontrado.");
                 return;
@@ -2058,7 +2063,7 @@ public class MainUi extends javax.swing.JFrame {
 
             // Asignar proveedor al producto
             nuevoProducto.setProveedor(proveedor);
-            nuevoProducto.setFechaCompraProducto(LocalDate.of(2025, 1, 1));
+            nuevoProducto.setFechaCompraProducto(LocalDate.parse(jButtonAbrirCalendario.getText()));
 
             // Registrar el producto
             control.registrarProducto(nuevoProducto);
@@ -2452,9 +2457,9 @@ public class MainUi extends javax.swing.JFrame {
         panelCierreApp.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_panelCierreAppMouseExited
 
-    private void jTextFieldPrecioUnd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecioUnd1ActionPerformed
+    private void jTextFieldPrecioUndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecioUndActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPrecioUnd1ActionPerformed
+    }//GEN-LAST:event_jTextFieldPrecioUndActionPerformed
 
     private void jCheckBoxPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPagadoActionPerformed
 
@@ -2858,6 +2863,16 @@ public class MainUi extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jCheckBoxNuevoProvItemStateChanged
 
+    private void jButtonAbrirCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseClicked
+    Calendario dialog = new Calendario(this, true, fechaActual);
+dialog.setVisible(true);
+LocalDate nuevaFecha = dialog.getFecha();
+jButtonAbrirCalendario.setText(String.valueOf(nuevaFecha));
+
+        
+        /*abrirCalendario();*/
+    }//GEN-LAST:event_jButtonAbrirCalendarioMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -3032,7 +3047,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNoFactura;
     private javax.swing.JTextField jTextFieldPorcGanan;
     private javax.swing.JTextField jTextFieldPrecioAdquirido;
-    private javax.swing.JTextField jTextFieldPrecioUnd1;
+    private javax.swing.JTextField jTextFieldPrecioUnd;
     private javax.swing.JLabel jTextFieldValorPdto0;
     private javax.swing.JLabel jTextFieldValorPdto1;
     private javax.swing.JLabel jTextFieldValorPdto2;
@@ -3168,6 +3183,7 @@ public class MainUi extends javax.swing.JFrame {
     }
 
     private void cargarDashBoardRegistrarPdto() {
+        LocalDate fecha = LocalDate.now();
         cargarListaProductosPanelPdtos();
         jCmbListPdto.setSelectedIndex(0);
         jCmbProveedor.setSelectedIndex(0);
@@ -3175,7 +3191,7 @@ public class MainUi extends javax.swing.JFrame {
         jTextFieldDescripcion.setText("");
         jTextFieldCantidad.setText("0");
         jTextFieldPrecioAdquirido.setText("0");
-        jButtonAbrirCalendario.setText("0");
+        jButtonAbrirCalendario.setText(String.valueOf(fecha));
         jTextFieldPorcGanan.setText("15");
         jTextPrecioPublico.setText("0");
         jTextFieldNoFactura.setText("Sin numero");
@@ -3276,6 +3292,20 @@ public class MainUi extends javax.swing.JFrame {
             jCmbProveedor.addItem(item);
         }
 
+    }
+    
+    public void abrirCalendario () {
+    //abrir calendario
+      
+     Calendario calendario = new Calendario(this,fechaActual);
+     calendario.setVisible(true);
+     calendario.setLocationRelativeTo(null);
+    }
+
+   public void recibirFecha(LocalDate fecha) {
+       System.out.println("se ha recibido la fecha "+fecha);
+       this.fechaActual = fecha;
+       jButtonAbrirCalendario.setText(String.valueOf(fecha));
     }
 
    

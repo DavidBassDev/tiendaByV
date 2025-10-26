@@ -16,18 +16,26 @@ import javax.swing.JOptionPane;
  * @author David
  */
 public class Calendario extends javax.swing.JFrame {
-boolean fechaSeleccionada=false;
+
+    private LocalDate fecha;
+    boolean fechaSeleccionada = false;
+    private MainUi mainUi;
+
     
-    public Calendario() {
+
+    public Calendario(MainUi mainUi, LocalDate fecha) {
+
+        this.mainUi = mainUi;
+        this.fecha = fecha;
         initComponents();
         cargarVisual();
-        
     }
 
-    Calendario(LocalDate fechaPago) {
-        
-        LocalDate devolverFecha = devolverFecha();
-        String formaPago = devolverFormaPago();
+    Calendario(MainUi aThis, boolean b, LocalDate fechaActual) {
+        this.mainUi = aThis;
+        this.fecha = fechaActual;
+        initComponents();
+        cargarVisual();
     }
 
     /**
@@ -42,10 +50,8 @@ boolean fechaSeleccionada=false;
         jPanel1 = new javax.swing.JPanel();
         jPanelCalendar = new javax.swing.JPanel();
         jCalendar = new com.toedter.calendar.JCalendar();
-        jTitleRegVenta2 = new javax.swing.JLabel();
         panelCierreCalendar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jCmbFormaPago = new javax.swing.JComboBox<>();
         jTitleRegVenta3 = new javax.swing.JLabel();
         jBtnRegFechaPago = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
@@ -57,6 +63,8 @@ boolean fechaSeleccionada=false;
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLblSelectedDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,11 +94,6 @@ boolean fechaSeleccionada=false;
         );
 
         jPanel1.add(jPanelCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 400, 220));
-
-        jTitleRegVenta2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 14)); // NOI18N
-        jTitleRegVenta2.setForeground(new java.awt.Color(0, 0, 0));
-        jTitleRegVenta2.setText("FORMA DE PAGO");
-        jPanel1.add(jTitleRegVenta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 130, 20));
 
         panelCierreCalendar.setBackground(new java.awt.Color(255, 255, 255));
         panelCierreCalendar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -129,10 +132,6 @@ boolean fechaSeleccionada=false;
         );
 
         jPanel1.add(panelCierreCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, -1, 40));
-
-        jCmbFormaPago.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
-        jCmbFormaPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EFECTIVO", "NEQUI", "CONSIGNACION" }));
-        jPanel1.add(jCmbFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 130, -1, -1));
 
         jTitleRegVenta3.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
         jTitleRegVenta3.setForeground(new java.awt.Color(0, 0, 0));
@@ -221,6 +220,16 @@ boolean fechaSeleccionada=false;
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/MainLogo.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 70));
 
+        jLabel2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Fecha Seleccionada");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+
+        jLblSelectedDate.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 16)); // NOI18N
+        jLblSelectedDate.setForeground(new java.awt.Color(0, 0, 0));
+        jLblSelectedDate.setText("ESPERANDO");
+        jPanel1.add(jLblSelectedDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 130, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,15 +250,18 @@ boolean fechaSeleccionada=false;
     }//GEN-LAST:event_panelCierreCalendarMouseMoved
 
     private void panelCierreCalendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCierreCalendarMouseClicked
-       
-        if(fechaSeleccionada==true) {
-        jCmbFormaPago.getSelectedItem();
-        this.dispose();
-        } else {
-        int confirmacion = JOptionPane.showConfirmDialog(this, "Salir sin confirmar fecha?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        if (confirmacion==JOptionPane.YES_OPTION){
-            this.dispose();}
+        if (fechaSeleccionada == true) {
+            mainUi.recibirFecha(fecha);
+            this.dispose();
+        } else {
+            int confirmacion = JOptionPane.showConfirmDialog(this, "Salir sin confirmar fecha?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+               
+                this.dispose();
+                
+            }
         }
     }//GEN-LAST:event_panelCierreCalendarMouseClicked
 
@@ -288,23 +300,24 @@ boolean fechaSeleccionada=false;
 
     private void jBtnRegFechaPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegFechaPagoMouseClicked
         //LOGICA REGISTRO VENTA
-        devolverFecha();
         
+        devolverFecha();
+        jLblSelectedDate.setText(String.valueOf(fecha));
+ 
     }//GEN-LAST:event_jBtnRegFechaPagoMouseClicked
 
     private void jBtnRegFechaPagoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegFechaPagoMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnRegFechaPagoMouseExited
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jBtnRegFechaPago;
     private javax.swing.JPanel jButtonCreateVenta4;
     private javax.swing.JPanel jButtonCreateVenta5;
     public com.toedter.calendar.JCalendar jCalendar;
-    private javax.swing.JComboBox<String> jCmbFormaPago;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel39;
@@ -312,9 +325,9 @@ boolean fechaSeleccionada=false;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLblSelectedDate;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelCalendar;
-    private javax.swing.JLabel jTitleRegVenta2;
     private javax.swing.JLabel jTitleRegVenta3;
     private javax.swing.JPanel panelCierreCalendar;
     // End of variables declaration//GEN-END:variables
@@ -325,21 +338,24 @@ boolean fechaSeleccionada=false;
     }
 
     public LocalDate devolverFecha() {
-      Date fechaCalendario= jCalendar.getDate();
+        Date fechaCalendario = jCalendar.getDate();
         LocalDate fechaLocal = fechaCalendario.toInstant()
-        .atZone(ZoneId.systemDefault())
-        .toLocalDate();
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
 
-    System.out.println("Dia seleccionado calendario: " + fechaLocal);
-fechaSeleccionada=true;
-    return fechaLocal;
-    
-    }
-    public String devolverFormaPago(){
-        String formaPago = String.valueOf(jCmbFormaPago.getSelectedItem());
-        System.out.println("forma de pago calendario"+ formaPago);
-    return formaPago;
-    
-    }
+        System.out.println("Dia seleccionado calendario: " + fechaLocal);
+        fechaSeleccionada = true;
+        this.fecha = fechaLocal;
+        return fechaLocal;
+        
+        
+
     }
 
+    LocalDate getFecha() {
+     return devolverFecha();
+     
+    }
+
+   
+}
