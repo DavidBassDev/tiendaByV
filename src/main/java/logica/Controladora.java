@@ -80,7 +80,6 @@ public class Controladora {
     }
 
     public Proveedor traerProveedor(int id) {
-        id = 1;
         Proveedor proveedor = new Proveedor();
         proveedor = jpaProveedor.findProveedor(id);
         System.out.println("jpa encontro el proveedor " + proveedor);
@@ -122,6 +121,21 @@ public class Controladora {
         e.printStackTrace();
     }
     
+    }
+
+    public int traerIdNombreProveedor(String nombreProveedor) {
+       int idProv= 2;
+        List<Proveedor> listaProveedores = jpaProveedor.findProveedorEntities();
+        for(Proveedor proveedor : listaProveedores) {
+            String name= proveedor.getNombreProveedor();
+            if(nombreProveedor.equals(name)) {
+             idProv=proveedor.getIdProveedor();
+                System.out.println("proveedor encontrado con id "+idProv);
+            }
+        } 
+        
+        return idProv;
+        
     }
 
 }

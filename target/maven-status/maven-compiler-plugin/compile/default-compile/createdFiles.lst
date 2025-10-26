@@ -94,6 +94,7 @@ userInterface\RegistrarNuevoProveedor$4.class
 persistence\exceptions\IllegalOrphanException.class
 userInterface\MainUi$66.class
 userInterface\MainUi$16.class
+userInterface\MainUi$72.class
 persistence\ComprasPendientesJpaController.class
 userInterface\MainUi$56.class
 userInterface\MainUi$39.class
