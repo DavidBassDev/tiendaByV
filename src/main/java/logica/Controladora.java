@@ -4,9 +4,12 @@
  */
 package logica;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import model.Cliente;
 import model.Producto;
 import model.Proveedor;
@@ -72,9 +75,8 @@ public class Controladora {
         listaPdtos = jpaProducto.findProductoEntities();
         return listaPdtos;
     }
-    
-    //PROVEEDOR
 
+    //PROVEEDOR
     public void crearProveedor(Proveedor proveedor) {
         jpaProveedor.create(proveedor);
     }
@@ -86,8 +88,8 @@ public class Controladora {
         return proveedor;
 
     }
-    
-     public List listaProveedores() {
+
+    public List listaProveedores() {
         List listaProveedores = new ArrayList<Proveedor>();
         listaProveedores = jpaProveedor.findProveedorEntities();
         return listaProveedores;
@@ -96,46 +98,65 @@ public class Controladora {
     public Cliente traerIdNombreCliente(String nombreCliente) {
 
         List<Cliente> listaClientes = jpaCliente.findClienteEntities();
-        for(Cliente cliente : listaClientes) {
-            String name= cliente.getNombre();
-            System.out.println("cliente en lista"+cliente.getNombre());
-            if(nombreCliente.equals(name)) {
-            return cliente;
+        for (Cliente cliente : listaClientes) {
+            String name = cliente.getNombre();
+            System.out.println("cliente en lista" + cliente.getNombre());
+            if (nombreCliente.equals(name)) {
+                return cliente;
             }
         }
-        
+
         return null;
 
     }
-    
-    public void reiniciarApp(){
-     try {
-        String javaBin = System.getProperty("java.home") + "/bin/java";
-        String jarPath = new java.io.File(Main.class.getProtectionDomain()
-                .getCodeSource().getLocation().toURI()).getPath();
 
-        ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", jarPath);
-        pb.start(); // Lanza una nueva instancia
-        System.exit(0); // Cierra la actual
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    
+    public void reiniciarApp() {
+        try {
+            String javaBin = System.getProperty("java.home") + "/bin/java";
+            String jarPath = new java.io.File(Main.class.getProtectionDomain()
+                    .getCodeSource().getLocation().toURI()).getPath();
+
+            ProcessBuilder pb = new ProcessBuilder(javaBin, "-jar", jarPath);
+            pb.start(); // Lanza una nueva instancia
+            System.exit(0); // Cierra la actual
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public int traerIdNombreProveedor(String nombreProveedor) {
-       int idProv= 2;
+        int idProv = 2;
         List<Proveedor> listaProveedores = jpaProveedor.findProveedorEntities();
-        for(Proveedor proveedor : listaProveedores) {
-            String name= proveedor.getNombreProveedor();
-            if(nombreProveedor.equals(name)) {
-             idProv=proveedor.getIdProveedor();
-                System.out.println("proveedor encontrado con id "+idProv);
+        for (Proveedor proveedor : listaProveedores) {
+            String name = proveedor.getNombreProveedor();
+            if (nombreProveedor.equals(name)) {
+                idProv = proveedor.getIdProveedor();
+                System.out.println("proveedor encontrado con id " + idProv);
             }
-        } 
-        
+        }
+
         return idProv;
-        
+
+    }
+
+    //OTRAS FUNCIONES
+    public void exportarExcel(JTable tablaExporte) {
+
+        ModeloExcel obj;
+
+        try {
+            obj = new ModeloExcel();
+            obj.exportarExcel(tablaExporte);
+            //LANZAMIENTO VENTANA EXITOSA
+            JOptionPane optionPane = new JOptionPane("Se guardó Correctamente");
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Exito!");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error " + ex);
+        }
     }
 
 }

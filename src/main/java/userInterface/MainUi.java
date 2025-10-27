@@ -9,6 +9,7 @@ import java.awt.Cursor;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ import javax.swing.SwingWorker;
 import logica.Controladora;
 import logica.ControladoraPool;
 import logica.Main;
+import logica.ModeloExcel;
 import model.Cliente;
 import model.Producto;
 import model.Proveedor;
@@ -96,6 +99,12 @@ public class MainUi extends javax.swing.JFrame {
         btnRegistrarPagos = new javax.swing.JPanel();
         jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
+        btnConsultarVentas1 = new javax.swing.JPanel();
+        jLabel95 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        btnConsultarVentas = new javax.swing.JPanel();
+        jLabel87 = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
         paneBanner = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -210,6 +219,15 @@ public class MainUi extends javax.swing.JFrame {
         jPaneValorTotalPdtos1 = new javax.swing.JPanel();
         jTextValorTotal1 = new javax.swing.JLabel();
         jLabeSignoPeso8 = new javax.swing.JLabel();
+        JBtnExportarExcel = new javax.swing.JPanel();
+        jButtonCreateVenta14 = new javax.swing.JPanel();
+        jLabel77 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        jButtonCreateVenta15 = new javax.swing.JPanel();
+        jLabel79 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
         jBtnRegistrarPago = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
@@ -264,22 +282,12 @@ public class MainUi extends javax.swing.JFrame {
         jTitleRegVenta2 = new javax.swing.JLabel();
         jLblCantPDTO13 = new javax.swing.JLabel();
         jPaneValorTotalPdtos2 = new javax.swing.JPanel();
-        jTextValorTotal2 = new javax.swing.JLabel();
+        jTextVentasTotales = new javax.swing.JLabel();
         jLabeSignoPeso9 = new javax.swing.JLabel();
         jLblCliente2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableRegistroPagos1 = new javax.swing.JTable();
-        jLabel15 = new javax.swing.JLabel();
-        jButtonCreateVenta2 = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
-        jButtonCreateVenta8 = new javax.swing.JPanel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jButtonCreateVenta9 = new javax.swing.JPanel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jButtonCreateVenta3 = new javax.swing.JPanel();
+        jTableRegistroVentas = new javax.swing.JTable();
+        jButtonConsultarVentas = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
         jButtonCreateVenta10 = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
@@ -288,17 +296,33 @@ public class MainUi extends javax.swing.JFrame {
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
+        JBtnExportarExcel1 = new javax.swing.JPanel();
+        jButtonCreateVenta16 = new javax.swing.JPanel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        jButtonCreateVenta17 = new javax.swing.JPanel();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jButtonAbrirCalendario1 = new javax.swing.JTextField();
         jPanelComprasPendientes = new javax.swing.JPanel();
         jTitleRegVenta3 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableRegistroPagos2 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jTitleRegVenta4 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTableRegistroPagos3 = new javax.swing.JTable();
+        jLabel32 = new javax.swing.JLabel();
+        jButtonAbrirCalendario2 = new javax.swing.JTextField();
+        jButtonConsultarVentas1 = new javax.swing.JPanel();
+        jLabel89 = new javax.swing.JLabel();
+        jButtonCreateVenta18 = new javax.swing.JPanel();
+        jLabel90 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        jButtonCreateVenta19 = new javax.swing.JPanel();
+        jLabel92 = new javax.swing.JLabel();
+        jLabel93 = new javax.swing.JLabel();
+        jLabel94 = new javax.swing.JLabel();
+        jCheckComprasPdtes = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -341,6 +365,7 @@ public class MainUi extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 17)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Registrar Cliente");
         btnCrearCliente.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 160, 40));
 
@@ -366,6 +391,7 @@ public class MainUi extends javax.swing.JFrame {
 
         jLabel31.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 17)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setText("Registrar Venta");
         btnRegistrarVenta.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 150, 40));
 
@@ -391,6 +417,7 @@ public class MainUi extends javax.swing.JFrame {
 
         jLabel65.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 16)); // NOI18N
         jLabel65.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel65.setText("Registrar Producto");
         btnRegistrarPdto.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 160, 40));
 
@@ -416,6 +443,7 @@ public class MainUi extends javax.swing.JFrame {
 
         jLabel67.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 17)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel67.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel67.setText("Registrar Pagos");
         btnRegistrarPagos.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 150, 40));
 
@@ -423,10 +451,65 @@ public class MainUi extends javax.swing.JFrame {
         jLabel68.setToolTipText("");
         btnRegistrarPagos.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
 
+        btnConsultarVentas1.setBackground(new java.awt.Color(54, 33, 89));
+        btnConsultarVentas1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnConsultarVentas1MouseMoved(evt);
+            }
+        });
+        btnConsultarVentas1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultarVentas1MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConsultarVentas1MouseExited(evt);
+            }
+        });
+        btnConsultarVentas1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel95.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel95.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel95.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel95.setText("Mis Compras");
+        btnConsultarVentas1.add(jLabel95, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 180, 40));
+
+        jLabel96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/RegistrarPago.png"))); // NOI18N
+        jLabel96.setToolTipText("");
+        btnConsultarVentas1.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
+
+        btnConsultarVentas.setBackground(new java.awt.Color(54, 33, 89));
+        btnConsultarVentas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnConsultarVentasMouseMoved(evt);
+            }
+        });
+        btnConsultarVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultarVentasMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnConsultarVentasMouseExited(evt);
+            }
+        });
+        btnConsultarVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel87.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 17)); // NOI18N
+        jLabel87.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel87.setText("Consultar Ventas");
+        btnConsultarVentas.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 160, 40));
+
+        jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/RegistrarPago.png"))); // NOI18N
+        jLabel88.setToolTipText("");
+        btnConsultarVentas.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
+
         javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);
         leftPanelLayout.setHorizontalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftPanelLayout.createSequentialGroup()
+                .addComponent(btnConsultarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(leftPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +519,8 @@ public class MainUi extends javax.swing.JFrame {
                         .addComponent(btnCrearCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnRegistrarPagos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegistrarPdto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnRegistrarPdto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnConsultarVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         leftPanelLayout.setVerticalGroup(
@@ -451,7 +535,11 @@ public class MainUi extends javax.swing.JFrame {
                 .addComponent(btnRegistrarPdto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(btnRegistrarPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 251, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(btnConsultarVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(btnConsultarVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
         mainPanel.add(leftPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 699));
@@ -1260,6 +1348,84 @@ public class MainUi extends javax.swing.JFrame {
 
         jPanelRegistrarPagos.add(jPaneValorTotalPdtos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 140, 20));
 
+        JBtnExportarExcel.setBackground(new java.awt.Color(54, 33, 89));
+        JBtnExportarExcel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                JBtnExportarExcelMouseMoved(evt);
+            }
+        });
+        JBtnExportarExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JBtnExportarExcelMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JBtnExportarExcelMouseExited(evt);
+            }
+        });
+        JBtnExportarExcel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonCreateVenta14.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta14.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta14MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta14MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta14MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel77.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel77.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel77.setText("REGISTRAR VENTA");
+        jButtonCreateVenta14.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta14.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta15.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta15.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta15MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta15MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta15MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel79.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel79.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel79.setText("REGISTRAR VENTA");
+        jButtonCreateVenta15.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel80.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta15.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta14.add(jButtonCreateVenta15, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        JBtnExportarExcel.add(jButtonCreateVenta14, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        jLabel75.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 16)); // NOI18N
+        jLabel75.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel75.setText("EXPORTAR");
+        JBtnExportarExcel.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, 30));
+
+        jLabel76.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        JBtnExportarExcel.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
+        jPanelRegistrarPagos.add(JBtnExportarExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 150, 30));
+
         jBtnRegistrarPago.setBackground(new java.awt.Color(54, 33, 89));
         jBtnRegistrarPago.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -1689,18 +1855,18 @@ public class MainUi extends javax.swing.JFrame {
 
         jLblCantPDTO13.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 18)); // NOI18N
         jLblCantPDTO13.setForeground(new java.awt.Color(0, 0, 0));
-        jLblCantPDTO13.setText("Ganancia Total");
+        jLblCantPDTO13.setText("Ventas Totales");
         jPanelGanancias.add(jLblCantPDTO13, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, -1, 20));
 
         jPaneValorTotalPdtos2.setBackground(new java.awt.Color(54, 33, 89));
         jPaneValorTotalPdtos2.setForeground(new java.awt.Color(255, 255, 255));
         jPaneValorTotalPdtos2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextValorTotal2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
-        jTextValorTotal2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextValorTotal2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jTextValorTotal2.setText("0");
-        jPaneValorTotalPdtos2.add(jTextValorTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, -1));
+        jTextVentasTotales.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
+        jTextVentasTotales.setForeground(new java.awt.Color(255, 255, 255));
+        jTextVentasTotales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTextVentasTotales.setText("0");
+        jPaneValorTotalPdtos2.add(jTextVentasTotales, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 120, -1));
 
         jLabeSignoPeso9.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
         jLabeSignoPeso9.setForeground(new java.awt.Color(255, 255, 255));
@@ -1714,7 +1880,7 @@ public class MainUi extends javax.swing.JFrame {
         jLblCliente2.setText("Fecha");
         jPanelGanancias.add(jLblCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
 
-        jTableRegistroPagos1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableRegistroVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1725,111 +1891,30 @@ public class MainUi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTableRegistroPagos1);
+        jScrollPane2.setViewportView(jTableRegistroVentas);
 
         jPanelGanancias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 120, 950, 360));
 
-        jLabel15.setText("AGREGAR CALENDARIO");
-        jPanelGanancias.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
-
-        jButtonCreateVenta2.setBackground(new java.awt.Color(54, 33, 89));
-        jButtonCreateVenta2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jButtonConsultarVentas.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonConsultarVentas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta2MouseMoved(evt);
+                jButtonConsultarVentasMouseMoved(evt);
             }
         });
-        jButtonCreateVenta2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonConsultarVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta2MouseClicked(evt);
+                jButtonConsultarVentasMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta2MouseExited(evt);
+                jButtonConsultarVentasMouseExited(evt);
             }
         });
-        jButtonCreateVenta2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel42.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel42.setText("EXPORTAR EXCEL");
-        jButtonCreateVenta2.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
-
-        jButtonCreateVenta8.setBackground(new java.awt.Color(54, 33, 89));
-        jButtonCreateVenta8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta8MouseMoved(evt);
-            }
-        });
-        jButtonCreateVenta8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta8MouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta8MouseExited(evt);
-            }
-        });
-        jButtonCreateVenta8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel52.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
-        jLabel52.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel52.setText("REGISTRAR VENTA");
-        jButtonCreateVenta8.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
-
-        jLabel53.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
-        jButtonCreateVenta8.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
-
-        jButtonCreateVenta9.setBackground(new java.awt.Color(54, 33, 89));
-        jButtonCreateVenta9.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta9MouseMoved(evt);
-            }
-        });
-        jButtonCreateVenta9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta9MouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta9MouseExited(evt);
-            }
-        });
-        jButtonCreateVenta9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel54.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
-        jLabel54.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel54.setText("REGISTRAR VENTA");
-        jButtonCreateVenta9.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
-
-        jLabel55.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
-        jButtonCreateVenta9.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
-
-        jButtonCreateVenta8.add(jButtonCreateVenta9, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
-
-        jButtonCreateVenta2.add(jButtonCreateVenta8, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
-
-        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
-        jButtonCreateVenta2.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 31, 24));
-
-        jPanelGanancias.add(jButtonCreateVenta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 220, 30));
-
-        jButtonCreateVenta3.setBackground(new java.awt.Color(54, 33, 89));
-        jButtonCreateVenta3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta3MouseMoved(evt);
-            }
-        });
-        jButtonCreateVenta3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta3MouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonCreateVenta3MouseExited(evt);
-            }
-        });
-        jButtonCreateVenta3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jButtonConsultarVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel56.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(255, 255, 255));
         jLabel56.setText("CONSULTAR GANANCIAS");
-        jButtonCreateVenta3.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+        jButtonConsultarVentas.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
 
         jButtonCreateVenta10.setBackground(new java.awt.Color(54, 33, 89));
         jButtonCreateVenta10.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -1881,15 +1966,116 @@ public class MainUi extends javax.swing.JFrame {
 
         jButtonCreateVenta10.add(jButtonCreateVenta11, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
 
-        jButtonCreateVenta3.add(jButtonCreateVenta10, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+        jButtonConsultarVentas.add(jButtonCreateVenta10, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
 
         jLabel61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
-        jButtonCreateVenta3.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 31, 24));
+        jButtonConsultarVentas.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 31, 24));
 
-        jPanelGanancias.add(jButtonCreateVenta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 300, 30));
+        jPanelGanancias.add(jButtonConsultarVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 300, 30));
 
-        jLabel62.setText("consulta sql de Ventas");
-        jPanelGanancias.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 170, 20));
+        JBtnExportarExcel1.setBackground(new java.awt.Color(54, 33, 89));
+        JBtnExportarExcel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                JBtnExportarExcel1MouseMoved(evt);
+            }
+        });
+        JBtnExportarExcel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JBtnExportarExcel1MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JBtnExportarExcel1MouseExited(evt);
+            }
+        });
+        JBtnExportarExcel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonCreateVenta16.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta16.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta16MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta16MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta16MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel81.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel81.setText("REGISTRAR VENTA");
+        jButtonCreateVenta16.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta16.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta17.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta17.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta17MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta17MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta17MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel83.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel83.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel83.setText("REGISTRAR VENTA");
+        jButtonCreateVenta17.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta17.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta16.add(jButtonCreateVenta17, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        JBtnExportarExcel1.add(jButtonCreateVenta16, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        jLabel85.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 16)); // NOI18N
+        jLabel85.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel85.setText("EXPORTAR");
+        JBtnExportarExcel1.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, 30));
+
+        jLabel86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        JBtnExportarExcel1.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
+        jPanelGanancias.add(JBtnExportarExcel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 150, 30));
+
+        jButtonAbrirCalendario1.setEditable(false);
+        jButtonAbrirCalendario1.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonAbrirCalendario1.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
+        jButtonAbrirCalendario1.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAbrirCalendario1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jButtonAbrirCalendario1.setText("ABRIR CALENDARIO");
+        jButtonAbrirCalendario1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendario1MouseMoved(evt);
+            }
+        });
+        jButtonAbrirCalendario1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendario1MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendario1MouseExited(evt);
+            }
+        });
+        jButtonAbrirCalendario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAbrirCalendario1ActionPerformed(evt);
+            }
+        });
+        jPanelGanancias.add(jButtonAbrirCalendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 170, -1));
 
         mainTabbedPane.addTab("tab5", jPanelGanancias);
 
@@ -1897,11 +2083,11 @@ public class MainUi extends javax.swing.JFrame {
 
         jTitleRegVenta3.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
         jTitleRegVenta3.setForeground(new java.awt.Color(0, 0, 0));
-        jTitleRegVenta3.setText("Compras Pendientes");
+        jTitleRegVenta3.setText("Compras Realizadas");
         jPanelComprasPendientes.add(jTitleRegVenta3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
-        jLabel30.setText("TABLA DE CONSULTA SQL CON PRODUCTO DONDE SEA 0 o >=3 por ej");
-        jPanelComprasPendientes.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 410, 20));
+        jLabel30.setText("Boton compras pendientes CONSULTA SQL CON PRODUCTO DONDE SEA 0 o >=3 por ej");
+        jPanelComprasPendientes.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 480, 20));
 
         jTableRegistroPagos2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1918,34 +2104,119 @@ public class MainUi extends javax.swing.JFrame {
 
         jPanelComprasPendientes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 360));
 
-        mainTabbedPane.addTab("tab6", jPanelComprasPendientes);
+        jLabel32.setText("TABLA DE CONSULTA SQL CON PRODUCTO EN GENERAL, TRAERLO POR MES-AÑO");
+        jPanelComprasPendientes.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 460, 20));
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTitleRegVenta4.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 24)); // NOI18N
-        jTitleRegVenta4.setForeground(new java.awt.Color(0, 0, 0));
-        jTitleRegVenta4.setText("Compras Realizadas");
-        jPanel1.add(jTitleRegVenta4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
-
-        jLabel33.setText("TABLA DE CONSULTA SQL DE PRODUCTO");
-        jPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 410, 20));
-
-        jTableRegistroPagos3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        jButtonAbrirCalendario2.setEditable(false);
+        jButtonAbrirCalendario2.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonAbrirCalendario2.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 0, 14)); // NOI18N
+        jButtonAbrirCalendario2.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAbrirCalendario2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jButtonAbrirCalendario2.setText("ABRIR CALENDARIO");
+        jButtonAbrirCalendario2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendario2MouseMoved(evt);
             }
-        ));
-        jScrollPane4.setViewportView(jTableRegistroPagos3);
+        });
+        jButtonAbrirCalendario2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendario2MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonAbrirCalendario2MouseExited(evt);
+            }
+        });
+        jButtonAbrirCalendario2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAbrirCalendario2ActionPerformed(evt);
+            }
+        });
+        jPanelComprasPendientes.add(jButtonAbrirCalendario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 170, -1));
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 360));
+        jButtonConsultarVentas1.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonConsultarVentas1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonConsultarVentas1MouseMoved(evt);
+            }
+        });
+        jButtonConsultarVentas1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonConsultarVentas1MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonConsultarVentas1MouseExited(evt);
+            }
+        });
+        jButtonConsultarVentas1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        mainTabbedPane.addTab("tab7", jPanel1);
+        jLabel89.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel89.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel89.setText("CONSULTAR");
+        jButtonConsultarVentas1.add(jLabel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, -1, 30));
+
+        jButtonCreateVenta18.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta18.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta18MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta18MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta18MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel90.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel90.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel90.setText("REGISTRAR VENTA");
+        jButtonCreateVenta18.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta18.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta19.setBackground(new java.awt.Color(54, 33, 89));
+        jButtonCreateVenta19.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta19MouseMoved(evt);
+            }
+        });
+        jButtonCreateVenta19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta19MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCreateVenta19MouseExited(evt);
+            }
+        });
+        jButtonCreateVenta19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel92.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 18)); // NOI18N
+        jLabel92.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel92.setText("REGISTRAR VENTA");
+        jButtonCreateVenta19.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 6, -1, -1));
+
+        jLabel93.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonCreateVenta19.add(jLabel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 31, 24));
+
+        jButtonCreateVenta18.add(jButtonCreateVenta19, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        jButtonConsultarVentas1.add(jButtonCreateVenta18, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 410, 260, 30));
+
+        jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/agregar-usuario.png"))); // NOI18N
+        jButtonConsultarVentas1.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 31, 24));
+
+        jPanelComprasPendientes.add(jButtonConsultarVentas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 80, 190, 30));
+
+        jCheckComprasPdtes.setFont(new java.awt.Font("Ricardo ALT ExtraBold", 1, 12)); // NOI18N
+        jCheckComprasPdtes.setForeground(new java.awt.Color(0, 0, 0));
+        jCheckComprasPdtes.setText("Compras Pendientes");
+        jPanelComprasPendientes.add(jCheckComprasPdtes, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
+
+        mainTabbedPane.addTab("tab6", jPanelComprasPendientes);
 
         mainPanel.add(mainTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 980, 600));
 
@@ -1979,56 +2250,6 @@ public class MainUi extends javax.swing.JFrame {
         btnCrearCliente.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         btnCrearCliente.setBackground(new Color(54, 33, 89));
     }//GEN-LAST:event_btnCrearClienteMouseExited
-
-    private void jButtonCreateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseClicked
-
-//LOGICA CREACION DE USUARIO
-        String nombre = (String.valueOf(jTextNombre.getText().toUpperCase()));
-
-        //LOGICA
-        if (nombre.equals("") || nombre.equals("INGRESE EL NOMBRE DEL CLIENTE") || nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Digita el nombre del cliente antes de ingresarlo");
-
-        } else {
-            //Creacion Usuario
-            try {
-                Cliente cliente = new Cliente();
-                cliente.setNombre(nombre);
-                control.crearUsuario(cliente);
-                JOptionPane.showMessageDialog(null, nombre + " Creado!");
-                int cantidadUsuarios = Integer.parseInt(String.valueOf(control.listaClientes.size()));
-                reiniciarApp();
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al crear usuario:" + ex);
-            }
-        }
-
-
-    }//GEN-LAST:event_jButtonCreateUserMouseClicked
-
-    private void jButtonCreateUserMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseMoved
-
-        jButtonCreateUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButtonCreateUser.setBackground(new Color(146, 118, 193));
-    }//GEN-LAST:event_jButtonCreateUserMouseMoved
-
-    private void jButtonCreateUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseExited
-
-        jButtonCreateUser.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jButtonCreateUser.setBackground(new Color(54, 33, 89));
-
-    }//GEN-LAST:event_jButtonCreateUserMouseExited
-
-    private void jTextNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextNombreMouseClicked
-        jTextNombre.setText("");
-
-    }//GEN-LAST:event_jTextNombreMouseClicked
-
-    private void jButtonAddPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseMoved
-        jButtonAddPdto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButtonAddPdto.setBackground(new Color(146, 118, 193));
-    }//GEN-LAST:event_jButtonAddPdtoMouseMoved
 
     private void habilitarProducto(int index, JLabel labelPdto, JLabel labelCant, JComboBox comboPdto, JLabel jLblCantPDTO11, JTextField campoCantidad, JLabel campoValor, JPanel panelValor) {
         jLblCantPDTO11.setVisible(true);
@@ -2106,76 +2327,6 @@ public class MainUi extends javax.swing.JFrame {
     }
 
 
-    private void jButtonAddPdtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseClicked
-        // Agrega un nuevo producto a la compra
-        cantidadPdtoHabilitados++;
-        System.out.println("Cantidad de productos habilitados: " + cantidadPdtoHabilitados);
-
-        switch (cantidadPdtoHabilitados) {
-            case 2:
-                habilitarProducto(1, jButtonRemovePdto1, jLblPDTO1, jCmbPTO1, jLblCantPDTO1, jTextFieldCantidad1, jTextFieldValorPdto1, jPaneValorPdto1);
-                break;
-            case 3:
-                habilitarProducto(2, jButtonRemovePdto2, jLblPDTO2, jCmbPTO2, jLblCantPDTO2, jTextFieldCantidad2, jTextFieldValorPdto2, jPaneValorPdto2);
-                break;
-            case 4:
-                habilitarProducto(3, jButtonRemovePdto3, jLblPDTO3, jCmbPTO3, jLblCantPDTO3, jTextFieldCantidad3, jTextFieldValorPdto3, jPaneValorPdto3);
-                break;
-            case 5:
-                habilitarProducto(4, jButtonRemovePdto4, jLblPDTO4, jCmbPTO4, jLblCantPDTO4, jTextFieldCantidad4, jTextFieldValorPdto4, jPaneValorPdto4);
-                break;
-            case 6:
-                habilitarProducto(5, jButtonRemovePdto5, jLblPDTO5, jCmbPTO5, jLblCantPDTO5, jTextFieldCantidad5, jTextFieldValorPdto5, jPaneValorPdto5);
-                break;
-            case 7:
-                habilitarProducto(6, jButtonRemovePdto6, jLblPDTO6, jCmbPTO6, jLblCantPDTO6, jTextFieldCantidad6, jTextFieldValorPdto6, jPaneValorPdto6);
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "Ya has registrado todos los productos, ingresa la venta y adiciona nuevos.");
-                cantidadPdtoHabilitados = 7;
-                break;
-        }
-
-        // recalcula siempre después de habilitar uno nuevo
-        recalcularValorTotal();
-
-    }//GEN-LAST:event_jButtonAddPdtoMouseClicked
-
-    private void jButtonAddPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseExited
-
-        jButtonAddPdto.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jButtonAddPdto.setBackground(new Color(54, 33, 89));
-    }//GEN-LAST:event_jButtonAddPdtoMouseExited
-
-    //VISUAL DE REGISTRO PRODUTOS
-
-    private void jCheckBoxNuevoProvMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvMouseMoved
-        // TODO add your handling code here:
-        jCheckBoxNuevoProv.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jCheckBoxNuevoProv.setBackground(new Color(146, 118, 193));
-
-    }//GEN-LAST:event_jCheckBoxNuevoProvMouseMoved
-
-    private void jCheckBoxNuevoProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvActionPerformed
-        if (jCheckBoxNuevoProv.isSelected()) {
-            //logica ventana nueva
-            nuevoProveedor.setVisible(true);
-            nuevoProveedor.setLocationRelativeTo(null);
-        } else {
-            //debe cerrar la ventana nueva
-
-            System.out.println("cmb en false");
-        }
-    }//GEN-LAST:event_jCheckBoxNuevoProvActionPerformed
-
-    private void jCheckBoxNuevoProvMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvMouseExited
-        jCheckBoxNuevoProv.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jCheckBoxNuevoProv.setBackground(new Color(255, 255, 255));
-        jCheckBoxNuevoProv.setForeground(new Color(60, 83, 65));
-
-
-    }//GEN-LAST:event_jCheckBoxNuevoProvMouseExited
-
     private void panelCierreAppMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCierreAppMouseClicked
         int confirmacion = JOptionPane.showConfirmDialog(this, "Deseas salir del sistema?", "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -2183,403 +2334,6 @@ public class MainUi extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_panelCierreAppMouseClicked
-
-    private void jButtonCreatePdtosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreatePdtosMouseMoved
-        jButtonCreatePdtos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jButtonCreatePdtosMouseMoved
-
-    private void jButtonCreatePdtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreatePdtosMouseClicked
-
-        try {
-            // Crear nuevo producto
-            Producto nuevoProducto = new Producto();
-
-            // Obtener valores del formulario
-            nuevoProducto.setNombreProducto(String.valueOf(jCmbListPdto.getSelectedItem()));
-            int cantidad = Integer.parseInt(jTextFieldCantidad.getText());
-            nuevoProducto.setCantidad(cantidad);
-            nuevoProducto.setDescripcionProducto(jTextFieldDescripcion.getText());
-
-            double precioAdquirido = Double.parseDouble(jTextFieldPrecioAdquirido.getText());
-            nuevoProducto.setPrecioAdquirido(precioAdquirido);
-
-            // Calcular precio por unidad (evitando división por 0)
-            double precioPorUnidad = cantidad > 0 ? precioAdquirido / cantidad : precioAdquirido;
-            nuevoProducto.setPrecioPorUnidad(precioPorUnidad);
-
-            nuevoProducto.setNumeroFactura(jTextFieldNoFactura.getText());
-            nuevoProducto.setInversor(String.valueOf(jCmbListInversor.getSelectedItem()));
-
-            // Convertir porcentaje de ganancia a decimal
-            double ganancia = Double.parseDouble(jTextFieldPorcGanan.getText()) / 100;
-            nuevoProducto.setGananciaDeseada(ganancia);
-
-            // Precio público
-            double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
-            nuevoProducto.setPrecioPublico(precioPublico);
-
-            // Obtener proveedor
-            String nombreProveedor = String.valueOf(jCmbProveedor.getSelectedItem());
-            int idProveedor = control.traerIdNombreProveedor(nombreProveedor);
-            Proveedor proveedor = control.traerProveedor(idProveedor);
-            if (proveedor == null) {
-                JOptionPane.showMessageDialog(null, "Error: El proveedor con ID + " + idProveedor + " no fue encontrado.");
-                return;
-            }
-
-            // Asignar proveedor al producto
-            nuevoProducto.setProveedor(proveedor);
-            nuevoProducto.setFechaCompraProducto(LocalDate.parse(jButtonAbrirCalendario.getText()));
-
-            // Registrar el producto
-            control.registrarProducto(nuevoProducto);
-            JOptionPane.showMessageDialog(null, "Producto registrado con éxito.");
-            int opcion = JOptionPane.showConfirmDialog(null, "Registrar otro producto?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if(opcion== JOptionPane.NO_OPTION) {
-            control.reiniciarApp();
-            } 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error en el formato numérico. Verifica los campos.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al registrar producto: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-
-        cargarDashBoardRegistrarPdto();
-
-
-    }//GEN-LAST:event_jButtonCreatePdtosMouseClicked
-
-    private void jButtonCreatePdtosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreatePdtosMouseExited
-        jButtonCreatePdtos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jButtonCreatePdtosMouseExited
-
-    private void jCheckBoxNuevoPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseMoved
-
-    private void jCheckBoxNuevoPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseExited
-
-    private void jButtonAbrirCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAbrirCalendarioActionPerformed
-
-    private void jButtonCreateVenta5MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta5MouseMoved
-
-    private void jButtonCreateVenta5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta5MouseClicked
-
-    private void jButtonCreateVenta5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta5MouseExited
-
-    private void jButtonCreateVenta4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta4MouseMoved
-
-    private void jButtonCreateVenta4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta4MouseClicked
-
-    private void jButtonCreateVenta4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta4MouseExited
-
-    private void jButtonCreateVentaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseMoved
-        jButtonCreateVenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        jButtonCreateVenta.setBackground(new Color(146, 118, 193));
-    }//GEN-LAST:event_jButtonCreateVentaMouseMoved
-
-    private void jButtonCreateVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseClicked
-
-        Cliente cliente = control.traerIdNombreCliente(String.valueOf(jCmbCliente.getSelectedItem()));
-        String formaPago = jCheckBoxPagado.isSelected() ? String.valueOf(jCmbFormaPago.getSelectedItem()) : "FIADO";
-        String estado = jCheckBoxPagado.isSelected() ? "PAGADO" : "PENDIENTE";
-
-        List<Venta> listaVentasCliente = new ArrayList<>();
-
-        // Combos, cantidades y valores agrupados
-        JComboBox[] combos = {jCmbPTO0, jCmbPTO1, jCmbPTO2, jCmbPTO3, jCmbPTO4, jCmbPTO5, jCmbPTO6};
-        JTextField[] camposCantidad = {jTextFieldCantidad0, jTextFieldCantidad1, jTextFieldCantidad2, jTextFieldCantidad3, jTextFieldCantidad4, jTextFieldCantidad5, jTextFieldCantidad6};
-        JLabel[] camposValor = {jTextValorPdto0, jTextValorPdto1, jTextValorPdto2, jTextValorPdto3, jTextValorPdto4, jTextValorPdto5, jTextValorPdto6};
-
-        double valorRegistroVenta = 0.0;
-
-        // Recorre todos los productos activos
-        for (int i = 0; i < cantidadPdtoHabilitados; i++) {
-            try {
-                String producto = String.valueOf(combos[i].getSelectedItem());
-                String strCant = camposCantidad[i].getText().trim();
-                String strVal = camposValor[i].getText().trim();
-
-                // Validar datos
-                if (producto == null || producto.isEmpty() || !strCant.matches("\\d+") || !strVal.matches("[0-9]+(\\.[0-9]+)?")) {
-                    continue;
-                }
-
-                int cantidad = Integer.parseInt(strCant);
-                double valorTotalProducto = Double.parseDouble(strVal); // ya es total (precio × cantidad)
-
-                Venta venta = new Venta();
-                venta.setCliente(cliente);
-                venta.setProducto(producto);
-                venta.setCantidad(cantidad);
-                venta.setValor(valorTotalProducto); // ✅ NO volver a multiplicar
-                venta.setFormaPago(formaPago);
-                venta.setEstado(estado);
-                venta.setObservacion("sin comentario " + (i + 1));
-
-                listaVentasCliente.add(venta);
-                valorRegistroVenta += valorTotalProducto; // ✅ suma directa sin duplicar
-            } catch (NumberFormatException e) {
-                System.out.println("Error procesando producto " + (i + 1) + ": " + e.getMessage());
-            }
-        }
-
-        // Validación si no hay productos válidos
-        if (listaVentasCliente.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay productos válidos para registrar.");
-            return;
-        }
-
-        // Confirmar compra
-        int confirmacion = JOptionPane.showConfirmDialog(this,
-                "¿Confirmar compra por un total de $" + String.format("%.2f", valorRegistroVenta) + "?",
-                "Confirmar Compra",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            for (Venta venta : listaVentasCliente) {
-                String nombrePdtoComprado = venta.getProducto();
-                int cantidadPdtoComprado = venta.getCantidad();
-                controlPool.RemoverCantidadCompra(nombrePdtoComprado, cantidadPdtoComprado);
-                control.crearVenta(venta);
-            }
-
-            JOptionPane.showMessageDialog(this, "Venta(s) registrada(s) a " + cliente.getNombre());
-            listaVentasCliente.clear();
-            // ✅ Reinicia la app solo una vez
-            reiniciarApp();
-
-        }
-
-
-    }//GEN-LAST:event_jButtonCreateVentaMouseClicked
-
-    private void jButtonCreateVentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseExited
-        jButtonCreateVenta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        jButtonCreateVenta.setBackground(new Color(54, 33, 89));
-    }//GEN-LAST:event_jButtonCreateVentaMouseExited
-
-    private void jButtonRemovePdto6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto6MouseClicked
-        //QUITA CAMPOS DE PORODUCTOSS
-
-        jCmbPTO6.setVisible(false);
-        jTextFieldCantidad6.setText("");
-        jTextFieldCantidad6.setVisible(false);
-        jLblPDTO6.setVisible(false);
-        jButtonRemovePdto6.setVisible(false);
-        jLblCantPDTO6.setVisible(false);
-        jTextFieldValorPdto6.setVisible(false);
-        jPaneValorPdto6.setVisible(false);
-        jTextValorPdto6.setText("0");
-        cantidadPdtoHabilitados--;
-    }//GEN-LAST:event_jButtonRemovePdto6MouseClicked
-
-    private void jButtonRemovePdto5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto5MouseClicked
-        //QUITA CAMPOS DE PORODUCTOSS
-
-        jCmbPTO5.setVisible(false);
-        jTextFieldCantidad5.setText("");
-        jTextFieldCantidad5.setVisible(false);
-        jLblPDTO5.setVisible(false);
-        jButtonRemovePdto5.setVisible(false);
-        jLblCantPDTO5.setVisible(false);
-        jTextFieldValorPdto5.setVisible(false);
-        jPaneValorPdto5.setVisible(false);
-        jTextValorPdto5.setText("0");
-        cantidadPdtoHabilitados--;
-    }//GEN-LAST:event_jButtonRemovePdto5MouseClicked
-
-    private void jButtonRemovePdto4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto4MouseClicked
-
-        //QUITA CAMPOS DE PORODUCTOSS
-        jCmbPTO4.setVisible(false);
-        jTextFieldCantidad4.setText("");
-        jTextFieldCantidad4.setVisible(false);
-        jLblPDTO4.setVisible(false);
-        jButtonRemovePdto4.setVisible(false);
-        jLblCantPDTO4.setVisible(false);
-        jTextFieldValorPdto4.setVisible(false);
-        jPaneValorPdto4.setVisible(false);
-        jTextValorPdto4.setText("0");
-        cantidadPdtoHabilitados--;
-    }//GEN-LAST:event_jButtonRemovePdto4MouseClicked
-
-    private void jButtonRemovePdto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto3MouseClicked
-        //QUITA CAMPOS DE PORODUCTOSS
-
-        jCmbPTO3.setVisible(false);
-        jTextFieldCantidad3.setText("");
-        jTextFieldCantidad3.setVisible(false);
-        jLblPDTO3.setVisible(false);
-        jButtonRemovePdto3.setVisible(false);
-        jLblCantPDTO3.setVisible(false);
-        jTextFieldValorPdto3.setVisible(false);
-        jPaneValorPdto3.setVisible(false);
-        jTextValorPdto3.setText("0");
-        cantidadPdtoHabilitados--;
-    }//GEN-LAST:event_jButtonRemovePdto3MouseClicked
-
-    private void jButtonRemovePdto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto2MouseClicked
-        //QUITA CAMPOS DE PORODUCTOSS
-
-        jCmbPTO2.setVisible(false);
-        jTextFieldCantidad2.setText("");
-        jTextFieldCantidad2.setVisible(false);
-        jLblPDTO2.setVisible(false);
-        jButtonRemovePdto2.setVisible(false);
-        jLblCantPDTO2.setVisible(false);
-        jTextFieldValorPdto2.setVisible(false);
-        jPaneValorPdto2.setVisible(false);
-        jTextValorPdto2.setText("0");
-        cantidadPdtoHabilitados--;
-    }//GEN-LAST:event_jButtonRemovePdto2MouseClicked
-
-    private void jButtonRemovePdto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto1MouseClicked
-        //QUITA CAMPOS DE PORODUCTOSS
-
-        jCmbPTO1.setVisible(false);
-        jTextFieldCantidad1.setText("");
-        jTextFieldCantidad1.setVisible(false);
-        jLblPDTO1.setVisible(false);
-        jButtonRemovePdto1.setVisible(false);
-        jLblCantPDTO1.setVisible(false);
-        jTextFieldValorPdto1.setVisible(false);
-        jPaneValorPdto1.setVisible(false);
-        jTextValorPdto1.setText("0");
-        cantidadPdtoHabilitados--;
-    }//GEN-LAST:event_jButtonRemovePdto1MouseClicked
-
-    private void jButtonCreateVenta7MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta7MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta7MouseMoved
-
-    private void jButtonCreateVenta7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta7MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta7MouseClicked
-
-    private void jButtonCreateVenta7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta7MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta7MouseExited
-
-    private void jButtonCreateVenta6MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta6MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta6MouseMoved
-
-    private void jButtonCreateVenta6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta6MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta6MouseClicked
-
-    private void jButtonCreateVenta6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta6MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta6MouseExited
-
-    private void jButtonConsultarPagosPdtesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarPagosPdtesMouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonConsultarPagosPdtesMouseMoved
-
-    private void jButtonConsultarPagosPdtesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarPagosPdtesMouseClicked
-        String nombre = String.valueOf(jCmbFormaPago1.getSelectedItem());
-        if (nombre.equals("Seleccionar Todos")) {
-            controlPool.traerPagosPendientes(jTableRegistroPagos);
-
-        } else {
-            controlPool.traerPagosPendientes(nombre, jTableRegistroPagos);
-        }
-
-    }//GEN-LAST:event_jButtonConsultarPagosPdtesMouseClicked
-
-    private void jButtonConsultarPagosPdtesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarPagosPdtesMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonConsultarPagosPdtesMouseExited
-
-    private void jButtonCreateVenta9MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta9MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta9MouseMoved
-
-    private void jButtonCreateVenta9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta9MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta9MouseClicked
-
-    private void jButtonCreateVenta9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta9MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta9MouseExited
-
-    private void jButtonCreateVenta8MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta8MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta8MouseMoved
-
-    private void jButtonCreateVenta8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta8MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta8MouseClicked
-
-    private void jButtonCreateVenta8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta8MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta8MouseExited
-
-    private void jButtonCreateVenta2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta2MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta2MouseMoved
-
-    private void jButtonCreateVenta2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta2MouseClicked
-
-    private void jButtonCreateVenta2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta2MouseExited
-
-    private void jButtonCreateVenta11MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta11MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta11MouseMoved
-
-    private void jButtonCreateVenta11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta11MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta11MouseClicked
-
-    private void jButtonCreateVenta11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta11MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta11MouseExited
-
-    private void jButtonCreateVenta10MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta10MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta10MouseMoved
-
-    private void jButtonCreateVenta10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta10MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta10MouseClicked
-
-    private void jButtonCreateVenta10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta10MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta10MouseExited
-
-    private void jButtonCreateVenta3MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta3MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta3MouseMoved
-
-    private void jButtonCreateVenta3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta3MouseClicked
-
-    private void jButtonCreateVenta3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta3MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta3MouseExited
 
     private void btnCrearClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearClienteMouseClicked
         //navegacion dentro del Jpanned
@@ -2630,9 +2384,534 @@ public class MainUi extends javax.swing.JFrame {
         panelCierreApp.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_panelCierreAppMouseExited
 
+    private void btnRegistrarPagosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPagosMouseMoved
+        btnRegistrarPagos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnRegistrarPagos.setBackground(new Color(146, 118, 193));
+
+    }//GEN-LAST:event_btnRegistrarPagosMouseMoved
+
+    private void btnRegistrarPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPagosMouseClicked
+        mainTabbedPane.setSelectedIndex(2);
+        jTableRegistroPagos.setDefaultEditor(Object.class, null);
+        controlPool.traerPagosPendientes(jTableRegistroPagos);
+        Double valorPagoPendiente=0.0;
+        DecimalFormat df = new DecimalFormat("#,###");
+        
+        int filas= jTableRegistroPagos.getRowCount();
+        int columnas = jTableRegistroPagos.getColumnCount();
+        for(int i=0;i<filas;i++){
+                for (int j=0;j<columnas;j++) {
+                
+                }
+
+                Object valor = jTableRegistroPagos.getValueAt(i, 4);
+                valorPagoPendiente+= Double.parseDouble(String.valueOf(valor));
+                
+                }
+        String formateado = df.format(valorPagoPendiente);
+        System.out.println("valorPagoPendiente "+valorPagoPendiente);
+        System.out.println("formateado  "+formateado);
+            jTextValorTotal1.setText(formateado);
+    }//GEN-LAST:event_btnRegistrarPagosMouseClicked
+
+    private void btnRegistrarPagosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPagosMouseExited
+        btnRegistrarPagos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        btnRegistrarPagos.setBackground(new Color(54, 33, 89));
+
+    }//GEN-LAST:event_btnRegistrarPagosMouseExited
+
+    private void btnConsultarVentasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarVentasMouseMoved
+        btnConsultarVentas.setBackground(new Color(146,118,193));
+        btnConsultarVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnConsultarVentasMouseMoved
+
+    private void btnConsultarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarVentasMouseClicked
+        
+        mainTabbedPane.setSelectedIndex(4);
+        jTableRegistroVentas.setDefaultEditor(Object.class, null);
+        controlPool.traerVentas(jTableRegistroVentas,fechaActual);
+        Double valorPagoPendiente=0.0;
+        DecimalFormat df = new DecimalFormat("#,###");
+        
+        int filas= jTableRegistroVentas.getRowCount();
+        int columnas = jTableRegistroVentas.getColumnCount();
+        for(int i=0;i<filas;i++){
+                for (int j=0;j<columnas;j++) {
+                
+                }
+
+                Object valor = jTableRegistroVentas.getValueAt(i, 1);//CORREGIR POR VALOR REAL
+                valorPagoPendiente+= Double.parseDouble(String.valueOf(valor));
+                
+                }
+        String formateado = df.format(valorPagoPendiente);
+        System.out.println("valorPagoPendiente "+valorPagoPendiente);
+        System.out.println("formateado  "+formateado);
+            jTextVentasTotales.setText(formateado);
+    }//GEN-LAST:event_btnConsultarVentasMouseClicked
+
+    private void btnConsultarVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarVentasMouseExited
+       btnConsultarVentas.setBackground(new Color(54,33,89));
+       btnConsultarVentas.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_btnConsultarVentasMouseExited
+
+    private void jButtonAbrirCalendario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAbrirCalendario1ActionPerformed
+
+    private void jButtonAbrirCalendario1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario1MouseExited
+        jButtonAbrirCalendario1.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jButtonAbrirCalendario1MouseExited
+
+    private void jButtonAbrirCalendario1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario1MouseClicked
+        CalendarioMes dialog = new CalendarioMes(this, true, fechaActual);
+        dialog.setVisible(true);
+        LocalDate nuevaFecha = dialog.getFecha();
+        jButtonAbrirCalendario1.setText(String.valueOf(nuevaFecha));
+    }//GEN-LAST:event_jButtonAbrirCalendario1MouseClicked
+
+    private void jButtonAbrirCalendario1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario1MouseMoved
+        jButtonAbrirCalendario1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jButtonAbrirCalendario1MouseMoved
+
+    private void JBtnExportarExcel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnExportarExcel1MouseExited
+        JBtnExportarExcel1.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_JBtnExportarExcel1MouseExited
+
+    private void JBtnExportarExcel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnExportarExcel1MouseClicked
+        control.exportarExcel(jTableRegistroVentas);
+    }//GEN-LAST:event_JBtnExportarExcel1MouseClicked
+
+    private void JBtnExportarExcel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnExportarExcel1MouseMoved
+        JBtnExportarExcel1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_JBtnExportarExcel1MouseMoved
+
+    private void jButtonCreateVenta16MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta16MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta16MouseExited
+
+    private void jButtonCreateVenta16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta16MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta16MouseClicked
+
+    private void jButtonCreateVenta16MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta16MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta16MouseMoved
+
+    private void jButtonCreateVenta17MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta17MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta17MouseExited
+
+    private void jButtonCreateVenta17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta17MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta17MouseClicked
+
+    private void jButtonCreateVenta17MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta17MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta17MouseMoved
+
+    private void jButtonConsultarVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarVentasMouseExited
+        jButtonConsultarVentas.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jButtonConsultarVentasMouseExited
+
+    private void jButtonConsultarVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarVentasMouseClicked
+        LocalDate fechaSelected = LocalDate.parse(String.valueOf(jButtonAbrirCalendario1.getText()));
+        controlPool.traerVentas(jTableRegistroVentas,fechaSelected);
+        Double valorPagoPendiente=0.0;
+        DecimalFormat df = new DecimalFormat("#,###");
+
+        int filas= jTableRegistroVentas.getRowCount();
+        int columnas = jTableRegistroVentas.getColumnCount();
+        for(int i=0;i<filas;i++){
+            for (int j=0;j<columnas;j++) {
+
+            }
+
+            Object valor = jTableRegistroVentas.getValueAt(i, 1);//CORREGIR POR VALOR REAL
+            valorPagoPendiente+= Double.parseDouble(String.valueOf(valor));
+
+        }
+        String formateado = df.format(valorPagoPendiente);
+        System.out.println("valorPagoPendiente "+valorPagoPendiente);
+        System.out.println("formateado  "+formateado);
+        jTextVentasTotales.setText(formateado);
+    }//GEN-LAST:event_jButtonConsultarVentasMouseClicked
+
+    private void jButtonConsultarVentasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarVentasMouseMoved
+        jButtonConsultarVentas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jButtonConsultarVentasMouseMoved
+
+    private void jButtonCreateVenta10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta10MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta10MouseExited
+
+    private void jButtonCreateVenta10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta10MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta10MouseClicked
+
+    private void jButtonCreateVenta10MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta10MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta10MouseMoved
+
+    private void jButtonCreateVenta11MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta11MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta11MouseExited
+
+    private void jButtonCreateVenta11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta11MouseClicked
+
+    private void jButtonCreateVenta11MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta11MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta11MouseMoved
+
     private void jTextFieldPrecioUndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecioUndActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrecioUndActionPerformed
+
+    private void jTextFieldPorcGananKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorcGananKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                int cantidadIngresada = Integer.parseInt(jTextFieldCantidad.getText());
+                int precioAdquirido = Integer.parseInt(jTextFieldPrecioAdquirido.getText());
+
+                // Calcular precio por unidad (evitando división por 0)
+                double precioPorUnidad = cantidadIngresada > 0 ? precioAdquirido / cantidadIngresada : precioAdquirido;
+
+                jTextFieldPrecioUnd.setText(String.valueOf(precioPorUnidad));
+
+                // Convertir porcentaje de ganancia a decimal
+                double ganancia = Double.parseDouble(jTextFieldPorcGanan.getText()) / 100;
+
+                // Precio público
+                double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
+                jTextPrecioPublico.setText(String.valueOf(precioPublico));
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+
+            }
+        }
+    }//GEN-LAST:event_jTextFieldPorcGananKeyPressed
+
+    private void jCheckBoxNuevoPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseExited
+
+    private void jCheckBoxNuevoPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxNuevoPdtoMouseMoved
+
+    private void jCheckBoxNuevoPdtoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (nuevoPdtoUi == null || !nuevoPdtoUi.isShowing()) {
+                nuevoPdtoUi = new RegistrarNuevoPDTO();
+                nuevoPdtoUi.setLocationRelativeTo(null);
+                nuevoPdtoUi.setVisible(true);
+                jCheckBoxNuevoPdto.setSelected(false);
+            }
+        }
+    }//GEN-LAST:event_jCheckBoxNuevoPdtoItemStateChanged
+
+    private void jTextFieldNoFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNoFacturaMouseClicked
+        jTextFieldNoFactura.setText("");
+    }//GEN-LAST:event_jTextFieldNoFacturaMouseClicked
+
+    private void jButtonAbrirCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAbrirCalendarioActionPerformed
+
+    private void jButtonAbrirCalendarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseExited
+        jButtonAbrirCalendario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jButtonAbrirCalendarioMouseExited
+
+    private void jButtonAbrirCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseClicked
+        Calendario dialog = new Calendario(this, true, fechaActual);
+        dialog.setVisible(true);
+        LocalDate nuevaFecha = dialog.getFecha();
+        jButtonAbrirCalendario.setText(String.valueOf(nuevaFecha));
+
+        /*abrirCalendario();*/
+    }//GEN-LAST:event_jButtonAbrirCalendarioMouseClicked
+
+    private void jButtonAbrirCalendarioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseMoved
+        jButtonAbrirCalendario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jButtonAbrirCalendarioMouseMoved
+
+    private void jTextFieldPrecioAdquiridoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecioAdquiridoKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                int cantidadIngresada = Integer.parseInt(jTextFieldCantidad.getText());
+                int precioAdquirido = Integer.parseInt(jTextFieldPrecioAdquirido.getText());
+
+                // Calcular precio por unidad (evitando división por 0)
+                double precioPorUnidad = cantidadIngresada > 0 ? precioAdquirido / cantidadIngresada : precioAdquirido;
+
+                jTextFieldPrecioUnd.setText(String.valueOf(precioPorUnidad));
+
+                // Convertir porcentaje de ganancia a decimal
+                double ganancia = Double.parseDouble(jTextFieldPorcGanan.getText()) / 100;
+
+                // Precio público
+                double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
+                jTextPrecioPublico.setText(String.valueOf(precioPublico));
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa un numero  válido.");
+            }
+        }
+
+    }//GEN-LAST:event_jTextFieldPrecioAdquiridoKeyPressed
+
+    private void jButtonCreatePdtosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreatePdtosMouseExited
+        jButtonCreatePdtos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jButtonCreatePdtosMouseExited
+
+    private void jButtonCreatePdtosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreatePdtosMouseClicked
+
+        try {
+            // Crear nuevo producto
+            Producto nuevoProducto = new Producto();
+
+            // Obtener valores del formulario
+            nuevoProducto.setNombreProducto(String.valueOf(jCmbListPdto.getSelectedItem()));
+            int cantidad = Integer.parseInt(jTextFieldCantidad.getText());
+            nuevoProducto.setCantidad(cantidad);
+            nuevoProducto.setDescripcionProducto(jTextFieldDescripcion.getText());
+
+            double precioAdquirido = Double.parseDouble(jTextFieldPrecioAdquirido.getText());
+            nuevoProducto.setPrecioAdquirido(precioAdquirido);
+
+            // Calcular precio por unidad (evitando división por 0)
+            double precioPorUnidad = cantidad > 0 ? precioAdquirido / cantidad : precioAdquirido;
+            nuevoProducto.setPrecioPorUnidad(precioPorUnidad);
+
+            nuevoProducto.setNumeroFactura(jTextFieldNoFactura.getText());
+            nuevoProducto.setInversor(String.valueOf(jCmbListInversor.getSelectedItem()));
+
+            // Convertir porcentaje de ganancia a decimal
+            double ganancia = Double.parseDouble(jTextFieldPorcGanan.getText()) / 100;
+            nuevoProducto.setGananciaDeseada(ganancia);
+
+            // Precio público
+            double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
+            nuevoProducto.setPrecioPublico(precioPublico);
+
+            // Obtener proveedor
+            String nombreProveedor = String.valueOf(jCmbProveedor.getSelectedItem());
+            int idProveedor = control.traerIdNombreProveedor(nombreProveedor);
+            Proveedor proveedor = control.traerProveedor(idProveedor);
+            if (proveedor == null) {
+                JOptionPane.showMessageDialog(null, "Error: El proveedor con ID + " + idProveedor + " no fue encontrado.");
+                return;
+            }
+
+            // Asignar proveedor al producto
+            nuevoProducto.setProveedor(proveedor);
+            nuevoProducto.setFechaCompraProducto(LocalDate.parse(jButtonAbrirCalendario.getText()));
+
+            // Registrar el producto
+            control.registrarProducto(nuevoProducto);
+            JOptionPane.showMessageDialog(null, "Producto registrado con éxito.");
+            int opcion = JOptionPane.showConfirmDialog(null, "Registrar otro producto?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(opcion== JOptionPane.NO_OPTION) {
+                control.reiniciarApp();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato numérico. Verifica los campos.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al registrar producto: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        cargarDashBoardRegistrarPdto();
+
+    }//GEN-LAST:event_jButtonCreatePdtosMouseClicked
+
+    private void jButtonCreatePdtosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreatePdtosMouseMoved
+        jButtonCreatePdtos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jButtonCreatePdtosMouseMoved
+
+    private void jCheckBoxNuevoProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvActionPerformed
+        if (jCheckBoxNuevoProv.isSelected()) {
+            //logica ventana nueva
+            nuevoProveedor.setVisible(true);
+            nuevoProveedor.setLocationRelativeTo(null);
+        } else {
+            //debe cerrar la ventana nueva
+
+            System.out.println("cmb en false");
+        }
+    }//GEN-LAST:event_jCheckBoxNuevoProvActionPerformed
+
+    private void jCheckBoxNuevoProvMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvMouseExited
+        jCheckBoxNuevoProv.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jCheckBoxNuevoProv.setBackground(new Color(255, 255, 255));
+        jCheckBoxNuevoProv.setForeground(new Color(60, 83, 65));
+
+    }//GEN-LAST:event_jCheckBoxNuevoProvMouseExited
+
+    //VISUAL DE REGISTRO PRODUTOS
+
+    private void jCheckBoxNuevoProvMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvMouseMoved
+        // TODO add your handling code here:
+        jCheckBoxNuevoProv.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jCheckBoxNuevoProv.setBackground(new Color(146, 118, 193));
+    }//GEN-LAST:event_jCheckBoxNuevoProvMouseMoved
+
+    private void jCheckBoxNuevoProvItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (nuevoProveedor == null || !nuevoProveedor.isShowing()) {
+                nuevoProveedor = new RegistrarNuevoProveedor();
+                nuevoProveedor.setLocationRelativeTo(null);
+                nuevoProveedor.setVisible(true);
+                jCheckBoxNuevoProv.setSelected(false);
+            }
+        }
+    }//GEN-LAST:event_jCheckBoxNuevoProvItemStateChanged
+
+    private void jButtonConsultarPagosPdtesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarPagosPdtesMouseExited
+        jButtonConsultarPagosPdtes.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jButtonConsultarPagosPdtesMouseExited
+
+    private void jButtonConsultarPagosPdtesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarPagosPdtesMouseClicked
+        String nombre = String.valueOf(jCmbCliente2.getSelectedItem());
+        if (nombre.equals("Seleccionar Todos")) {
+            controlPool.traerPagosPendientes(jTableRegistroPagos);
+
+        } else {
+            System.out.println("nombre que se envia a pool "+nombre);
+            controlPool.traerPagosPendientes(nombre, jTableRegistroPagos);
+        }
+    }//GEN-LAST:event_jButtonConsultarPagosPdtesMouseClicked
+
+    private void jButtonConsultarPagosPdtesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarPagosPdtesMouseMoved
+        jButtonConsultarPagosPdtes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jButtonConsultarPagosPdtesMouseMoved
+
+    private void jButtonCreateVenta6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta6MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta6MouseExited
+
+    private void jButtonCreateVenta6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta6MouseClicked
+
+    private void jButtonCreateVenta6MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta6MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta6MouseMoved
+
+    private void jButtonCreateVenta7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta7MouseExited
+
+    private void jButtonCreateVenta7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta7MouseClicked
+
+    private void jButtonCreateVenta7MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta7MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta7MouseMoved
+
+    private void jBtnRegistrarPagoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagoMouseExited
+        jBtnRegistrarPago.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jBtnRegistrarPagoMouseExited
+
+    private void jBtnRegistrarPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagoMouseClicked
+        Double valorPagoPendiente = 0.0;
+        int idCliente = 99999999;
+        String nombreCte = "";
+        LocalDate fecha= LocalDate.now();
+        String formaPago= String.valueOf(jCmbFormaPago1.getSelectedItem());
+        int[] filasSeleccionadas = jTableRegistroPagos.getSelectedRows();
+        if (filasSeleccionadas.length > 0) {
+            for (int fila : filasSeleccionadas) {
+                Object idCte = jTableRegistroPagos.getValueAt(fila, 5);
+                Object valorVenta = jTableRegistroPagos.getValueAt(fila, 4);
+                idCliente = Integer.parseInt(String.valueOf(idCte));
+                valorPagoPendiente += Double.parseDouble(String.valueOf(valorVenta));
+                nombreCte = String.valueOf(jTableRegistroPagos.getValueAt(fila, 0));
+
+            }
+            jTextValorTotal1.setText(String.valueOf(valorPagoPendiente));
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Registrar pago a " + nombreCte + " por " + valorPagoPendiente + " ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+                for (int fila : filasSeleccionadas) {
+                    Object idVta = jTableRegistroPagos.getValueAt(fila, 6);
+                    int idVenta = Integer.parseInt(String.valueOf(idVta));
+                    controlPool.registrarPagoCte(idVenta,formaPago,fecha);
+                }
+                JOptionPane.showMessageDialog(null, "Pago(s) registrados con exito", "Pago registrado" +nombreCte, JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar una o mas ventas (de un cliente)");
+        }
+    }//GEN-LAST:event_jBtnRegistrarPagoMouseClicked
+
+    private void jBtnRegistrarPagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagoMouseMoved
+        jBtnRegistrarPago.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jBtnRegistrarPagoMouseMoved
+
+    private void jButtonCreateVenta12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta12MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta12MouseExited
+
+    private void jButtonCreateVenta12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta12MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta12MouseClicked
+
+    private void jButtonCreateVenta12MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta12MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta12MouseMoved
+
+    private void jButtonCreateVenta13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta13MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta13MouseExited
+
+    private void jButtonCreateVenta13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta13MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta13MouseClicked
+
+    private void jButtonCreateVenta13MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta13MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta13MouseMoved
+
+    private void JBtnExportarExcelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnExportarExcelMouseExited
+        JBtnExportarExcel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_JBtnExportarExcelMouseExited
+
+    private void JBtnExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnExportarExcelMouseClicked
+
+        control.exportarExcel(jTableRegistroPagos);
+    }//GEN-LAST:event_JBtnExportarExcelMouseClicked
+
+    private void JBtnExportarExcelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBtnExportarExcelMouseMoved
+        JBtnExportarExcel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_JBtnExportarExcelMouseMoved
+
+    private void jButtonCreateVenta14MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta14MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta14MouseExited
+
+    private void jButtonCreateVenta14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta14MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta14MouseClicked
+
+    private void jButtonCreateVenta14MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta14MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta14MouseMoved
+
+    private void jButtonCreateVenta15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta15MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta15MouseExited
+
+    private void jButtonCreateVenta15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta15MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta15MouseClicked
+
+    private void jButtonCreateVenta15MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta15MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta15MouseMoved
 
     private void jCheckBoxPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPagadoActionPerformed
 
@@ -2705,8 +2984,206 @@ public class MainUi extends javax.swing.JFrame {
 
         worker.execute();
 
-
     }//GEN-LAST:event_jPaneValorPdto0FocusLost
+
+    private void jButtonRemovePdto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto2MouseClicked
+        //QUITA CAMPOS DE PORODUCTOSS
+
+        jCmbPTO2.setVisible(false);
+        jTextFieldCantidad2.setText("");
+        jTextFieldCantidad2.setVisible(false);
+        jLblPDTO2.setVisible(false);
+        jButtonRemovePdto2.setVisible(false);
+        jLblCantPDTO2.setVisible(false);
+        jTextFieldValorPdto2.setVisible(false);
+        jPaneValorPdto2.setVisible(false);
+        jTextValorPdto2.setText("0");
+        cantidadPdtoHabilitados--;
+    }//GEN-LAST:event_jButtonRemovePdto2MouseClicked
+
+    private void jButtonRemovePdto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto3MouseClicked
+        //QUITA CAMPOS DE PORODUCTOSS
+
+        jCmbPTO3.setVisible(false);
+        jTextFieldCantidad3.setText("");
+        jTextFieldCantidad3.setVisible(false);
+        jLblPDTO3.setVisible(false);
+        jButtonRemovePdto3.setVisible(false);
+        jLblCantPDTO3.setVisible(false);
+        jTextFieldValorPdto3.setVisible(false);
+        jPaneValorPdto3.setVisible(false);
+        jTextValorPdto3.setText("0");
+        cantidadPdtoHabilitados--;
+    }//GEN-LAST:event_jButtonRemovePdto3MouseClicked
+
+    private void jButtonRemovePdto4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto4MouseClicked
+
+        //QUITA CAMPOS DE PORODUCTOSS
+        jCmbPTO4.setVisible(false);
+        jTextFieldCantidad4.setText("");
+        jTextFieldCantidad4.setVisible(false);
+        jLblPDTO4.setVisible(false);
+        jButtonRemovePdto4.setVisible(false);
+        jLblCantPDTO4.setVisible(false);
+        jTextFieldValorPdto4.setVisible(false);
+        jPaneValorPdto4.setVisible(false);
+        jTextValorPdto4.setText("0");
+        cantidadPdtoHabilitados--;
+    }//GEN-LAST:event_jButtonRemovePdto4MouseClicked
+
+    private void jButtonRemovePdto5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto5MouseClicked
+        //QUITA CAMPOS DE PORODUCTOSS
+
+        jCmbPTO5.setVisible(false);
+        jTextFieldCantidad5.setText("");
+        jTextFieldCantidad5.setVisible(false);
+        jLblPDTO5.setVisible(false);
+        jButtonRemovePdto5.setVisible(false);
+        jLblCantPDTO5.setVisible(false);
+        jTextFieldValorPdto5.setVisible(false);
+        jPaneValorPdto5.setVisible(false);
+        jTextValorPdto5.setText("0");
+        cantidadPdtoHabilitados--;
+    }//GEN-LAST:event_jButtonRemovePdto5MouseClicked
+
+    private void jButtonRemovePdto6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto6MouseClicked
+        //QUITA CAMPOS DE PORODUCTOSS
+
+        jCmbPTO6.setVisible(false);
+        jTextFieldCantidad6.setText("");
+        jTextFieldCantidad6.setVisible(false);
+        jLblPDTO6.setVisible(false);
+        jButtonRemovePdto6.setVisible(false);
+        jLblCantPDTO6.setVisible(false);
+        jTextFieldValorPdto6.setVisible(false);
+        jPaneValorPdto6.setVisible(false);
+        jTextValorPdto6.setText("0");
+        cantidadPdtoHabilitados--;
+    }//GEN-LAST:event_jButtonRemovePdto6MouseClicked
+
+    private void jButtonRemovePdto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRemovePdto1MouseClicked
+        //QUITA CAMPOS DE PORODUCTOSS
+
+        jCmbPTO1.setVisible(false);
+        jTextFieldCantidad1.setText("");
+        jTextFieldCantidad1.setVisible(false);
+        jLblPDTO1.setVisible(false);
+        jButtonRemovePdto1.setVisible(false);
+        jLblCantPDTO1.setVisible(false);
+        jTextFieldValorPdto1.setVisible(false);
+        jPaneValorPdto1.setVisible(false);
+        jTextValorPdto1.setText("0");
+        cantidadPdtoHabilitados--;
+    }//GEN-LAST:event_jButtonRemovePdto1MouseClicked
+
+    private void jButtonCreateVentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseExited
+        jButtonCreateVenta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jButtonCreateVenta.setBackground(new Color(54, 33, 89));
+    }//GEN-LAST:event_jButtonCreateVentaMouseExited
+
+    private void jButtonCreateVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseClicked
+
+        Cliente cliente = control.traerIdNombreCliente(String.valueOf(jCmbCliente.getSelectedItem()));
+        String formaPago = jCheckBoxPagado.isSelected() ? String.valueOf(jCmbFormaPago.getSelectedItem()) : "FIADO";
+        String estado = jCheckBoxPagado.isSelected() ? "PAGADO" : "PENDIENTE";
+
+        List<Venta> listaVentasCliente = new ArrayList<>();
+
+        // Combos, cantidades y valores agrupados
+        JComboBox[] combos = {jCmbPTO0, jCmbPTO1, jCmbPTO2, jCmbPTO3, jCmbPTO4, jCmbPTO5, jCmbPTO6};
+        JTextField[] camposCantidad = {jTextFieldCantidad0, jTextFieldCantidad1, jTextFieldCantidad2, jTextFieldCantidad3, jTextFieldCantidad4, jTextFieldCantidad5, jTextFieldCantidad6};
+        JLabel[] camposValor = {jTextValorPdto0, jTextValorPdto1, jTextValorPdto2, jTextValorPdto3, jTextValorPdto4, jTextValorPdto5, jTextValorPdto6};
+
+        double valorRegistroVenta = 0.0;
+
+        // Recorre todos los productos activos
+        for (int i = 0; i < cantidadPdtoHabilitados; i++) {
+            try {
+                String producto = String.valueOf(combos[i].getSelectedItem());
+                String strCant = camposCantidad[i].getText().trim();
+                String strVal = camposValor[i].getText().trim();
+
+                // Validar datos
+                if (producto == null || producto.isEmpty() || !strCant.matches("\\d+") || !strVal.matches("[0-9]+(\\.[0-9]+)?")) {
+                    continue;
+                }
+
+                int cantidad = Integer.parseInt(strCant);
+                double valorTotalProducto = Double.parseDouble(strVal); // ya es total (precio × cantidad)
+
+                Venta venta = new Venta();
+                venta.setCliente(cliente);
+                venta.setProducto(producto);
+                venta.setCantidad(cantidad);
+                venta.setValor(valorTotalProducto); // ✅ NO volver a multiplicar
+                venta.setFormaPago(formaPago);
+                venta.setEstado(estado);
+                venta.setObservacion("sin comentario " + (i + 1));
+
+                listaVentasCliente.add(venta);
+                valorRegistroVenta += valorTotalProducto; // ✅ suma directa sin duplicar
+            } catch (NumberFormatException e) {
+                System.out.println("Error procesando producto " + (i + 1) + ": " + e.getMessage());
+            }
+        }
+
+        // Validación si no hay productos válidos
+        if (listaVentasCliente.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay productos válidos para registrar.");
+            return;
+        }
+
+        // Confirmar compra
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+            "¿Confirmar compra por un total de $" + String.format("%.2f", valorRegistroVenta) + "?",
+            "Confirmar Compra",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            for (Venta venta : listaVentasCliente) {
+                String nombrePdtoComprado = venta.getProducto();
+                int cantidadPdtoComprado = venta.getCantidad();
+                controlPool.RemoverCantidadCompra(nombrePdtoComprado, cantidadPdtoComprado);
+                control.crearVenta(venta);
+            }
+
+            JOptionPane.showMessageDialog(this, "Venta(s) registrada(s) a " + cliente.getNombre());
+            listaVentasCliente.clear();
+            // ✅ Reinicia la app solo una vez
+            reiniciarApp();
+
+        }
+
+    }//GEN-LAST:event_jButtonCreateVentaMouseClicked
+
+    private void jButtonCreateVentaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVentaMouseMoved
+        jButtonCreateVenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButtonCreateVenta.setBackground(new Color(146, 118, 193));
+    }//GEN-LAST:event_jButtonCreateVentaMouseMoved
+
+    private void jButtonCreateVenta4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta4MouseExited
+
+    private void jButtonCreateVenta4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta4MouseClicked
+
+    private void jButtonCreateVenta4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta4MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta4MouseMoved
+
+    private void jButtonCreateVenta5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta5MouseExited
+
+    private void jButtonCreateVenta5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta5MouseClicked
+
+    private void jButtonCreateVenta5MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta5MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta5MouseMoved
 
     private void jTextFieldCantidad0KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad0KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
@@ -2730,7 +3207,7 @@ public class MainUi extends javax.swing.JFrame {
                 // Validar disponibilidad
                 if (cantidadSolicitada > cantidadDisponible) {
                     JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
                     cantidadSolicitada = cantidadDisponible;
                     jTextFieldCantidad0.setText(String.valueOf(cantidadDisponible));
                 }
@@ -2747,183 +3224,7 @@ public class MainUi extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
             }
         }
-
     }//GEN-LAST:event_jTextFieldCantidad0KeyPressed
-
-    private void jTextFieldCantidad1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad1KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            try {
-                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad1.getText());
-                String nombrePdto0 = String.valueOf(jCmbPTO1.getSelectedItem());
-
-                List<Producto> listaProductos = control.listaProductos();
-                int cantidadDisponible = 0;
-                double precioUnitario = 0.0;
-
-                // Buscar el producto seleccionado
-                for (Producto producto : listaProductos) {
-                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
-                        cantidadDisponible = producto.getCantidad();
-                        precioUnitario = producto.getPrecioPublico();
-                        break;
-                    }
-                }
-
-                // Validar disponibilidad
-                if (cantidadSolicitada > cantidadDisponible) {
-                    JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
-                    cantidadSolicitada = cantidadDisponible;
-                    jTextFieldCantidad1.setText(String.valueOf(cantidadDisponible));
-                }
-
-                // Calcular valor total de este producto
-                double valorPdt0 = precioUnitario * cantidadSolicitada;
-                jTextValorPdto1.setText(String.valueOf(valorPdt0));
-
-                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
-                // Ese cálculo debe hacerse solo al crear la venta final.
-                // Si lo haces aquí, cada Enter duplicará el monto.
-                // Solo muestra un valor de referencia, si quieres:
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
-            }
-        }
-    }//GEN-LAST:event_jTextFieldCantidad1KeyPressed
-
-    private void jCmbPTO1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jCmbPTO1FocusLost
-        System.out.println("con focus lost detecta cambio a " + jCmbPTO1.getSelectedItem());
-        String nombrePdtoSeleccionado = String.valueOf(jCmbPTO1.getSelectedItem());
-        List<Producto> listaProdutos = control.listaProductos();
-        for (Producto producto : listaProdutos) {
-            if (producto.getNombreProducto().equals(nombrePdtoSeleccionado)) {
-                jTextValorPdto1.setText(String.valueOf(producto.getPrecioPublico()));
-            }
-        }
-    }//GEN-LAST:event_jCmbPTO1FocusLost
-
-    private void jTextFieldCantidad2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad2KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            try {
-                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad2.getText());
-                String nombrePdto0 = String.valueOf(jCmbPTO2.getSelectedItem());
-
-                List<Producto> listaProductos = control.listaProductos();
-                int cantidadDisponible = 0;
-                double precioUnitario = 0.0;
-
-                // Buscar el producto seleccionado
-                for (Producto producto : listaProductos) {
-                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
-                        cantidadDisponible = producto.getCantidad();
-                        precioUnitario = producto.getPrecioPublico();
-                        break;
-                    }
-                }
-
-                // Validar disponibilidad
-                if (cantidadSolicitada > cantidadDisponible) {
-                    JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
-                    cantidadSolicitada = cantidadDisponible;
-                    jTextFieldCantidad2.setText(String.valueOf(cantidadDisponible));
-                }
-
-                // Calcular valor total de este producto
-                double valorPdt0 = precioUnitario * cantidadSolicitada;
-                jTextValorPdto2.setText(String.valueOf(valorPdt0));
-
-                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
-                // Ese cálculo debe hacerse solo al crear la venta final.
-                // Si lo haces aquí, cada Enter duplicará el monto.
-                // Solo muestra un valor de referencia, si quieres:
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
-            }
-        }
-    }//GEN-LAST:event_jTextFieldCantidad2KeyPressed
-
-    private void jTextFieldCantidad3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad3KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            try {
-                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad3.getText());
-                String nombrePdto0 = String.valueOf(jCmbPTO3.getSelectedItem());
-
-                List<Producto> listaProductos = control.listaProductos();
-                int cantidadDisponible = 0;
-                double precioUnitario = 0.0;
-
-                // Buscar el producto seleccionado
-                for (Producto producto : listaProductos) {
-                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
-                        cantidadDisponible = producto.getCantidad();
-                        precioUnitario = producto.getPrecioPublico();
-                        break;
-                    }
-                }
-
-                // Validar disponibilidad
-                if (cantidadSolicitada > cantidadDisponible) {
-                    JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
-                    cantidadSolicitada = cantidadDisponible;
-                    jTextFieldCantidad3.setText(String.valueOf(cantidadDisponible));
-                }
-
-                // Calcular valor total de este producto
-                double valorPdt0 = precioUnitario * cantidadSolicitada;
-                jTextValorPdto3.setText(String.valueOf(valorPdt0));
-
-                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
-                // Ese cálculo debe hacerse solo al crear la venta final.
-                // Si lo haces aquí, cada Enter duplicará el monto.
-                // Solo muestra un valor de referencia, si quieres:
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
-            }
-        }
-    }//GEN-LAST:event_jTextFieldCantidad3KeyPressed
-
-    private void jTextFieldCantidad4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad4KeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            try {
-                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad4.getText());
-                String nombrePdto0 = String.valueOf(jCmbPTO4.getSelectedItem());
-
-                List<Producto> listaProductos = control.listaProductos();
-                int cantidadDisponible = 0;
-                double precioUnitario = 0.0;
-
-                // Buscar el producto seleccionado
-                for (Producto producto : listaProductos) {
-                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
-                        cantidadDisponible = producto.getCantidad();
-                        precioUnitario = producto.getPrecioPublico();
-                        break;
-                    }
-                }
-
-                // Validar disponibilidad
-                if (cantidadSolicitada > cantidadDisponible) {
-                    JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
-                    cantidadSolicitada = cantidadDisponible;
-                    jTextFieldCantidad4.setText(String.valueOf(cantidadDisponible));
-                }
-
-                // Calcular valor total de este producto
-                double valorPdt0 = precioUnitario * cantidadSolicitada;
-                jTextValorPdto4.setText(String.valueOf(valorPdt0));
-
-                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
-                // Ese cálculo debe hacerse solo al crear la venta final.
-                // Si lo haces aquí, cada Enter duplicará el monto.
-                // Solo muestra un valor de referencia, si quieres:
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
-            }
-        }
-    }//GEN-LAST:event_jTextFieldCantidad4KeyPressed
 
     private void jTextFieldCantidad5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad5KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
@@ -2947,7 +3248,7 @@ public class MainUi extends javax.swing.JFrame {
                 // Validar disponibilidad
                 if (cantidadSolicitada > cantidadDisponible) {
                     JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
                     cantidadSolicitada = cantidadDisponible;
                     jTextFieldCantidad5.setText(String.valueOf(cantidadDisponible));
                 }
@@ -2965,6 +3266,170 @@ public class MainUi extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTextFieldCantidad5KeyPressed
+
+    private void jTextFieldCantidad4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad4KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad4.getText());
+                String nombrePdto0 = String.valueOf(jCmbPTO4.getSelectedItem());
+
+                List<Producto> listaProductos = control.listaProductos();
+                int cantidadDisponible = 0;
+                double precioUnitario = 0.0;
+
+                // Buscar el producto seleccionado
+                for (Producto producto : listaProductos) {
+                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
+                        cantidadDisponible = producto.getCantidad();
+                        precioUnitario = producto.getPrecioPublico();
+                        break;
+                    }
+                }
+
+                // Validar disponibilidad
+                if (cantidadSolicitada > cantidadDisponible) {
+                    JOptionPane.showMessageDialog(null,
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                    cantidadSolicitada = cantidadDisponible;
+                    jTextFieldCantidad4.setText(String.valueOf(cantidadDisponible));
+                }
+
+                // Calcular valor total de este producto
+                double valorPdt0 = precioUnitario * cantidadSolicitada;
+                jTextValorPdto4.setText(String.valueOf(valorPdt0));
+
+                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+                // Ese cálculo debe hacerse solo al crear la venta final.
+                // Si lo haces aquí, cada Enter duplicará el monto.
+                // Solo muestra un valor de referencia, si quieres:
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCantidad4KeyPressed
+
+    private void jTextFieldCantidad3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad3KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad3.getText());
+                String nombrePdto0 = String.valueOf(jCmbPTO3.getSelectedItem());
+
+                List<Producto> listaProductos = control.listaProductos();
+                int cantidadDisponible = 0;
+                double precioUnitario = 0.0;
+
+                // Buscar el producto seleccionado
+                for (Producto producto : listaProductos) {
+                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
+                        cantidadDisponible = producto.getCantidad();
+                        precioUnitario = producto.getPrecioPublico();
+                        break;
+                    }
+                }
+
+                // Validar disponibilidad
+                if (cantidadSolicitada > cantidadDisponible) {
+                    JOptionPane.showMessageDialog(null,
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                    cantidadSolicitada = cantidadDisponible;
+                    jTextFieldCantidad3.setText(String.valueOf(cantidadDisponible));
+                }
+
+                // Calcular valor total de este producto
+                double valorPdt0 = precioUnitario * cantidadSolicitada;
+                jTextValorPdto3.setText(String.valueOf(valorPdt0));
+
+                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+                // Ese cálculo debe hacerse solo al crear la venta final.
+                // Si lo haces aquí, cada Enter duplicará el monto.
+                // Solo muestra un valor de referencia, si quieres:
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCantidad3KeyPressed
+
+    private void jTextFieldCantidad2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad2KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad2.getText());
+                String nombrePdto0 = String.valueOf(jCmbPTO2.getSelectedItem());
+
+                List<Producto> listaProductos = control.listaProductos();
+                int cantidadDisponible = 0;
+                double precioUnitario = 0.0;
+
+                // Buscar el producto seleccionado
+                for (Producto producto : listaProductos) {
+                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
+                        cantidadDisponible = producto.getCantidad();
+                        precioUnitario = producto.getPrecioPublico();
+                        break;
+                    }
+                }
+
+                // Validar disponibilidad
+                if (cantidadSolicitada > cantidadDisponible) {
+                    JOptionPane.showMessageDialog(null,
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                    cantidadSolicitada = cantidadDisponible;
+                    jTextFieldCantidad2.setText(String.valueOf(cantidadDisponible));
+                }
+
+                // Calcular valor total de este producto
+                double valorPdt0 = precioUnitario * cantidadSolicitada;
+                jTextValorPdto2.setText(String.valueOf(valorPdt0));
+
+                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+                // Ese cálculo debe hacerse solo al crear la venta final.
+                // Si lo haces aquí, cada Enter duplicará el monto.
+                // Solo muestra un valor de referencia, si quieres:
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCantidad2KeyPressed
+
+    private void jTextFieldCantidad1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad1KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                int cantidadSolicitada = Integer.parseInt(jTextFieldCantidad1.getText());
+                String nombrePdto0 = String.valueOf(jCmbPTO1.getSelectedItem());
+
+                List<Producto> listaProductos = control.listaProductos();
+                int cantidadDisponible = 0;
+                double precioUnitario = 0.0;
+
+                // Buscar el producto seleccionado
+                for (Producto producto : listaProductos) {
+                    if (producto.getNombreProducto().equals(nombrePdto0) && producto.getCantidad() > 0) {
+                        cantidadDisponible = producto.getCantidad();
+                        precioUnitario = producto.getPrecioPublico();
+                        break;
+                    }
+                }
+
+                // Validar disponibilidad
+                if (cantidadSolicitada > cantidadDisponible) {
+                    JOptionPane.showMessageDialog(null,
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                    cantidadSolicitada = cantidadDisponible;
+                    jTextFieldCantidad1.setText(String.valueOf(cantidadDisponible));
+                }
+
+                // Calcular valor total de este producto
+                double valorPdt0 = precioUnitario * cantidadSolicitada;
+                jTextValorPdto1.setText(String.valueOf(valorPdt0));
+
+                // ⚠️ Aquí NO sumes al valor total de venta global todavía.
+                // Ese cálculo debe hacerse solo al crear la venta final.
+                // Si lo haces aquí, cada Enter duplicará el monto.
+                // Solo muestra un valor de referencia, si quieres:
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCantidad1KeyPressed
 
     private void jTextFieldCantidad6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidad6KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
@@ -2988,7 +3453,7 @@ public class MainUi extends javax.swing.JFrame {
                 // Validar disponibilidad
                 if (cantidadSolicitada > cantidadDisponible) {
                     JOptionPane.showMessageDialog(null,
-                            "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
+                        "Solo hay " + cantidadDisponible + " unidades disponibles de " + nombrePdto0);
                     cantidadSolicitada = cantidadDisponible;
                     jTextFieldCantidad6.setText(String.valueOf(cantidadDisponible));
                 }
@@ -3007,212 +3472,189 @@ public class MainUi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCantidad6KeyPressed
 
-    private void jCheckBoxNuevoPdtoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoPdtoItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (nuevoPdtoUi == null || !nuevoPdtoUi.isShowing()) {
-                nuevoPdtoUi = new RegistrarNuevoPDTO();
-                nuevoPdtoUi.setLocationRelativeTo(null);
-                nuevoPdtoUi.setVisible(true);
-                jCheckBoxNuevoPdto.setSelected(false);
+    private void jCmbPTO1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jCmbPTO1FocusLost
+        System.out.println("con focus lost detecta cambio a " + jCmbPTO1.getSelectedItem());
+        String nombrePdtoSeleccionado = String.valueOf(jCmbPTO1.getSelectedItem());
+        List<Producto> listaProdutos = control.listaProductos();
+        for (Producto producto : listaProdutos) {
+            if (producto.getNombreProducto().equals(nombrePdtoSeleccionado)) {
+                jTextValorPdto1.setText(String.valueOf(producto.getPrecioPublico()));
             }
         }
-    }//GEN-LAST:event_jCheckBoxNuevoPdtoItemStateChanged
+    }//GEN-LAST:event_jCmbPTO1FocusLost
 
-    private void jCheckBoxNuevoProvItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoProvItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (nuevoProveedor == null || !nuevoProveedor.isShowing()) {
-                nuevoProveedor = new RegistrarNuevoProveedor();
-                nuevoProveedor.setLocationRelativeTo(null);
-                nuevoProveedor.setVisible(true);
-                jCheckBoxNuevoProv.setSelected(false);
-            }
-        }
-    }//GEN-LAST:event_jCheckBoxNuevoProvItemStateChanged
+    private void jButtonAddPdtoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseExited
 
-    private void jButtonAbrirCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseClicked
-        Calendario dialog = new Calendario(this, true, fechaActual);
-        dialog.setVisible(true);
-        LocalDate nuevaFecha = dialog.getFecha();
-        jButtonAbrirCalendario.setText(String.valueOf(nuevaFecha));
+        jButtonAddPdto.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jButtonAddPdto.setBackground(new Color(54, 33, 89));
+    }//GEN-LAST:event_jButtonAddPdtoMouseExited
 
-        /*abrirCalendario();*/
-    }//GEN-LAST:event_jButtonAbrirCalendarioMouseClicked
+    private void jButtonAddPdtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseClicked
+        // Agrega un nuevo producto a la compra
+        cantidadPdtoHabilitados++;
+        System.out.println("Cantidad de productos habilitados: " + cantidadPdtoHabilitados);
 
-    private void jTextFieldPrecioAdquiridoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrecioAdquiridoKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            try {
-                int cantidadIngresada = Integer.parseInt(jTextFieldCantidad.getText());
-                int precioAdquirido = Integer.parseInt(jTextFieldPrecioAdquirido.getText());
-
-                // Calcular precio por unidad (evitando división por 0)
-                double precioPorUnidad = cantidadIngresada > 0 ? precioAdquirido / cantidadIngresada : precioAdquirido;
-
-                jTextFieldPrecioUnd.setText(String.valueOf(precioPorUnidad));
-
-                // Convertir porcentaje de ganancia a decimal
-                double ganancia = Double.parseDouble(jTextFieldPorcGanan.getText()) / 100;
-
-                // Precio público
-                double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
-                jTextPrecioPublico.setText(String.valueOf(precioPublico));
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingresa un numero  válido.");
-            }
+        switch (cantidadPdtoHabilitados) {
+            case 2:
+            habilitarProducto(1, jButtonRemovePdto1, jLblPDTO1, jCmbPTO1, jLblCantPDTO1, jTextFieldCantidad1, jTextFieldValorPdto1, jPaneValorPdto1);
+            break;
+            case 3:
+            habilitarProducto(2, jButtonRemovePdto2, jLblPDTO2, jCmbPTO2, jLblCantPDTO2, jTextFieldCantidad2, jTextFieldValorPdto2, jPaneValorPdto2);
+            break;
+            case 4:
+            habilitarProducto(3, jButtonRemovePdto3, jLblPDTO3, jCmbPTO3, jLblCantPDTO3, jTextFieldCantidad3, jTextFieldValorPdto3, jPaneValorPdto3);
+            break;
+            case 5:
+            habilitarProducto(4, jButtonRemovePdto4, jLblPDTO4, jCmbPTO4, jLblCantPDTO4, jTextFieldCantidad4, jTextFieldValorPdto4, jPaneValorPdto4);
+            break;
+            case 6:
+            habilitarProducto(5, jButtonRemovePdto5, jLblPDTO5, jCmbPTO5, jLblCantPDTO5, jTextFieldCantidad5, jTextFieldValorPdto5, jPaneValorPdto5);
+            break;
+            case 7:
+            habilitarProducto(6, jButtonRemovePdto6, jLblPDTO6, jCmbPTO6, jLblCantPDTO6, jTextFieldCantidad6, jTextFieldValorPdto6, jPaneValorPdto6);
+            break;
+            default:
+            JOptionPane.showMessageDialog(null, "Ya has registrado todos los productos, ingresa la venta y adiciona nuevos.");
+            cantidadPdtoHabilitados = 7;
+            break;
         }
 
+        // recalcula siempre después de habilitar uno nuevo
+        recalcularValorTotal();
+    }//GEN-LAST:event_jButtonAddPdtoMouseClicked
 
-    }//GEN-LAST:event_jTextFieldPrecioAdquiridoKeyPressed
+    private void jButtonAddPdtoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPdtoMouseMoved
+        jButtonAddPdto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButtonAddPdto.setBackground(new Color(146, 118, 193));
+    }//GEN-LAST:event_jButtonAddPdtoMouseMoved
 
-    private void jTextFieldPorcGananKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorcGananKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            try {
-                int cantidadIngresada = Integer.parseInt(jTextFieldCantidad.getText());
-                int precioAdquirido = Integer.parseInt(jTextFieldPrecioAdquirido.getText());
+    private void jButtonCreateUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseExited
 
-                // Calcular precio por unidad (evitando división por 0)
-                double precioPorUnidad = cantidadIngresada > 0 ? precioAdquirido / cantidadIngresada : precioAdquirido;
+        jButtonCreateUser.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        jButtonCreateUser.setBackground(new Color(54, 33, 89));
+    }//GEN-LAST:event_jButtonCreateUserMouseExited
 
-                jTextFieldPrecioUnd.setText(String.valueOf(precioPorUnidad));
+    private void jButtonCreateUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseClicked
 
-                // Convertir porcentaje de ganancia a decimal
-                double ganancia = Double.parseDouble(jTextFieldPorcGanan.getText()) / 100;
+        //LOGICA CREACION DE USUARIO
+        String nombre = (String.valueOf(jTextNombre.getText().toUpperCase()));
 
-                // Precio público
-                double precioPublico = precioPorUnidad + (precioPorUnidad * ganancia);
-                jTextPrecioPublico.setText(String.valueOf(precioPublico));
+        //LOGICA
+        if (nombre.equals("") || nombre.equals("INGRESE EL NOMBRE DEL CLIENTE") || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digita el nombre del cliente antes de ingresarlo");
 
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor ingresa una cantidad válida.");
-
-            }
-        }
-    }//GEN-LAST:event_jTextFieldPorcGananKeyPressed
-
-    private void jTextFieldNoFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNoFacturaMouseClicked
-        jTextFieldNoFactura.setText("");
-    }//GEN-LAST:event_jTextFieldNoFacturaMouseClicked
-
-    private void btnRegistrarPagosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPagosMouseMoved
-        btnRegistrarPagos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnRegistrarPagos.setBackground(new Color(146, 118, 193));
-
-    }//GEN-LAST:event_btnRegistrarPagosMouseMoved
-
-    private void btnRegistrarPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPagosMouseClicked
-        mainTabbedPane.setSelectedIndex(2);
-        jTableRegistroPagos.setDefaultEditor(Object.class, null);
-        controlPool.traerPagosPendientes(jTableRegistroPagos);
-        Double valorPagoPendiente=0.0;
-        DecimalFormat df = new DecimalFormat("#,###");
-        
-        int filas= jTableRegistroPagos.getRowCount();
-        int columnas = jTableRegistroPagos.getColumnCount();
-        for(int i=0;i<filas;i++){
-                for (int j=0;j<columnas;j++) {
-                
-                }
-
-                Object valor = jTableRegistroPagos.getValueAt(i, 4);
-                valorPagoPendiente+= Double.parseDouble(String.valueOf(valor));
-                
-                }
-        String formateado = df.format(valorPagoPendiente);
-        System.out.println("valorPagoPendiente "+valorPagoPendiente);
-        System.out.println("formateado  "+formateado);
-            jTextValorTotal1.setText(formateado);
-    }//GEN-LAST:event_btnRegistrarPagosMouseClicked
-
-    private void btnRegistrarPagosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarPagosMouseExited
-        btnRegistrarPagos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        btnRegistrarPagos.setBackground(new Color(54, 33, 89));
-
-    }//GEN-LAST:event_btnRegistrarPagosMouseExited
-
-    private void jButtonCreateVenta13MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta13MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta13MouseMoved
-
-    private void jButtonCreateVenta13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta13MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta13MouseClicked
-
-    private void jButtonCreateVenta13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta13MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta13MouseExited
-
-    private void jButtonCreateVenta12MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta12MouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta12MouseMoved
-
-    private void jButtonCreateVenta12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta12MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta12MouseClicked
-
-    private void jButtonCreateVenta12MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta12MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCreateVenta12MouseExited
-
-    private void jBtnRegistrarPagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagoMouseMoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnRegistrarPagoMouseMoved
-
-    private void jBtnRegistrarPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagoMouseClicked
-        Double valorPagoPendiente = 0.0;
-        int idCliente = 99999999;
-        String nombreCte = "";
-        LocalDate fecha= LocalDate.now();
-        String formaPago= String.valueOf(jCmbFormaPago1.getSelectedItem());
-        int[] filasSeleccionadas = jTableRegistroPagos.getSelectedRows();
-        if (filasSeleccionadas.length > 0) {
-            for (int fila : filasSeleccionadas) {
-                Object idCte = jTableRegistroPagos.getValueAt(fila, 5);
-                Object valorVenta = jTableRegistroPagos.getValueAt(fila, 4);
-                idCliente = Integer.parseInt(String.valueOf(idCte));
-                valorPagoPendiente += Double.parseDouble(String.valueOf(valorVenta));
-                nombreCte = String.valueOf(jTableRegistroPagos.getValueAt(fila, 0));
-
-            }
-            jTextValorTotal1.setText(String.valueOf(valorPagoPendiente));
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Registrar pago a " + nombreCte + " por " + valorPagoPendiente + " ?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (opcion == JOptionPane.YES_OPTION) {
-                for (int fila : filasSeleccionadas) {
-                    Object idVta = jTableRegistroPagos.getValueAt(fila, 6);
-                    int idVenta = Integer.parseInt(String.valueOf(idVta));
-                    controlPool.registrarPagoCte(idVenta,formaPago,fecha);
-                }
-                JOptionPane.showMessageDialog(null, "Pago(s) registrados con exito", "Pago registrado" +nombreCte, JOptionPane.INFORMATION_MESSAGE);
-            }
         } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar una o mas ventas (de un cliente)");
+            //Creacion Usuario
+            try {
+                Cliente cliente = new Cliente();
+                cliente.setNombre(nombre);
+                control.crearUsuario(cliente);
+                JOptionPane.showMessageDialog(null, nombre + " Creado!");
+                int cantidadUsuarios = Integer.parseInt(String.valueOf(control.listaClientes.size()));
+                reiniciarApp();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al crear usuario:" + ex);
+            }
         }
-    }//GEN-LAST:event_jBtnRegistrarPagoMouseClicked
 
-    private void jBtnRegistrarPagoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnRegistrarPagoMouseExited
+    }//GEN-LAST:event_jButtonCreateUserMouseClicked
+
+    private void jButtonCreateUserMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateUserMouseMoved
+
+        jButtonCreateUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jButtonCreateUser.setBackground(new Color(146, 118, 193));
+    }//GEN-LAST:event_jButtonCreateUserMouseMoved
+
+    private void jTextNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextNombreMouseClicked
+        jTextNombre.setText("");
+    }//GEN-LAST:event_jTextNombreMouseClicked
+
+    private void jButtonAbrirCalendario2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario2MouseMoved
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnRegistrarPagoMouseExited
+    }//GEN-LAST:event_jButtonAbrirCalendario2MouseMoved
 
-    private void jButtonAbrirCalendarioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseMoved
-        jButtonAbrirCalendario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jButtonAbrirCalendarioMouseMoved
+    private void jButtonAbrirCalendario2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAbrirCalendario2MouseClicked
 
-    private void jButtonAbrirCalendarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendarioMouseExited
-        jButtonAbrirCalendario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jButtonAbrirCalendarioMouseExited
+    private void jButtonAbrirCalendario2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAbrirCalendario2MouseExited
+
+    private void jButtonAbrirCalendario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirCalendario2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAbrirCalendario2ActionPerformed
+
+    private void jButtonCreateVenta19MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta19MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta19MouseMoved
+
+    private void jButtonCreateVenta19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta19MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta19MouseClicked
+
+    private void jButtonCreateVenta19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta19MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta19MouseExited
+
+    private void jButtonCreateVenta18MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta18MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta18MouseMoved
+
+    private void jButtonCreateVenta18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta18MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta18MouseClicked
+
+    private void jButtonCreateVenta18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateVenta18MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCreateVenta18MouseExited
+
+    private void jButtonConsultarVentas1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarVentas1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonConsultarVentas1MouseMoved
+
+    private void jButtonConsultarVentas1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarVentas1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonConsultarVentas1MouseClicked
+
+    private void jButtonConsultarVentas1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConsultarVentas1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonConsultarVentas1MouseExited
+
+    private void btnConsultarVentas1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarVentas1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarVentas1MouseMoved
+
+    private void btnConsultarVentas1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarVentas1MouseClicked
+        mainTabbedPane.setSelectedIndex(5);
+    }//GEN-LAST:event_btnConsultarVentas1MouseClicked
+
+    private void btnConsultarVentas1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarVentas1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarVentas1MouseExited
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JBtnExportarExcel;
+    private javax.swing.JPanel JBtnExportarExcel1;
+    private javax.swing.JPanel btnConsultarVentas;
+    private javax.swing.JPanel btnConsultarVentas1;
     private javax.swing.JPanel btnCrearCliente;
     private javax.swing.JPanel btnRegistrarPagos;
     private javax.swing.JPanel btnRegistrarPdto;
     private javax.swing.JPanel btnRegistrarVenta;
     private javax.swing.JPanel jBtnRegistrarPago;
     private javax.swing.JTextField jButtonAbrirCalendario;
+    private javax.swing.JTextField jButtonAbrirCalendario1;
+    private javax.swing.JTextField jButtonAbrirCalendario2;
     private javax.swing.JPanel jButtonAddPdto;
     private javax.swing.JPanel jButtonConsultarPagosPdtes;
+    private javax.swing.JPanel jButtonConsultarVentas;
+    private javax.swing.JPanel jButtonConsultarVentas1;
     private javax.swing.JPanel jButtonCreatePdtos;
     private javax.swing.JPanel jButtonCreateUser;
     private javax.swing.JPanel jButtonCreateVenta;
@@ -3220,14 +3662,16 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JPanel jButtonCreateVenta11;
     private javax.swing.JPanel jButtonCreateVenta12;
     private javax.swing.JPanel jButtonCreateVenta13;
-    private javax.swing.JPanel jButtonCreateVenta2;
-    private javax.swing.JPanel jButtonCreateVenta3;
+    private javax.swing.JPanel jButtonCreateVenta14;
+    private javax.swing.JPanel jButtonCreateVenta15;
+    private javax.swing.JPanel jButtonCreateVenta16;
+    private javax.swing.JPanel jButtonCreateVenta17;
+    private javax.swing.JPanel jButtonCreateVenta18;
+    private javax.swing.JPanel jButtonCreateVenta19;
     private javax.swing.JPanel jButtonCreateVenta4;
     private javax.swing.JPanel jButtonCreateVenta5;
     private javax.swing.JPanel jButtonCreateVenta6;
     private javax.swing.JPanel jButtonCreateVenta7;
-    private javax.swing.JPanel jButtonCreateVenta8;
-    private javax.swing.JPanel jButtonCreateVenta9;
     private javax.swing.JLabel jButtonRemovePdto1;
     private javax.swing.JLabel jButtonRemovePdto2;
     private javax.swing.JLabel jButtonRemovePdto3;
@@ -3237,6 +3681,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxNuevoPdto;
     private javax.swing.JCheckBox jCheckBoxNuevoProv;
     private javax.swing.JCheckBox jCheckBoxPagado;
+    private javax.swing.JCheckBox jCheckComprasPdtes;
     private javax.swing.JComboBox<String> jCmbCliente;
     private javax.swing.JComboBox<String> jCmbCliente2;
     private javax.swing.JComboBox<String> jCmbFormaPago;
@@ -3264,7 +3709,6 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
@@ -3275,7 +3719,7 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -3285,8 +3729,6 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
@@ -3296,10 +3738,6 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
@@ -3307,7 +3745,6 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -3321,11 +3758,33 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
+    private javax.swing.JLabel jLabel93;
+    private javax.swing.JLabel jLabel94;
+    private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabelUsuariosCreados;
     private javax.swing.JLabel jLblCantPDTO0;
-    public javax.swing.JLabel jLblCantPDTO1;
+    private javax.swing.JLabel jLblCantPDTO1;
     private javax.swing.JLabel jLblCantPDTO12;
     private javax.swing.JLabel jLblCantPDTO13;
     private javax.swing.JLabel jLblCantPDTO15;
@@ -3358,7 +3817,6 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JPanel jPaneValorPdto6;
     private javax.swing.JPanel jPaneValorTotalPdtos1;
     private javax.swing.JPanel jPaneValorTotalPdtos2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelComprasPendientes;
     private javax.swing.JPanel jPanelCrearCliente;
     private javax.swing.JPanel jPanelGanancias;
@@ -3369,11 +3827,9 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableRegistroPagos;
-    private javax.swing.JTable jTableRegistroPagos1;
     private javax.swing.JTable jTableRegistroPagos2;
-    private javax.swing.JTable jTableRegistroPagos3;
+    private javax.swing.JTable jTableRegistroVentas;
     private javax.swing.JLabel jTextCantidad;
     private javax.swing.JLabel jTextDescripcion;
     private javax.swing.JTextField jTextFieldCantidad;
@@ -3411,12 +3867,11 @@ public class MainUi extends javax.swing.JFrame {
     private javax.swing.JLabel jTextValorPdto5;
     private javax.swing.JLabel jTextValorPdto6;
     private javax.swing.JLabel jTextValorTotal1;
-    private javax.swing.JLabel jTextValorTotal2;
+    private javax.swing.JLabel jTextVentasTotales;
     private javax.swing.JLabel jTitleRegVenta;
     private javax.swing.JLabel jTitleRegVenta1;
     private javax.swing.JLabel jTitleRegVenta2;
     private javax.swing.JLabel jTitleRegVenta3;
-    private javax.swing.JLabel jTitleRegVenta4;
     private javax.swing.JLabel jtextPrecioUnd;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JLabel mainLogo;
@@ -3648,6 +4103,12 @@ public class MainUi extends javax.swing.JFrame {
         System.out.println("se ha recibido la fecha " + fecha);
         this.fechaActual = fecha;
         jButtonAbrirCalendario.setText(String.valueOf(fecha));
+    }
+
+    void recibirFechaMes(LocalDate fecha) {
+       System.out.println("se ha recibido la fecha " + fecha);
+        this.fechaActual = fecha;
+        jButtonAbrirCalendario1.setText(String.valueOf(fecha));
     }
 
 }

@@ -86,6 +86,7 @@
                 </Property>
                 <Property name="todayButtonText" type="java.lang.String" value=""/>
                 <Property name="todayButtonVisible" type="boolean" value="true"/>
+                <Property name="weekOfYearVisible" type="boolean" value="false"/>
                 <Property name="weekdayForeground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>

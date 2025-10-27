@@ -82,6 +82,7 @@ public class Calendario extends javax.swing.JFrame {
         jCalendar.setMaxSelectableDate(new java.util.Date(253370786473000L));
         jCalendar.setTodayButtonText("");
         jCalendar.setTodayButtonVisible(true);
+        jCalendar.setWeekOfYearVisible(false);
         jCalendar.setWeekdayForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanelCalendarLayout = new javax.swing.GroupLayout(jPanelCalendar);
