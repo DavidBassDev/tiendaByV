@@ -24,14 +24,16 @@ public class Calendario extends javax.swing.JFrame {
     
 
     public Calendario(MainUi mainUi, LocalDate fecha) {
-
+        this.setUndecorated(true);
         this.mainUi = mainUi;
         this.fecha = fecha;
+        
         initComponents();
         cargarVisual();
     }
 
     Calendario(MainUi aThis, boolean b, LocalDate fechaActual) {
+        this.setUndecorated(true);
         this.mainUi = aThis;
         this.fecha = fechaActual;
         initComponents();

@@ -11,6 +11,7 @@ userInterface\MainUi$9.class
 persistence\exceptions\NonexistentEntityException.class
 userInterface\MainUi$45.class
 userInterface\MainUi$65.class
+userInterface\MainUi$73.class
 userInterface\Calendario$3.class
 userInterface\RegistrarNuevoProveedor$1.class
 userInterface\MainUi$42.class
@@ -28,6 +29,7 @@ userInterface\MainUi$50.class
 userInterface\MainUi$36.class
 userInterface\MainUi$3.class
 userInterface\MainUi$46.class
+userInterface\MainUi$76.class
 userInterface\MainUi$62.class
 userInterface\Calendario$7.class
 userInterface\MainUi$52.class
@@ -39,6 +41,7 @@ userInterface\RegistrarNuevoPDTO$1.class
 userInterface\MainUi$19.class
 userInterface\MainUi$59.class
 userInterface\RegistrarNuevoProveedor$3.class
+userInterface\MainUi$75.class
 logica\exceptions\NonexistentEntityException.class
 persistence\ProductoJpaController.class
 userInterface\MainUi$35.class
@@ -53,6 +56,7 @@ userInterface\RegistrarNuevoPDTO.class
 userInterface\MainUi$63.class
 userInterface\MainUi.class
 userInterface\MainUi$18.class
+userInterface\MainUi$80.class
 logica\exceptions\IllegalOrphanException.class
 userInterface\MainUi$40.class
 userInterface\MainUi$21.class
@@ -65,6 +69,8 @@ userInterface\Calendario$2.class
 userInterface\MainUi$8.class
 userInterface\MainUi$14.class
 userInterface\MainUi$71.class
+userInterface\MainUi$81.class
+userInterface\MainUi$77.class
 userInterface\MainUi$67.class
 userInterface\MainUi$61.class
 userInterface\MainUi$51.class
@@ -76,6 +82,8 @@ userInterface\MainUi$64.class
 userInterface\RoundedBorder.class
 userInterface\MainUi$34.class
 userInterface\MainUi$54.class
+userInterface\MainUi$74.class
+userInterface\MainUi$84.class
 userInterface\MainUi$17.class
 model\Producto.class
 userInterface\RegistrarNuevoPDTO$6.class
@@ -94,17 +102,22 @@ userInterface\RegistrarNuevoProveedor$4.class
 persistence\exceptions\IllegalOrphanException.class
 userInterface\MainUi$66.class
 userInterface\MainUi$16.class
+userInterface\MainUi$72.class
 persistence\ComprasPendientesJpaController.class
 userInterface\MainUi$56.class
+userInterface\MainUi$82.class
 userInterface\MainUi$39.class
 userInterface\MainUi$49.class
+userInterface\MainUi$79.class
 userInterface\MainUi$6.class
 userInterface\MainUi$20.class
 userInterface\MainUi$55.class
 userInterface\MainUi$27.class
+userInterface\MainUi$83.class
 userInterface\RegistrarNuevoProveedor$5.class
 userInterface\MainUi$32.class
 userInterface\Calendario.class
+userInterface\MainUi$78.class
 logica\ControladoraPool.class
 persistence\ProveedorJpaController.class
 userInterface\MainUi$43.class
